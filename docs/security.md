@@ -1,0 +1,98 @@
+# Orbiart Güvenlik ve Gizlilik Rehberi
+
+## 1. Tehdit modeli
+
+İlk sürüm statik bir tanıtım sitesidir. Kullanıcı hesabı, ödeme, form gönderimi, veritabanı veya özel API olmadığı için ana riskler şunlardır:
+
+- Yanlışlıkla kaynak koda veya Git'e gizli değer eklenmesi
+- Güvensiz harici bağlantı veya içerik kaynağı
+- Aşırı geniş Content Security Policy
+- Üçüncü taraf scriptleri üzerinden takip veya tedarik zinciri riski
+- Hatalı GLB/görsel dosyasının performans ya da görüntüleme sorununa yol açması
+- Preview ile Production ortamlarının karışması
+
+## 2. Herkese açık ve gizli değerler
+
+Herkese açık değerler:
+
+- Mağaza URL'si
+- Instagram profil URL'si
+- Ziyaretçinin tıklayacağı WhatsApp URL'si/numarası
+- Ürün fotoğrafı ve GLB yolları
+- Site adı, açıklaması ve sosyal medya metadata'sı
+
+Gizli değerler:
+
+- API anahtarları
+- E-posta servis anahtarları
+- Ödeme veya webhook sırları
+- Vercel erişim token'ları
+- Yönetici parolaları
+- Özel depolama imzalama anahtarları
+
+İlk sürüm gizli değer gerektirmemelidir. İleride gizli değer gerektiğinde yalnızca sunucu tarafında kullanılacaktır.
+
+## 3. Ortam değişkenleri
+
+- Yerel değerler `.env.local` içinde tutulur ve Git'e eklenmez.
+- Repoda sadece örnek anahtarları içeren `.env.example` bulunur.
+- `NEXT_PUBLIC_*` değişkenleri derleme sırasında tarayıcı paketine girer; burada yalnızca gerçekten herkese açık değerler bulunabilir.
+- Gizli değişkenler Vercel Dashboard üzerinden Development, Preview ve Production kapsamları ayrılarak tanımlanır.
+- Gizli değerler dokümana, ekran görüntüsüne, test fixture'ına veya hata loguna yazılmaz.
+- Bir değerin sızdığından şüphe edilirse dosyadan silmek yeterli değildir; değer iptal edilir, yenilenir ve Git geçmişi incelenir.
+
+## 4. Tarayıcı güvenliği
+
+Production için minimum başlık hedefleri:
+
+- `Content-Security-Policy`: script, style, image, font, connect ve media kaynaklarını gereken origin'lerle sınırlar.
+- `Referrer-Policy: strict-origin-when-cross-origin`.
+- `X-Content-Type-Options: nosniff`.
+- `Permissions-Policy`: kamera, mikrofon, konum ve kullanılmayan özellikleri kapatır.
+- `frame-ancestors 'none'` veya eşdeğer clickjacking koruması.
+- HTTPS üzerinden yayın ve güvensiz içerik karışımının engellenmesi.
+
+CSP, geliştirme ve production gereksinimleri ayrılarak hazırlanır. `unsafe-eval` veya geniş wildcard yalnızca belgelenmiş teknik zorunluluk varsa değerlendirilir; production varsayılanı değildir.
+
+## 5. Harici bağlantılar ve kaynaklar
+
+- Kullanıcı tarafından yönetilen URL'ler yalnızca `https:` protokolüne izin verecek şekilde doğrulanır.
+- Yeni sekmede açılan bağlantılar `rel="noopener noreferrer"` kullanır.
+- WhatsApp mesajı `encodeURIComponent` eşdeğeriyle güvenli biçimde kodlanır.
+- Görsel, font ve GLB dosyaları mümkün olduğunca proje içinde barındırılır.
+- Üçüncü taraf analytics, chat widget veya script kullanıcı onayı olmadan eklenmez.
+- Harici alan adları CSP'ye tek tek eklenir; `*` kullanılmaz.
+
+## 6. GLB ve medya güvenliği
+
+- Sadece güvenilen kaynaktan gelen GLB dosyaları repoya eklenir.
+- Dosya uzantısı, boyutu ve tarayıcıda yüklenme davranışı kontrol edilir.
+- Modelde gereksiz yüksek çözünürlüklü texture, animasyon veya gömülü veri bırakılmaz.
+- Dosya adları kullanıcı girdisinden doğrudan üretilmez; küçük harf, ASCII ve tire kullanılır.
+- Model hatası sayfayı çökertmemeli; gerçek fotoğraf fallback'i görünmelidir.
+
+## 7. Secret tarama ve yayın kontrolü
+
+Production öncesi:
+
+1. `.env.local` ve Vercel yerel dosyalarının Git dışında olduğu doğrulanır.
+2. İzlenen dosyalarda token, parola, private key ve şüpheli yüksek entropili değer taranır.
+3. Git geçmişi, son diff ve build logları incelenir.
+4. Client bundle'da gizli değer bulunmadığı doğrulanır.
+5. Preview ve Production ortam değişkenleri karşılaştırılır.
+6. Güvenlik başlıkları gerçek Preview response'u üzerinden kontrol edilir.
+7. Dış bağlantıların HTTPS ve doğru domaine gittiği test edilir.
+8. Kullanıcı açıkça onaylamadan Production deploy yapılmaz.
+
+## 8. Gelecekte form veya API eklenirse
+
+Bu değişiklik ayrı mimari onay gerektirir. Minimum gereksinimler:
+
+- Sunucu tarafı şema doğrulaması
+- İstek boyutu ve oran sınırlaması
+- Spam/bot koruması
+- Güvenli hata mesajları ve log redaksiyonu
+- CSRF/origin değerlendirmesi
+- Gizli servis anahtarlarının yalnızca server runtime'da tutulması
+- Veri minimizasyonu, saklama süresi ve silme politikası
+- KVKK kapsamında açık bilgilendirme ve gerekliyse onay yönetimi

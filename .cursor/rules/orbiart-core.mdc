@@ -1,0 +1,13 @@
+---
+description: Orbiart projesinin kapsam, güvenlik ve faz çalışma kuralları
+alwaysApply: true
+---
+
+# Orbiart Core Rule
+
+- Her görevde depo kökündeki `AGENTS.md` dosyasını ana proje talimatı kabul et.
+- Yalnızca aktif görevle ilgili `docs/*.md` belgelerini oku.
+- Backend, CMS, veritabanı, ödeme veya kullanıcı hesabı ekleme; bu değişiklikler ayrıca kullanıcı kararı gerektirir.
+- Faz kapsamını `docs/roadmap.md`, güncel durumu `docs/progress.md` üzerinden doğrula.
+- Gizli değerleri kaynak koda, Git'e veya istemci bundle'ına ekleme.
+- Değişiklik sonrası ilgili doğrulamaları çalıştır ve ilerleme belgesini güncelle.
