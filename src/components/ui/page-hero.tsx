@@ -14,7 +14,7 @@ export function PageHero({
   children,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-white/8 py-20 sm:py-28 lg:py-32">
+    <section className="relative overflow-hidden border-b border-white/8 pb-20 pt-16 sm:pb-28 sm:pt-24 lg:pb-32 lg:pt-28">
       <div className="page-glow" aria-hidden="true" />
       <div className="site-container relative">
         <p className="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-violet-300">

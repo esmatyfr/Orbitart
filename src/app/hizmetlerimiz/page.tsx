@@ -12,21 +12,39 @@ export const metadata: Metadata = {
 const services = [
   {
     id: "01",
-    title: "3D Baskı",
-    summary: "Dijital modeli fiziksel ürüne dönüştüren kontrollü üretim.",
-    items: ["Figür ve dekoratif obje", "Prototip ve özel parça", "Malzeme ve katman ayarı", "Yüzey ve son işlem"],
+    title: "3D Baskı ve Prototipleme",
+    summary:
+      "Dijital verileri, kullanım amacına uygun tolerans ve malzeme seçenekleriyle fiziksel ürünlere dönüştürüyoruz.",
+    items: [
+      "Endüstriyel Prototip ve Özel Parça Üretimi",
+      "Figür ve Dekoratif Obje Üretimi",
+      "Amaca Uygun Malzeme ve Katman Çözünürlüğü Seçimi",
+      "Yüzey Kalitesini Artıran Son İşlemler",
+    ],
   },
   {
     id: "02",
-    title: "3D Tarama",
-    summary: "Mevcut nesnenin formunu yeniden kullanılabilir dijital veriye dönüştürme.",
-    items: ["Nesne ve parça tarama", "Dijital arşiv", "Tersine mühendislik başlangıcı", "Baskıya hazırlık"],
+    title: "Yüksek Çözünürlüklü 3D Tarama",
+    summary:
+      "Mevcut fiziksel objeleri milimetrik hassasiyetle tarayarak tersine mühendislik, arşivleme ve üretime hazır dijital verilere çeviriyoruz.",
+    items: [
+      "Hassas Parça ve Obje Taraması",
+      "Tersine Mühendislik İçin Referans Veri Oluşturma",
+      "Fiziksel Ürünlerin Dijital Arşivlenmesi",
+      "Taranan Verilerin 3D Baskıya Hazırlanması",
+    ],
   },
   {
     id: "03",
-    title: "Özel Tasarım",
-    summary: "Fikre, kullanıma ve üretim yöntemine göre geliştirilen özgün modeller.",
-    items: ["Konsept geliştirme", "3D modelleme", "Üretilebilirlik kontrolü", "Revizyon ve sunum"],
+    title: "3D Modelleme ve Özel Tasarım",
+    summary:
+      "Üretim kısıtlamalarını ve malzeme dinamiklerini göz önünde bulundurarak, fikrinizi doğrudan üretilebilir 3D modellere dönüştürüyoruz.",
+    items: [
+      "İhtiyaca Yönelik Konsept Geliştirme",
+      "Profesyonel 3D Modelleme",
+      "Üretilebilirlik ve Tolerans Kontrolü",
+      "Müşteri Onaylı Revizyon ve Sunum Süreci",
+    ],
   },
 ] as const;
 
@@ -35,14 +53,14 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Hizmetlerimiz"
-        title="Fikirden fiziksel sonuca uzanan tek üretim hattı."
-        description="İhtiyacın yalnızca bir baskı mı, doğru bir dijital model mi yoksa bütün süreci kapsayan özel bir çözüm mü olduğunu birlikte belirliyoruz."
+        title="Fikirden Fiziksel Ürüne Entegre Üretim"
+        description="İhtiyacınızın tekil bir 3D baskı, hassas bir dijital tarama veya uçtan uca özel bir üretim çözümü olup olmadığını analiz ediyor; en doğru teknolojiyi sürece dahil ediyoruz."
       >
         <Link
           href="/iletisim"
           className="inline-flex min-h-11 items-center rounded-full bg-violet-500 px-5 text-sm font-bold text-white hover:bg-violet-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
         >
-          Projeni konuşalım
+          Projenizi Konuşalım
         </Link>
       </PageHero>
 

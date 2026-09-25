@@ -30,6 +30,8 @@ Son güncelleme: 2026-09-25
 - WhatsApp numarası ve `wa.me` hedefi merkezi public yapılandırmaya eklendi.
 - Footer bağlantılarına WhatsApp eklendi; Instagram ve WhatsApp kısayolları tüm sayfalarda sabit köşe butonları olarak yerleştirildi.
 - Proje `main` dalına sahip yerel bir Git deposuna alındı.
+- Hakkımızda ve Hizmetlerimiz sayfalarının metinleri güncel kurumsal içerikle değiştirildi.
+- İç sayfa hero alanlarının navbar sonrasındaki üst boşluğu bir kademe azaltıldı.
 
 ## Doğrulamalar
 
@@ -45,6 +47,8 @@ Son güncelleme: 2026-09-25
 - `.env.local` oluşturulmadı ve gerçek gizli değer eklenmedi.
 - İletişim değişiklikleri sonrasında lint, typecheck ve production build yeniden başarılı oldu.
 - İletişim kartları, sabit sosyal butonlar ve bağlantı hedefleri masaüstü tarayıcıda doğrulandı.
+- Kurumsal metin güncellemesi sonrasında lint, typecheck ve production build başarılı oldu.
+- Hakkımızda ve Hizmetlerimiz giriş alanları ile güncel içerik sırası masaüstü tarayıcıda doğrulandı.
 
 ## Bilinen eksikler
 
