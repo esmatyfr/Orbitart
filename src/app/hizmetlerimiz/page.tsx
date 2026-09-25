@@ -73,7 +73,7 @@ export default function ServicesPage() {
                 <h2 className="mt-7 text-3xl font-semibold tracking-[-0.04em] text-white sm:text-4xl">{service.title}</h2>
                 <p className="mt-4 max-w-lg text-base leading-7 text-zinc-400">{service.summary}</p>
               </div>
-              <ul className="grid content-start gap-3 sm:grid-cols-2">
+              <ul className="grid w-full max-w-2xl content-start gap-3 sm:grid-cols-2 lg:justify-self-center">
                 {service.items.map((item) => (
                   <li key={item} className="flex min-h-14 items-center gap-3 rounded-2xl border border-white/8 bg-black/20 px-4 text-sm text-zinc-300">
                     <span className="size-1.5 rounded-full bg-violet-400" aria-hidden="true" />
