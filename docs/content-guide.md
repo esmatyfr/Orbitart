@@ -1,94 +1,53 @@
-# Orbiart Ürün ve Medya Rehberi
+# Orbiart İçerik ve Medya Rehberi
 
-## 1. İçerik yönetim modeli
+Revizyon: 2026-09-30. Hedef iş akışı; kod geçişi Faz 2A'dadır. [Mimari](architecture.md), [tasarım](hero-design.md), [güncel model durumu](models.md).
 
-İlk sürümde yönetim paneli yoktur. Ürünler geliştirici tarafından `src/content/products.ts` dosyasına eklenir. Bir içerik değişikliği yeni build ve deploy gerektirir.
+## Ürün ve hizmet modeli
 
-## 2. Ürün alanları
+Panel yoktur. products.ts gerçek Orbitart ürünleri/fotoğraflarını yönetir. Ürün alanları: slug, name, category, description, image, imageAlt, HTTPS storeUrl, status; GLB/model null olabilir. Fotoğraf yayını model gerektirmez.
 
-Her ürün şu alanları içermelidir:
+Temsili 3D varlıklar model-assets.ts içinde ayrı kayıttır: assetId, başlık, model/poster, sourceKind, kaynak/üretici/lisans/atıf, rightsStatus, technicalStatus, yayın status'u. Harici varlık için ürün adı, gerçek ürün fotoğrafı veya mağaza ürün eşleşmesi uydurulmaz.
 
-- `slug`: benzersiz, URL uyumlu kimlik
-- `name`: ürün adı
-- `category`: ürün kategorisi
-- `description`: kısa, özgün açıklama
-- `image`: gerçek ürün fotoğrafının `/images/products/...` yolu
-- `imageAlt`: fotoğrafı açıklayan erişilebilir metin
-- `model`: optimize GLB dosyasının `/models/products/...` yolu
-- `storeUrl`: doğrulanmış HTTPS mağaza bağlantısı
-- `scene`: `dark-studio`, `purple-gallery` veya `white-studio`
-- `status`: `draft`, `review` veya `published`
+hero-showcase.ts altı assetId, 3 teknik + 3 yaratıcı slot, sıra/palet/yön ayarlarını; scan-process.ts sabit teknik örnek ve dört aşamayı tutar. scenes.ts ortak sahne ayarlarını taşır. İsim ve medya yolları JSX'te çoğaltılmaz. Build/deploy içerik güncellemesini yayına taşır.
 
-## 3. Yayın durumları
+## Yayın durumu
 
-- `draft`: içerik eksik veya hazırlık aşamasında; sitede görünmez.
-- `review`: metin, fotoğraf, model ve bağlantı kontrol edilir; sitede görünmez.
-- `published`: tüm kontroller tamamlanmıştır; vitrin ve galeride görünebilir.
+- Ürün `draft`: satış/detay kaydı hazırlıktadır; mağaza ürünü olarak gösterilmez.
+- Ürün `review`: içerik kontrolündedir; mağaza ürünü olarak gösterilmez.
+- Ürün `published`: satış/detay akışına alınabilir; GLB isteğe bağlıdır.
+- Fotoğraf portföyü ayrı editoryal onay kullanır. Kullanıcının onayladığı 30 fotoğraf `showcase.ts` içindeki açık slug listesinde bulunur; ürün `draft` olsa bile yalnız temel fotoğraf ve başlık alanları vitrinde görünür.
+- Model görünürlüğü ayrıca onaylı haklar, teknik olarak hazır GLB/poster ve kullanıcı seçimi gerektirir.
 
-Durumu doğrudan `published` yapmak yerine yeni ürünü önce `draft`, sonra `review` aşamasından geçirmek varsayılan süreçtir.
+Yeni bir ürün fotoğrafı, `showcase.ts` onay listesine açıkça eklenmedikçe vitrinde görünmez. Model seçilmesi teknik kabul veya yayımlama değildir.
 
-## 4. Yeni ürün ekleme akışı
+## Gerçek fotoğraf ekleme
 
-1. Benzersiz ürün slug'ı belirle.
-2. Gerçek ürün fotoğrafını hazırla ve `public/images/products/` altına ekle.
-3. Web için optimize GLB dosyasını `public/models/products/` altına ekle.
-4. Ürün kaydını `draft` durumuyla oluştur.
-5. Sahne preset'ini seç.
-6. Mağaza URL'sini `https:` ve doğru domain açısından kontrol et.
-7. Fotoğraf, alt metin, model yükleme, materyal, kamera ve mobil fallback'i kontrol et.
-8. Kaydı `review` durumuna al ve production build çalıştır.
-9. Kontroller geçince `published` yap.
-10. Preview sonucunu doğrula ve kullanıcı onayından sonra yayınla.
+1. İsim, kategori, kısa açıklama ve fotoğrafın müşteriye ait/izinli olduğunu doğrula; ölçü/malzeme uydurma.
+2. Orijinali koruyarak WebP/AVIF türevi hazırla; public/images/products altına koy.
+3. Alt metin ve doğrulanmış mağaza URL'si ekle. Fotoğraf portföyüne alınacaksa slug'ı ayrıca `showcase.ts` onay listesine ekle; satış için review ardından published durumunu kullan.
+4. Galeri listesi, bağlantılar, responsive görünüm ve kod kontrollerini doğrula.
 
-## 5. Dosya adlandırma
+Mevcut ana sayfa 1+4, Hakkımızda seçkisi ve `/vitrin` içindeki 30 fotoğraf korunur. `/vitrin` görsel portföy seçkisidir; oradaki fotoğrafın yer alması ürün kaydının mağazada satışta veya `published` olduğu anlamına gelmez. Teknik proje fotoğrafı sağlanmadan stok modelin render'ı “Üretimlerimiz” listesine eklenmez.
 
-- Küçük harf, ASCII karakter ve tire kullan.
-- Boşluk, Türkçe karakter ve sürüm dışı rastgele ek kullanma.
-- Fotoğraf ve model için aynı ürün kök adını tercih et.
+## Model ekleme
 
-Örnek:
+1. Kullanıcının seçimini ve mevcut hak durumunu `models.md` üzerinden kontrol et; arşivdeki eski adayları güncel kabul etme.
+2. Kaynak ve lisansın ticari kullanım, değiştirme ve public GLB dağıtımına izin verdiğini doğrula. CC BY için üretici/kaynak/lisans/değişiklik atfını hazırla. Çelişkili veya NC/ND/editorial kaynakları beklet.
+3. Yetkili indirmeyle tam geometri/doku paketini al. glTF'yi gerekiyorsa gömülü dokulu GLB'ye dönüştür.
+4. Teknik inceleme/optimizasyon yap; orijinali koru. Gerçek ürün public/models/products, temsili varlık public/models/showcase altında tutulur.
+5. Gerçek ürüne gerçek fotoğraf; temsili modele kendi render posterini public/images/showcase altında oluştur. Kaynak sitenin tanıtım fotoğrafını izinsiz kopyalama.
+6. asset kaydında hak ve teknik hazırlığı işaretle; hero'da hizmet etiketi/palet ve slotu bağla.
+7. Temsili kullanım bilgisini ve gereken atıfları görünür yap. Atıflar /model-kaynaklari sayfasında; hero'dan ve Footer'daki küçük bağlantıdan erişim sağlanır. Hakkımızda içinde ayrı bir kaynak bölümü yoktur.
+8. Altılı toplam bütçe, süreçte aynı varlığın paylaşımı, fallback ve kod kontrollerini doğrula.
 
-```text
-public/images/products/forest-dragon-bustu.webp
-public/models/products/forest-dragon-bustu.glb
-```
+## Süreç ve metinler
 
-## 6. Fotoğraf kuralları
+Taramadan Üretime: fiziksel numune → tarama verisi → dijital model → 3D baskı → üretim sonucu. Nokta görünümü, wireframe ve tamamlanan çark aynı A1 GLB'nin temsili sunumlarıdır. Kullanıcının seçtiği markasız FDM yazıcı ayrı özgün süreç aksesuarıdır; model-assets.ts kaydı ve Blender kaynakları vardır, altılı hero seçimine dahil edilmez. Gerçek cihaz çıktısı/CAD onarımı/üretim fotoğrafı veya çalıştırılabilir baskı yolu sayılmaz. Gerçek olmayan ölçü, tolerans, su/UV dayanımı veya sertifikasyon eklenmez.
 
-- Ürünü doğru temsil eden gerçek fotoğraf kullan.
-- Mümkünse WebP veya AVIF türevi üret; kaynak kaliteyi koru.
-- Görüntüde gereksiz kişisel bilgi, adres, belge veya yansıma olmadığını kontrol et.
-- Sabit ürün vitrin oranına uygun kırpma hazırla.
-- Dosya boyutunu görsel kaliteyi bozmadan azalt.
-- `imageAlt` ürünün ne olduğunu açıklar; “ürün resmi” gibi anlamsız metin kullanılmaz.
+Çalışma süreci ayrı amaca sahiptir: müşterinin talebi → değerlendirme ve onay → teslim. Aynı teknik beş adım iki kez anlatılmaz. Hizmetlerimiz teknik/yaratıcı yönlendirme anchor'ları içerir. Metinlerde mevcut “milimetrik” gibi iddialar müşteri doğrulaması yoksa “projenin gerektirdiği doğruluk değerlendirilerek” gibi ölçüsüz ifadeyle değiştirilir.
 
-## 7. GLB optimizasyon kuralları
+## Optimizasyon ve gizlilik
 
-- Modelin ölçüsü, yönü ve pivot'u tutarlı olmalıdır.
-- Gereksiz mesh, görünmeyen yüz, animasyon ve materyalleri kaldır.
-- Texture çözünürlüklerini gerçek ekran ihtiyacına göre düşür.
-- Texture'ları uygun sıkıştırma ve renk uzayıyla dışa aktar.
-- Materyallerin web/Three.js ortamında doğru göründüğünü test et.
-- Model yükleme süresini ve mobil bellek kullanımını kontrol et.
-- Optimize edilmiş dosya hedefi ürün karmaşıklığına göre belirlenir; büyük dosya istisnası `docs/progress.md` içinde gerekçelendirilir.
+Küçük harf/ASCII/tire dosya adları, metadata ve harici URI kontrolü, nötr ana ışık ve doğru ön yön esastır. Toplam aktarım, üçgen/materyal/draw call, açılmış doku belleği ayrı ölçülür. Draco/Meshopt/KTX2 yalnızca ihtiyaç ve decoder maliyetiyle değerlendirilir. Başlangıç bütçeleri hero-design.md içindedir.
 
-## 8. Sahne seçimi
-
-- `dark-studio`: açık/parlak ürünler ve dramatik sunum.
-- `purple-gallery`: marka vurgusu istenen öne çıkan ürünler.
-- `white-studio`: koyu ürünler ve materyal detayının nötr okunması.
-
-Ürün kaydı ışık veya kamera değerlerini tek tek değiştirmez. Yeni görsel ihtiyaç tüm ürünlerde tekrar kullanılacaksa yeni preset olarak değerlendirilir.
-
-## 9. Yayın kontrol listesi
-
-- Ürün adı, kategori ve açıklama doğrulandı.
-- Fotoğraf yolu çalışıyor ve alt metin mevcut.
-- GLB masaüstü ve mobilde yükleniyor.
-- Döndürme ve zoom sınırları kullanışlı.
-- Seçilen sahne ürünü doğru gösteriyor.
-- WebGL/GLB hata fallback'i fotoğrafı gösteriyor.
-- Mağaza URL'si HTTPS ve doğru hedef.
-- `draft` ve `review` kayıtları ziyaretçiye görünmüyor.
-- `published` kayıt beklenen sıralamada görünüyor.
-- Production build başarılı.
+GLB public varlıktır; üretim ana dosyası veya müşteri gizli verisi yayınlanmaz. Aynı model süreç için tekrar indirilmez. İndirilebilir olması lisansın ayrıca doğrulanmasını gerektirir.

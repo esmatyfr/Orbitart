@@ -41,82 +41,126 @@ Dört sayfa navigasyonla erişilebilir, ortak layout tutarlı, mobil taşma yok 
 
 Faz 1 sonucu kullanıcı tarafından onaylanır; ürün veri modeli ve 3D entegrasyonu Faz 2'de başlar.
 
-## Faz 2 — GLB ürün vitrini ve statik katalog
+## Faz 2 — Dengeli hizmet anlatımı ve altı GLB'li ana sayfa
 
-### Amaç
+### Amaç ve kapsam
 
-Gerçek fotoğraf ile hazır GLB modelini birlikte sunan, kod üzerinden yönetilen ürün vitrini oluşturmak.
+2026-10-01 revizyonu: üç teknik + üç yaratıcı modelle yatay sergi hattı; ardından iki hizmet yönlendirmesi, Taramadan Üretime, mevcut 1+4 gerçek fotoğraf, çalışma süreci ve iletişim. Kesin kompozisyon ve hareket kuralları [hero-design.md](hero-design.md) içindedir.
 
-### Yapılacak işler
+Mevcut Hakkımızda seçkisi ve /vitrin galerisi korunur. Her ürüne GLB, ikili fotoğraf/3D görünüm, üç ayrı stüdyo veya serbest zoom zorunlu değildir. Stok modeller gerçek Orbitart ürünlerinden ayrı tutulur.
 
-- `Product`, `SceneId` ve `ProductStatus` tiplerini oluşturmak.
-- Statik ürün kataloğu ve yalnızca `published` filtrelemesini eklemek.
-- Koyu Stüdyo, Mor Galeri ve Beyaz Stüdyo preset'lerini tanımlamak.
-- Fotoğraf + 3D ikili masaüstü düzenini ve sıralı mobil düzeni geliştirmek.
-- OrbitControls ile sınırlı döndürme/zoom, lazy loading ve hata fallback'i eklemek.
-- Mağaza CTA'sını ürün kaydındaki doğrulanmış URL'ye bağlamak.
+### Faz 2A — Model hazırlığı, medya incelemesi ve veri geçişi
 
-### Etkilenecek alanlar
+- A1/A2/A3/A5 özgün Blender üretimleridir; A4 Blade of Chaos kullanıcı tarafından seçilmiş harici modeldir, proje GLB/poster kopyası ve atıf kaydı vardır. A6 CC0 taş aslan türevidir. Güncel dosya, kaynak notu ve teknik durum [models.md](models.md) içindedir; eski adaylar arşivdedir.
+- Düzenlenebilir `.blend` kaynakları ikincil Blender klasöründe kalır; yalnız hakları uygun web GLB'leri projeye alınır. Materyal, yön, pivot, geometri, doku, aktarım ve açılmış GPU bellek maliyeti incelenir.
+- products.ts gerçek ürünleri; hedef model-assets.ts sahip olunan/harici 3D varlıkları, hakları ve teknik hazırlığı yönetir. Harici modele satış ürünü/fotoğraf eşleşmesi uydurulmaz.
+- Fotoğraf portföyü, ürünün mağaza `published` durumundan ayrılır. Kullanıcının onayladığı 30 fotoğraf açık editoryal listeyle gösterilir; ürünlerin satış durumu topluca değiştirilmez.
+- hero-showcase.ts altı benzersiz varlığı, 3+3 slotu, paletleri ve teknik ilk seçimi; scan-process.ts aynı teknik modelle dört aşamayı tanımlar.
+- Paletler yalnız hero bölümüne uygulanır. Hero altındaki geçiş koyu mor ana temaya döner; sonraki bölümler model seçiminden etkilenmez.
 
-`src/types`, `src/content`, `src/components/products`, `src/components/three`, `public/images/products`, `public/models/products`.
+Çıkış: altı dosyanın kaynak ve teknik kaydı, posterleri ve ortak bütçesi doğrulanmış; fotoğraf onay listesi ve model yayın filtresi ayrılmış olmalıdır. Görünür atıf ile gerçek cihaz performansı, sahne kurulduktan sonra Faz 2B–2D kabulünde doğrulanır.
 
-### Teknoloji
+### Faz 2B — Ortak renderer ve sahne prototipi
 
-TypeScript, React Three Fiber, Drei, Next Image.
+- Dikey başlık–sahne–kontrol–iki CTA kompozisyonu kurulur.
+- Hero ve süreç alanları için sayfa seviyesinde tek paylaşılan Canvas/renderer ve görünürlük bazlı view/scissor sınırı kurulur.
+- Faz 2 statik görünümünde ilk hero 3D alanının koyu panel/çerçevesi kaldırılır; saydam sahne hero zeminiyle birleşir. Altı modelin altında tek ince ortak platform ve görünür hava boşluğu bulunur. Süreç sahnesinde platform bulunmaz.
+- Önce bir modelle hiza/ışık/fallback; iki modelle geçiş; ardından altı gerçek modelle yatay merkez/yan düzen doğrulanır. Farklı nesne biçimlerine uygun ayrı sunum dönüşümleri uygulanır.
+- Kaynak geometry/texture sahipliği paylaşılır; görünmeyen hat çizilmez. Bölüm kapanması diğerinin kaynağını dispose etmez.
+- Masaüstü/mobil oranlar, materyal doğruluğu, merkez/yan perspektif ve platform çakışmaları kontrol edilir.
 
-### Testler
+Çıkış: tek/iki model prototipi değil, altı modelin normal sahnesi ve fallback'i; ortak renderer yaşam döngüsü doğrulanmış olmalıdır.
 
-- Ürün şeması ve yayın filtresi testleri
-- Geçerli/geçersiz sahne seçimi
-- GLB başarı, loading ve hata durumları
-- WebGL olmayan cihaz fallback'i
-- Mobil dokunma/kaydırma davranışı
-- Production build ve temel performans ölçümü
+### Faz 2C — Seçim ve tema
 
-### Tamamlanma kriteri
+- İleri/geri, yan modele tıklama, yatay sürükleme ve odaklı klavye seçimi ortak hedef kullanır.
+- İndeks çevrimi, en yakın konuma yerleşme ve hızlı girişlerde son hedef yönetilir.
+- TS paletleri CSS değişkenlerini ve 3D vurguları besler; model adı, hizmet etiketi ve renk tutarlıdır.
+- Projenizi Konuşalım → /iletisim ve Mağazaya Git → genel mağaza sabit HTML hedefleridir. Temsili model için ürün satın alma bağlantısı türetilmez.
+- Sürekli autoplay ve serbest OrbitControls varsayılan değildir.
 
-Yayınlanan ürünler doğru sahne ve bağlantıyla görünür; taslaklar görünmez; 3D desteklenmediğinde fotoğraf deneyimi eksiksizdir.
+Çıkış: altı varlığa desteklenen kontrollerle erişilir; yanlış etiket/atıf, kuyruk birikmesi veya dikey scroll engeli yoktur.
+
+### Faz 2D — Yükleme, hata ve temel erişilebilirlik
+
+- İlk poster/başlık/CTA 3D beklemez. İlk model öncelikli; diğerleri sınırlı eşzamanlı yüklenir. Tam hat altı model hazır olduğunda açılır.
+- Eksik GLB, WebGL yokluğu, context kaybı ve düşük performansta posterli seçim çalışır. Gerçek ürün fotoğrafı ile temsili model render'ı karıştırılmaz.
+- Hero/süreç görünürlüğüne göre yükleme önceliği ve çizim ayarlanır; arka plan sekmesinde durur, sayfa dönüşünde bellek sızıntısı olmaz.
+- Klavye, odak, aktif seçim duyurusu, kontrast ve reduced-motion bu fazda çalışır; Faz 3'e ertelenmez.
+
+### Faz 2E — Son sayfa sırası ve statik süreç anlatımı
+
+- Eski ana sayfa hizmet kartları Teknik Çözümler / Yaratıcı Üretim yönlendirmelerine dönüşür. Hizmetlerimiz içinde #teknik-cozumler ve #yaratici-uretim hedefleri oluşturulur; hizmetlerin ayrıntıları kaybolmaz.
+- Taramadan Üretime için dört semantik HTML adımı ve statik posterler eklenir: numune, tarama verisi, dijital model, üretim sonucu. Aynı teknik GLB sonraki animasyonun kaynağıdır.
+- Temsili gösterim etiketi konur; gerçek tarama sonucu, CAD onarımı, ölçü toleransı veya metal üretimi iddiası yapılmaz. Mevcut doğrulanmamış sayısal iddialar içerik kontrolüne alınır.
+- Mevcut 1+4 fotoğraf seçkisi korunur. Ardından müşterinin talep/değerlendirme/teslim süreci gelir; teknik dört aşama tekrarlanmaz.
+- Hakkımızda #model-kaynaklari atıf bölümü ve hero'dan erişimi hazırlanır. Hakkımızda seçkisi ve /vitrin galerisi korunur.
+
+Çıkış: son sayfa sırası, doğru bağlantılar, görünen atıflar ve JS/3D olmadan anlaşılır süreç hazırdır. Scroll'a bağlı dört aşamalı 3D animasyon Faz 3 işidir; Faz 2'de bitmiş sayılmaz.
+
+2026-10-01 uygulama notu: kullanıcı Faz 2C/2D/2E'nin birlikte yürütülmesini onayladı. Kod ve yerel kontroller uygulandı; yeni yükleme düzeninin tarayıcı/gerçek cihaz kabulü açık. Aşağıdaki genel çıkış kriterleri kaldırılmadı; güncel kanıt ve eksikler [progress.md](progress.md) içindedir.
+
+### Etkilenecek alanlar ve teknoloji
+
+src/app/page.tsx, hizmetler/hakkımızda anchor'ları, src/components/products, three, ui; src/content, types, lib, styles ve izinli public medya. Next.js, TypeScript, Tailwind, React Three Fiber/Drei, Next Image ve Framer Motion.
+
+### Testler ve tamamlanma kriteri
+
+- Ürün yayın filtresi; asset hak/teknik/yayın durumu; altı benzersiz kayıt ve 3+3 slot.
+- Altı model toplam aktarım, ilk model/tam hat süresi, draw call, FPS ve bellek.
+- Yavaş ağ, hızlı seçim, başarısız dosya, WebGL/context kaybı ve sayfa dönüşü.
+- Ortak renderer viewport hizası, hero/süreç birlikte görünürlük, cache/dispose davranışı.
+- Gerçek telefon ve masaüstü; dokunma, klavye, reduced-motion, statik süreç ve atıflar.
+- İlgili lint, typecheck, test ve production build.
+
+Normal altılı hero, fallback, statik son düzen ve kontrollü yayın filtresi çalışır; fotoğraf galerileri korunur; sonuçlar cihaz bilgisiyle kaydedilirse Faz 2 tamamlanır.
 
 ### Geçiş koşulu
 
-En az bir gerçek fotoğraf/GLB çifti masaüstü ve mobilde kullanıcı tarafından onaylanır.
+Kullanıcı altı modelli sonuç ve statik sayfa akışını onaylar; Faz 3 hareketlerine sonra geçilir.
 
-## Faz 3 — Animasyon, erişilebilirlik ve performans
+## Faz 3 — Taramadan Üretime animasyonu ve hareket dili
+
+**2026-10-04 son durum: tamamlandı.** Kullanıcı tasarım ve mobil kullanımdan sonra kalan testlerin tümünü başarıyla tamamladığını bildirip Faz 3'ün kapatılmasını onayladı. Agent'in son yerel kod/üretim kontrolleri ile kullanıcı tarafından bildirilen son teknik kabul [progress.md](progress.md) içinde ayrı kayıtlıdır; önceki açık test notları tarihsel kalır. Faz 4 için ayrı geçiş onayı beklenir; henüz uygulaması veya production deploy başlatılmadı.
+
+2026-10-02 son kullanıcı düzeltmesi: ilk uygulama görsel olarak kabul edilmedi. Aynı ana sahnede büyüyen model, alttan yükselen kartlar ve belirgin çark efektleri sözleşmesi [hero-design.md](hero-design.md) içindedir; bu revizyon eski ayrı inceleme/mobil düğme sunumundan önceliklidir.
+
+2026-10-02: kullanıcı geçişi ve uygulamayı onayladı. Kod uygulandı; güncel yerel doğrulamalar ve açık fiziksel cihaz/kullanıcı kabulü [progress.md](progress.md) içindedir. Önceki fazın açık ölçümleri silinmedi; Faz 4 onayı verilmedi.
+
+2026-10-04 kapanış denetimi: istenen Faz 3 tasarım/hareketleri ve yerel lint/typecheck/test/build kontrolleri geçti. İlk üç ana sayfa bölümünün kullanıcı görsel kabulü tamam; güncel gerçek cihaz performansı, canlı reduced-motion/ekran okuyucu ve zor koşullardaki yaşam döngüsü kabulü açık. Faz 3 henüz tamamen kapanmadı; Faz 4 başlamadı. Ayrıntı ve yerel telefon adresi [progress.md](progress.md) içindedir.
+
+2026-10-04 son kullanıcı kabulü: mobil optimizasyon ve kadraj düzenlemesinden sonra kullanıcı mobil testte sorun kalmadığını ve tasarımın tamam olduğunu onayladı. Tasarım ve telefondaki kullanım kabulü kapandı. Sayısal/uzun oturum performans ölçümleri, canlı erişilebilirlik ve zor koşul kontrollerinin açık kısımları [progress.md](progress.md) içinde korunur; bu onay tüm teknik testlerin yapılmış olduğu anlamına gelmez. Faz 4 henüz başlatılmadı.
 
 ### Amaç
 
-Premium hareket hissini erişilebilirlik ve mobil performansı bozmadan tamamlamak.
+Referanslardaki akıcılık hissini marka diline uyarlamak; doğal scroll, okunurluk ve performansı korumak. Birebir görsel/performans eşitliği önceden garanti edilmez.
 
 ### Yapılacak işler
 
-- Ölçülü sayfa/bölüm girişleri ve CTA hover animasyonları eklemek.
-- `prefers-reduced-motion` davranışını uygulamak.
-- Görsel ve 3D yükleme stratejisini optimize etmek.
-- Mobil DPR, ışık, gölge ve kontrol maliyetini sınırlandırmak.
-- Klavye odağı, kontrast, başlık sırası ve alt metinleri denetlemek.
+- Faz 2'nin saydam hero sahnesi ve tek ortak platformunu korumak; ilk yatay seçimden aşağı kaydırıldığında aynı seçili modeli büyütüp çevrilebilir inceleme durumuna geçirmek; ayrı sahne/kopya model eklememek. Scroll seçim indeksini değiştirmez; model dönüşü yalnız inceleme durumundadır.
+- “Neler Yapıyoruz” alanında önce seçili modelin adı ve temsil ettiği hizmetin kısa kartını, sonra mevcut Teknik Çözümler ve Yaratıcı Üretim kartlarını sırayla göstermek. Kartların ikinci kopyasını bırakmamak; hizmet bağlantılarını korumak.
+- Model uzaklaşırken hero paletinden ana koyu mor temaya geçmek ve Taramadan Üretime alanını doğal akışta başlatmak. Masaüstü ve mobilde sticky sunum; scroll kilidi yok.
+- Kullanıcının 2026-10-02 revizyonuyla beş görünüm üretmek: A1 yüzeyi → yüzey örneklerinden noktalar/tarama bandı → tel kafes → çalışan markasız FDM yazıcıda katmanlı baskı → ayrı öne çıkan tamamlanmış çark. Özgün yazıcı yalnız süreç aksesuarıdır; hero altılıdır.
+- Çark için aynı A1 geometrisini paylaşmak, özgün yazıcıyı yalnız süreçte bir kez yüklemek; noktaları her kare yeniden üretmemek. Temsili gösterim etiketini korumak.
+- Masaüstü ve mobilde sticky süreç uygulamak; scroll kilitlememek. JS/WebGL yokluğu ve reduced-motion için beş statik adımı normal akışta korumak.
+- Fareyle küçük kamera paralaksı, hero çıkışında küçük geri çekilme ve zemin geçişi; kamera/model hattı/scroll sahipliğini ayırmak.
+- İki hizmet kartı ve fotoğraf vitrininde kısa girişler; müşteri çalışma süreci ve iletişimde sakin vurgu.
+- Ortak renderer görünürlük, DPR, doku, LOD, örnek nokta ve gölge maliyetini ölçerek ayarlamak. Ek scroll motoru veya ücretli servis zorunlu değildir.
 
-### Etkilenecek alanlar
+### Etkilenecek alanlar ve teknoloji
 
-`src/components/ui`, `src/components/three`, sayfa bileşenleri ve global stiller.
-
-### Teknoloji
-
-Framer Motion, React Three Fiber, Next Image ve tarayıcı performans API'leri.
+src/components/ui, three, ilgili sayfalar/stiller ve scan-process.ts. Framer Motion, CSS, React Three Fiber/Drei; gerekli teknik kullanımda Three.js. Yeni paket ancak mevcut yığın yetersizliği doğrulanırsa değerlendirilir.
 
 ### Testler
 
-- Reduced motion açık/kapalı senaryoları
-- Klavye navigasyonu ve focus görünürlüğü
-- Mobil ve masaüstü performans kontrolü
-- Layout shift ve yatay taşma kontrolü
+- Fare + seçim + scroll birlikte; beş aşama ileri/geri ve hızlı kaydırma, dururken çalışan baskı kafası, yazıcı yükleme hatası ve poster dönüşü.
+- Statik/animasyonlu metin eşleşmesi, klavye, odak, kontrast ve reduced-motion.
+- Gerçek mobil/masaüstünde FPS, uzun takılma, bellek, context kaybı ve görünmeyen sahnede çizimin durması.
+- İlgili lint/typecheck/build; layout shift, yatay taşma ve sabit sosyal butonlarla çakışma.
 
-### Tamamlanma kriteri
+### Tamamlanma ve geçiş koşulu
 
-Animasyonlar içerik erişimini engellemez; mobil deneyim akıcıdır; reduced-motion modunda gereksiz hareket yoktur.
-
-### Geçiş koşulu
-
-Erişilebilirlik ve performans kontrolleri belgelenir ve kullanıcı görsel akışı onaylar.
+Beş aşama anlaşılır, temsili olduğu açıktır; doğal scroll ve fallback çalışır; cihaz sonuçları kaydedilir. Kullanıcı hareketli sonucu onayladıktan sonra Faz 4'e geçilir.
 
 ## Faz 4 — Bağlantılar, kalite kontrolü ve Vercel hazırlığı
 
@@ -142,7 +186,7 @@ Next.js metadata API, Vercel ve HTTPS dış bağlantıları.
 
 ### Testler
 
-- Tüm CTA hedefleri ve URL encoding
+- Tüm CTA hedefleri, hizmet/atıf anchor'ları ve URL encoding
 - 404 ve bozuk medya senaryoları
 - Sitemap/robots/metadata kontrolleri
 - Production build ve Preview smoke test
@@ -167,6 +211,7 @@ Gizli bilgi sızıntısını önlemek, tarayıcı güvenlik politikalarını do�
 - CSP ve diğer güvenlik başlıklarını production ihtiyaçlarına göre etkinleştirmek.
 - Git geçmişi, dosyalar, loglar ve client bundle üzerinde secret taraması yapmak.
 - Harici origin, iframe, font, görsel ve bağlantı izinlerini minimuma indirmek.
+- Yayınlanacak model/poster haklarını, atıfları, temsili kullanım açıklamasını ve public dosya dağıtım iznini son kez kontrol etmek.
 - Güvenlik kontrol listesini tamamlamak ve kullanıcıdan production onayı almak.
 
 ### Etkilenecek alanlar

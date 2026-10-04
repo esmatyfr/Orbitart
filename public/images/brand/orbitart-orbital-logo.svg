@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="256" viewBox="0 0 1300 256" role="img" aria-labelledby="title description">
+  <title id="title">Orbitart 3D Studio</title>
+  <desc id="description">Lavanta O harfinin etrafında mor yörünge ve açık renk Orbitart yazısı.</desc>
+  <defs>
+    <linearGradient id="orbit" x1="-183" y1="52" x2="183" y2="-52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7c3aed"/>
+      <stop offset=".55" stop-color="#9255ff"/>
+      <stop offset="1" stop-color="#7134ed"/>
+    </linearGradient>
+    <linearGradient id="letter" x1="75" y1="20" x2="250" y2="245" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d5c3ff"/>
+      <stop offset="1" stop-color="#bfa4f6"/>
+    </linearGradient>
+    <mask id="orbit-gap" maskUnits="userSpaceOnUse" x="0" y="0" width="346" height="256">
+      <path fill="white" d="M0 0h346v256H0z"/>
+      <path d="M-183 0a183 52 0 0 0 366 0" transform="translate(173 128) rotate(-28)" fill="none" stroke="black" stroke-width="44"/>
+    </mask>
+  </defs>
+  <g fill="none">
+    <ellipse cx="0" cy="0" rx="183" ry="52" transform="translate(173 128) rotate(-28)" stroke="url(#orbit)" stroke-width="30"/>
+    <circle cx="173" cy="128" r="100" stroke="url(#letter)" stroke-width="54" mask="url(#orbit-gap)"/>
+    <path d="M-183 0a183 52 0 0 0 366 0" transform="translate(173 128) rotate(-28)" stroke="url(#orbit)" stroke-width="30"/>
+  </g>
+  <g fill="#f8f7fb" fill-rule="evenodd" transform="translate(350 56)">
+    <path d="M66-2a66 66 0 1 1 0 132A66 66 0 0 1 66-2Zm0 24a42 42 0 1 0 0 84 42 42 0 0 0 0-84Z"/>
+    <path transform="translate(156)" d="M0 0h58c28 0 43 16 43 41 0 19-11 32-30 38l32 49H74L42 84H24v44H0Zm24 24v37h32c14 0 22-6 22-19S70 24 56 24Z"/>
+    <path transform="translate(281)" d="M0 0h53c27 0 43 13 43 34 0 12-5 22-17 28 16 5 23 17 23 31 0 24-17 35-46 35H0Zm24 23v29h26c12 0 20-5 20-15s-7-14-20-14Zm0 51v31h29c15 0 23-5 23-15S69 74 53 74Z"/>
+    <path transform="translate(405)" d="M0 0h24v128H0Z"/>
+    <path transform="translate(449)" d="M0 0h100v24H62v104H38V24H0Z"/>
+    <path transform="translate(569)" d="M53 0h25l54 128h-27L66 34 27 128H0Z"/>
+    <path transform="translate(721)" d="M0 0h58c28 0 43 16 43 41 0 19-11 32-30 38l32 49H74L42 84H24v44H0Zm24 24v37h32c14 0 22-6 22-19S70 24 56 24Z"/>
+    <path transform="translate(846)" d="M0 0h100v24H62v104H38V24H0Z"/>
+  </g>
+  <g transform="translate(586 218)" fill="none" stroke="#c4b5fd" stroke-width="5" stroke-linecap="square" stroke-linejoin="round">
+    <path d="M0 0h23L9 14h4c17 0 18 20 1 20-6 0-10-2-14-5"/>
+    <path transform="translate(57)" d="M0 0h10c24 0 24 34 0 34H0Z"/>
+    <path transform="translate(156)" d="M25 3C16-4 0 0 0 9c0 13 25 5 25 17 0 10-16 13-26 6"/>
+    <path transform="translate(214)" d="M0 0h26M13 0v34"/>
+    <path transform="translate(273)" d="M0 0v21c0 18 26 18 26 0V0"/>
+    <path transform="translate(337)" d="M0 0h10c24 0 24 34 0 34H0Z"/>
+    <path transform="translate(402)" d="M0 0v34"/>
+    <ellipse cx="458" cy="17" rx="16" ry="18"/>
+  </g>
+</svg>

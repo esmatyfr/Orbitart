@@ -38,3 +38,7 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+
+# Local chat attachments and verification artifacts
+/.codex-remote-attachments/
+/output/

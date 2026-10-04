@@ -69,7 +69,19 @@ CSP, geliştirme ve production gereksinimleri ayrılarak hazırlanır. `unsafe-e
 - Dosya uzantısı, boyutu ve tarayıcıda yüklenme davranışı kontrol edilir.
 - Modelde gereksiz yüksek çözünürlüklü texture, animasyon veya gömülü veri bırakılmaz.
 - Dosya adları kullanıcı girdisinden doğrudan üretilmez; küçük harf, ASCII ve tire kullanılır.
-- Model hatası sayfayı çökertmemeli; gerçek fotoğraf fallback'i görünmelidir.
+- Model hatası sayfayı çökertmemeli; gerçek ürün için fotoğraf, temsili varlık için aynı modelden üretilmiş render poster fallback'i görünmelidir.
+- Tarayıcıya sunulan GLB indirilebilir; env veya dosya adını gizlemek erişim koruması değildir. Üretim ana dosyaları yerine gösterim türevleri yayınlanır.
+- GLB içindeki URI, metadata ve harici doku referansları incelenir; beklenmeyen dış istek yapılmaz.
+- Seçilen decoder'lar ve varsa HDR ortamları yerelde barındırılır; varsayılan CDN çağrıları ağ kontrolünde doğrulanır. Worker/WASM ihtiyaçları gerçek gereksinim görüldüğünde dar CSP kurallarıyla karşılanır.
+- İçerik yayın durumu server tarafında filtrelenir; CSS ile gizlemek taslak veriyi korumaz. public altındaki dosya draft işaretiyle gizlenmez.
+- Hero paletleri sabit public yapılandırmadır; sır veya env değişkeni değildir.
+- Harici modelin üreticisi, kaynak sayfası, lisans/sürüm, gereken atıf ve değişiklikler kaydedilir. Ticari kullanım kadar public GLB'nin indirilebilir dağıtımı ve optimizasyon izni de denetlenir; sadece “ücretsiz” etiketi yeterli değildir.
+- NC/ND/editorial veya çelişkili lisanslı adaylar ayrıca çözülmeden kabul edilmez. Atıf gereken modellerde kaynak/üretici/lisans/değişiklik bilgisi erişilebilir olmalıdır.
+- A4 Blade of Chaos kullanıcı tarafından proje kullanımı için onaylandı ve GLB/poster proje `public/` klasöründedir. Kaynak sayfasındaki CC BY 4.0 bilgisi ve sanatçının üçüncü taraf *God of War* konseptlerine ilişkin notu [model kaydında](models.md) ve atıfta şeffaf biçimde korunmalıdır. Kullanıcı onayı hak sahipliğine dair bağımsız hukuki garanti değildir; varlık Orbitart özgün üretimi gibi sunulmaz ve görünür atıf olmadan sayfada yayımlanmaz.
+- Kaynak sitenin önizleme fotoğrafı, model lisansıyla otomatik lisanslanmış sayılmaz; izinli modelden kendi render posterini üret.
+- Harici modeller ve sentetik tarama aşamaları temsili olarak belirtilir; Orbitart müşteri işi, gerçek tarama çıktısı veya teknik üretim garantisi gibi sunulmaz.
+- Müşteri taraması gizli geometri, kişisel veri veya üretim sırrı içerebilir; açık yayın izni olmadan public klasörüne veya dış model servisine yüklenmez.
+- Kaynak paketleri incelenmeden otomatik betik/makro çalıştırılmaz. Kaynak dosya, web türevi, lisans belgesi ve yayın kararı ayrı tutulur.
 
 ## 7. Secret tarama ve yayın kontrolü
 
@@ -82,7 +94,8 @@ Production öncesi:
 5. Preview ve Production ortam değişkenleri karşılaştırılır.
 6. Güvenlik başlıkları gerçek Preview response'u üzerinden kontrol edilir.
 7. Dış bağlantıların HTTPS ve doğru domaine gittiği test edilir.
-8. Kullanıcı açıkça onaylamadan Production deploy yapılmaz.
+8. Yayındaki her model/poster için hak kaydı, gereken atıf ve temsili kullanım bilgisi doğrulanır; draft veya gizli kaynak dosyası public çıktıda bulunmaz.
+9. Kullanıcı açıkça onaylamadan Production deploy yapılmaz.
 
 ## 8. Gelecekte form veya API eklenirse
 

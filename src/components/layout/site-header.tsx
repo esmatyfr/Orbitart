@@ -1,37 +1,40 @@
+import type { Route } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
+import { HeaderSurface } from "@/components/layout/header-surface";
 import { siteConfig } from "@/content/site-config";
 
 const navigation = [
   { href: "/", label: "Ana Sayfa" },
+  { href: "/vitrin", label: "Vitrin" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/hizmetlerimiz", label: "Hizmetlerimiz" },
   { href: "/iletisim", label: "İletişim" },
-] as const;
+] as const satisfies readonly { href: Route; label: string }[];
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/8 bg-[#09080f]/88 backdrop-blur-xl">
-      <div className="site-container grid min-h-18 grid-cols-[auto_1fr_auto] items-center gap-3 lg:gap-6">
+    <header className="sticky top-0 z-50">
+      <HeaderSurface />
+      <div className="header-container relative grid min-h-18 grid-cols-[auto_1fr_auto] items-center gap-3 lg:gap-6">
         <Link
           href="/"
-          className="group flex items-center gap-3 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
+          className="flex min-h-11 items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300"
           aria-label="Orbitart ana sayfa"
         >
-          <span className="brand-mark" aria-hidden="true">
-            O
-          </span>
-          <span className="leading-none">
-            <span className="block text-sm font-black tracking-[0.2em] text-white">
-              ORBITART
-            </span>
-            <span className="mt-1 block text-[10px] font-medium uppercase tracking-[0.24em] text-violet-300">
-              3D Studio
-            </span>
-          </span>
+          <Image
+            src="/images/brand/orbitart-orbital-logo.svg"
+            alt=""
+            width={1300}
+            height={256}
+            className="h-auto w-[200px] sm:w-[224px]"
+            loading="eager"
+            unoptimized
+          />
         </Link>
 
-        <nav className="hidden items-center justify-self-center gap-7 lg:flex" aria-label="Ana menü">
+        <nav className="hidden items-center justify-self-center gap-5 lg:flex xl:gap-7" aria-label="Ana menü">
           {navigation.map((item) => (
             <Link
               key={item.href}

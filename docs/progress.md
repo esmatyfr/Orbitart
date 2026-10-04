@@ -1,71 +1,308 @@
-# Orbiart Proje İlerlemesi
+# Orbiart — güncel ilerleme
 
-Son güncelleme: 2026-09-25
+Son güncelleme: 2026-10-04. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
 
-## Mevcut durum
+## Faz 3 — tamamlandı, kullanıcı test kabulü ve Git kaydı (2026-10-04)
 
-- Aktif aşama: Faz 1 — İskelet ve marka sistemi
-- Durum: Tamamlandı
-- Sonraki aşama: Faz 2 — GLB ürün vitrini ve statik katalog
+**Faz 3 kapatıldı.** Kullanıcı önce mobil kullanım ve tasarımı onayladı; ardından son kalan performans, erişilebilirlik ve zor koşul testlerinin hepsini yaptığını ve başarıyla geçtiğini bildirerek Faz 3'ün kapatılmasını istedi. Son teknik kabul kullanıcı beyanına dayanır; bu kayıt agent tarafından yeni bir fiziksel cihaz ölçümü yapıldığını veya paylaşılmamış FPS/bellek/yükleme süresi değerlerini iddia etmez. Daha önce bildirilen telefon Redmi Note 10S / Chrome'dur. Önceki kayıtların açık kabul maddeleri bu son onayla kapanmıştır.
 
-## Tamamlanan işler
+Uygulama için son agent doğrulaması: lint, typecheck, 27/27 birim testi, production build, 6/6 üretim HTML kontrolü ve masaüstü/mobil tarayıcı kadraj kontrolleri geçti. Onaylanan hero, Neler Yapıyoruz, beş aşamalı Taramadan Üretime, fotoğraf seçkileri, alt sayfa hareketleri ve Yörüngeli O logosu korunur. Bu kapanış turunda uygulama tasarımı/kodu değiştirilmedi; önceki testler yeni çalıştırılmış gibi sunulmaz.
 
-- Proje kökü için `AGENTS.md` çalışma talimatları hazırlandı.
-- Kalıcı proje kuralı `.cursor/rules/orbiart-core.mdc` altında tanımlandı.
-- Mimari, yol haritası, güvenlik, içerik ve ilerleme belgeleri oluşturuldu.
-- `.gitignore` ve güvenli `.env.example` hazırlandı.
-- Kaynak kod ve medya için hedef klasör iskeleti oluşturuldu.
-- Teknoloji/faz eşleştirmesi ve faz geçiş koşulları belgelendi.
-- Next.js App Router, TypeScript, Tailwind CSS ve ESLint kuruldu.
-- Ana sayfa, Hakkımızda, Hizmetlerimiz ve İletişim rotaları oluşturuldu.
-- Ortak Navbar, mobil menü, Footer, CTA ve sayfa başlığı bileşenleri oluşturuldu.
-- Koyu sinematik yüzey, Orbitart moru, responsive tipografi ve spacing sistemi uygulandı.
-- Temel metadata, semantik yapı, skip link ve klavye focus durumları eklendi.
-- Mağaza, Instagram ve opsiyonel WhatsApp hedefleri merkezi public yapılandırmaya alındı.
-- Kullanıcı geri bildirimiyle tablet navbar bağlantıları hamburger yerine yatay sıraya alındı.
-- Footer içindeki Keşfet ve Bağlantılar grupları telefon görünümünde de yan yana tutuldu.
-- Footer konumu dışında kullanıcıya görünen Bodrum ifadeleri kaldırıldı.
-- İletişim sayfasındaki uzun giriş alanı kaldırıldı; WhatsApp, Instagram ve mağaza kartları doğrudan görünür hale getirildi.
-- İletişim kartlarında ek paket gerektirmeyen yerel SVG ikonları kullanıldı.
-- WhatsApp numarası ve `wa.me` hedefi merkezi public yapılandırmaya eklendi.
-- Footer bağlantılarına WhatsApp eklendi; Instagram ve WhatsApp kısayolları tüm sayfalarda sabit köşe butonları olarak yerleştirildi.
-- Proje `main` dalına sahip yerel bir Git deposuna alındı.
-- Hakkımızda ve Hizmetlerimiz sayfalarının metinleri güncel kurumsal içerikle değiştirildi.
-- İç sayfa hero alanlarının navbar sonrasındaki üst boşluğu bir kademe azaltıldı.
+Kullanıcı tüm proje değişikliklerinin yerel Git'e kaydedilip mevcut GitHub origin deposuna gönderilmesini istedi. Uygulama, web GLB/poster/fotoğrafları, testler ve proje belgeleri commit kapsamındadır. Yerel output/ kanıtları ve .codex-remote-attachments/ dosyaları .gitignore ile Git dışında tutulur; mevcut dosyalar silinmez. Commit öncesi diff ve 13 Markdown belgesinin yerel bağlantıları doğrulandı; index'teki 116 dosyada taranan kimlik bilgisi örüntüsü veya 50 MB üstü dosya bulunmadı. Origin/main fetch ile güncellendi ve commit öncesi yerel main ile aynı olduğu doğrulandı. GitHub gönderiminin sonucu commit sonrasında doğrulanır.
 
-## Doğrulamalar
+**Sonraki faz: Faz 4 — bağlantılar, kalite kontrolü ve Vercel hazırlığı.** Faz 4 uygulaması henüz başlatılmadı; kullanıcı geçiş onayı beklenir. GitHub'a kaynak gönderme yetkisi production deploy onayı değildir; bu tur deploy yapılmaz. Daha önceki aktif/açık durumlar tarihsel kayıttır, güncel durum bu kapanış kaydıdır.
 
-- `npm run lint`: başarılı.
-- `npm run typecheck`: başarılı.
-- `npm run build`: başarılı; dört kullanıcı rotası statik olarak üretildi.
-- Masaüstü ana sayfa görünümü tarayıcıda doğrulandı.
-- 390 × 844 mobil görünümde dört rota doğrulandı; yatay taşma bulunmadı.
-- Mobil menü açılma ve bağlantı görünürlüğü doğrulandı.
-- Tarayıcı konsolunda hata veya uyarı bulunmadı.
-- `npm audit`: 0 güvenlik açığı.
-- Navbar 900 px, footer 390 px viewport ile yeniden doğrulandı.
-- `.env.local` oluşturulmadı ve gerçek gizli değer eklenmedi.
-- İletişim değişiklikleri sonrasında lint, typecheck ve production build yeniden başarılı oldu.
-- İletişim kartları, sabit sosyal butonlar ve bağlantı hedefleri masaüstü tarayıcıda doğrulandı.
-- Kurumsal metin güncellemesi sonrasında lint, typecheck ve production build başarılı oldu.
-- Hakkımızda ve Hizmetlerimiz giriş alanları ile güncel içerik sırası masaüstü tarayıcıda doğrulandı.
+## Faz 3 — kullanıcı mobil ve tasarım kabulü (2026-10-04)
 
-## Bilinen eksikler
+Kullanıcı son düzenlemeden sonra mobil testin geçtiğini, sorun kalmadığını ve tasarımın tamam olduğunu açıkça onayladı. Daha önce bildirilen cihaz Redmi Note 10S / Chrome'dur. Neler Yapıyoruz akıcılığı/bölüm geçişi ile ilk üç süreç modelinin son mobil kadrajı için beklenen kullanıcı kabulü kapanmıştır. Ana sayfa ve alt sayfaların mevcut onaylı tasarımı korunur; yeni görsel düzeltme işi yoktur.
 
-- Resmî Orbitart logo dosyası henüz eklenmedi; geçici tipografik marka işareti kullanılıyor.
-- Gerçek ürün fotoğrafları ve GLB modelleri henüz eklenmedi.
-- Ürün adı, kategori, açıklama, mağaza ürün URL'si ve sahne seçimi henüz sağlanmadı.
-- Vercel bağlantısı henüz kurulmadı.
+**Durum: Faz 3 tasarım ve gerçek telefondaki kullanım kabulü tamamlandı.** Son kod turunun lint/typecheck, 27 birim testi, production build ve 6 üretim HTML kontrolü geçmiş doğrulama olarak geçerlidir. Kullanıcı onayı sayısal FPS, uzun oturum GPU bellek/ısınma ölçümü, canlı OS reduced-motion/ekran okuyucu veya zor koşul testlerinin yapılmış olduğu anlamına gelmez; aşağıdaki teknik kabul maddelerinin bu kısımları açık kalır. Faz 3'ün tüm teknik çıkış kriterleri henüz kapatılmadı; Faz 4 başlatılmadı.
 
-## Sonraki görev
+Bu tur yalnız ilerleme ve yol haritası belgeleri güncellendi. Belge bağlantıları ve diff kontrol edildi; uygulama kodu, tasarım veya yapılandırma değişmedi, uygulama testleri yeniden çalıştırılmadı. Aşağıdaki önceki kayıtların bekleyen telefon sonucu ifadeleri kendi tarihlerine aittir; güncel kullanıcı kabulü bu kayıttır.
 
-Faz 2 başlamadan önce kullanıcıdan en az bir ürün için gerçek fotoğraf, web için optimize GLB, ürün bilgileri, mağaza URL'si ve tercih edilen sahne alınacak. Resmî logo sağlanırsa geçici tipografik işaret değiştirilecek. Ardından ürün tipleri, statik katalog, sahne preset'leri ve lazy-loaded 3D görüntüleyici uygulanacak.
+## Faz 3 — ilk üç süreç modelinin telefon kadrajı (2026-10-04)
 
-## Mimari kararlar
+Kullanıcı telefonda Neler Yapıyoruz yerleşimini ve akıcılığı uygun buldu. Yeni istek yalnız Fiziksel Numune, Tarama Verisi ve Dijital Model'in çok hafif yukarı alınmasıdır. 639px ve altında bu üç görünümün ortak model grubu scenes.ts içindeki phoneSampleLift=0.3 kadar yükselir; yüzey, noktalar ve tarama bandı birlikte taşınır. Kamera, düğmeler, bölüm süreleri ve masaüstü/tablet konumları değişmez. Ayrı yazıcı/üretim sonucu grubu bu ofseti kullanmaz.
 
-- İlk sürüm backend, CMS ve veritabanı içermez.
-- Ürün yönetimi tip güvenli statik içerik dosyası üzerinden yapılır.
-- Fotoğraf temel içerik, 3D görüntüleyici progressive enhancement olarak ele alınır.
-- Yalnızca `published` ürünler sitede görünür.
-- Üç merkezi sahne preset'i kullanılır.
-- Production deploy kullanıcı onayı gerektirir.
+390×844 tarayıcı boyutunda beş aşama tıklamayla kontrol edildi; ilk üç model düğmelerden ayrılır, yazıcı ve sonuç kadrajları korunur. Tek Canvas ve yatay taşma olmaması doğrulandı. 1440×900 masaüstü numune görünümü kontrol edildi. Kanıtlar output/process-phone-lift-2026-10-04/ altındadır. npm run lint, npm run typecheck, npm test (27/27), npm run build ve npm run test:build (6/6) geçti. Production HTML poster/semantik kontrolleri ve kaynak hata/abort/disposal testleri geçerlidir; bu küçük ofset için yeni canlı OS reduced-motion veya fiziksel telefon testi yapılmadı. Kullanıcının akıcılık kabulü önceki optimizasyonu kapsar; yeni kadraj ayarının fiziksel kontrolü ve Faz 3'ün diğer açık kabul işleri ayrı kalır.
+
+## Faz 3 — telefon kaydırma akışı ve bölüm geçişi (2026-10-04)
+
+Kullanıcı Redmi Note 10S / Chrome'da modellerin yüklendiğini, ancak kaydırmanın akıcı olmadığını ve Neler Yapıyoruz → Taramadan Üretime geçişinde büyük boşluk/kadraj sorununu bildirdi. Önceki tablet şikâyetinin tarayıcı kaynaklı olduğunu belirtti; tablet için ayrı konum düzeltmesi yapılmadı. Bu yeni telefon bildirimi yükleme kabulüne kanıttır; aşağıdaki optimizasyonun fiziksel cihaz performans kabulü değildir.
+
+İnceleme: mobil hero/süreç uzunlukları 360/520svh idi. Kartlar doğrudan scroll ilerlemesini izlediğinden bir girişin ortasında durabiliyordu; model/başlık/kart aralıkları telefon için fazlaydı. JS ilerleme hesabı değişken innerHeight ve navbar ofsetini kullanırken sticky alan 100svh kullanıyordu. Drei View kamera aspect değerini sahne useFrame callback'lerinden sonra güncelliyor; demand çiziminde kamera önceki kadrajla hesaplanabiliyordu. View'ler autoClear kapalı çizdiğinden paylaşılan kareye açık bir temizleme de eklendi; hareketli scissor sınırları eski model pikselleri bırakmaz.
+
+- Yalnız 639px ve altında hero 260svh, süreç 360svh: toplam doğal kaydırma mesafesi yaklaşık %40 kısaldı. Model üstte daha kompakt bir View'de ortalanır; telefon odak ölçeği ayrı çarpanla korunur. Başlık/kart yığını yukarı alındı. Son model/kartlar mobilde ayrı bir boş çıkış karesi oluşturmaz; native sticky alanla birlikte sayfadan çıkar. Masaüstü/tablet süreleri ve kompozisyonları korunur.
+- Telefon kartı eşik geçince 420ms transform / 240ms opacity geçişini tamamlar; yeniden parmak hareketi gerekmez. Kartlar üst üste kalır; örtülen bağlantılar inert, üst kart kullanılabilir, geri scroll tersine çalışır. Scroll kilidi veya kendiliğinden sayfa kaydırma eklenmedi.
+- Telefon ilerlemesi sticky alanın ölçülen yüksekliği ve gerçek başlangıç/bitişine bağlandı. Beş düğmenin native smooth-scroll hedefleri aynı hesapla eşleşir. Süreç sahnesi kalan flex yüksekliğini kullanır, sosyal düğmeler için alt pay bırakır. 740px ve altındaki kısa telefon ekranlarında başlık/paragraf daha kompakt yazılır; metin kaldırılmadı.
+- Telefon Canvas DPR üst sınırı başlangıçtan 1'dir. Önceki 1.5 üst sınırına göre piksel bütçesi yaklaşık %56 azalır; bu FPS artışı ölçümü değildir. DOM hedefleri önbelleğe alındı; ölçümler stil yazımlarından önce birlikte okunur. Hero/süreç View ölçüleri ResizeObserver ile izlenir, kamera projeksiyonu güncel aspect ile sahne hesabından önce eşleşir. Tek Canvas, altı GLB, yazıcı, posterler, atıflar ve fotoğraf seçkileri korunur.
+
+Doğrulama: 390×844 telefonda üst üste kartların kaydırma durduktan sonra sıfır transform'a oturması, model kadrajı, native bölüm çıkışı ve beş aşamada ileri/geri tıklama doğrulandı. 320×640'ta sahne 148px kalan alanı kullanır, düğmeler ekran içinde ve en az 46px yüksekliğindedir; Space ile baskı seçimi çalışır. 768×900 tablet ve 1440×900 masaüstü kontrol edildi; masaüstü model solda/kart sağda kaldı. Kontrol edilen boyutlarda yatay taşma yoktur. Son mobil baskıda Canvas=1, DPR=1 ve seçili düğme/sahne adı eşleşir. Kaynak hata/abort/disposal testleri ve production HTML poster/bağlantı/semantik kontrolleri geçti. Yeni canlı OS reduced-motion/ekran okuyucu/GLB hata denemesi yapılmadı; CSS yeni telefon hareketini no-preference içinde tutar, mevcut normal HTML fallback yolu korunur.
+
+npm run lint, npm run typecheck, npm test (27/27), npm run build ve npm run test:build (6/6) geçti. İki yeni test telefon kartının tam giriş/geri dönüş hedefini ve kısa/uzun sticky alanlarda doğru aşama hedeflerini doğrular. Son renderer/kamera düzeltmesinden sonra lint/typecheck/build tekrar geçti. Build önceki Windows sandbox yol erişimi kısıtı nedeniyle izinli normal erişimle çalıştırıldı. Kanıtlar output/mobile-flow-2026-10-04/ altında inspection-phone.png, transition-phone.png, printing-phone.png, process-short-phone.png ve inspection-desktop.png. Bazı geçiş görüntüleri bilinçli olarak native bölüm çıkışının ara konumudur.
+
+**Faz 3 aktif:** Redmi Note 10S / Chrome'da yenilenmiş sayfanın akıcılığı, fiziksel dokunma ve uzun kullanım sonucu beklenir. Bu tur cihaz FPS/ısınma ölçümü yapmaz; önceki canlı erişilebilirlik ve zor koşul kabul işleri açık kalır. Yeni bağımlılık, harici servis, tünel veya yayın yoktur.
+
+Güncel Wi-Fi IPv4 ipconfig ile 192.168.1.105 olarak doğrulandı; LAN sayfası tarayıcıda açıldı. Son LAN telefon kontrolünde Canvas=1, DPR=1, ikinci kart transform=(0,0) ve Blade of Chaos seçimi doğrulandı. Geçici viewport sıfırlandı. Geliştirme sırasında useEffect bağımlılık sayısının değişmesinden kaynaklanan eski bir Fast Refresh uyarısı localhost hata geçmişinde görüldü; dosyanın yeni bağımlılık dizisi sabittir ve temiz yükleme/LAN sayfasında bu geçiş tekrarlanmadı. Belge bağlantıları ve git diff --check geçti.
+
+## Faz 3 — dar ekranda hero platformunun kesilmesi (2026-10-04)
+
+Kullanıcı yarım ekranda platformun alttan düz kesildiğini bildirdi. 965×851 ve 390×844 tarayıcı boyutlarında tekrarlandı: platform ok merkezine doğru konumlanıyordu, ancak WebGL View bu çizginin yalnız yaklaşık 8px altında bitiyordu. CSS overflow:visible renderer'ın scissor sınırını büyütmediği için platformun alt yarısı çizilemiyordu.
+
+Yalnız 1023px ve altındaki hareketli hero sahnesinin giriş yüksekliği 3rem artırıldı. Bu ek alan yakınlaşma ilerledikçe sıfıra iner; tam inceleme kadrajının önceki hesabı korunur. Ok/CTA yerleşimi, platform hizalama hesabı, model seçimi, sahne preset'leri, süreç kamerası ve geniş masaüstü kuralları değiştirilmedi. Fallback/JS yokluğu/reduced-motion normal akışı bu medya kuralından etkilenmez; OS reduced-motion ile yeni canlı test yapılmadı.
+
+965×851, 965×600, 390×844, 320×640, 1024×768 ve 1440×900 boyutlarda platform tam görünür, açıklamadan ayrı ve oklarla aynı seviyededir. Dar giriş View'i ok merkezinin yaklaşık 56px altına kadar çizim alanı sağlar. Tek Canvas ve yatay taşma olmaması doğrulandı; 965px'te büyüyen model ve üç kartın son yığını da kontrol edildi. Bunlar tarayıcı boyut kontrolleridir; fiziksel cihaz performans kabulü değildir.
+
+npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. Build önceki Windows sandbox kısıtı nedeniyle izinli normal erişimle çalıştırıldı. Diff ve güncellenen yerel belge bağlantıları kontrol edildi. Görsel kanıtlar output/platform-fit-2026-10-04/ altında half-screen.png, mobile.png, 965-600.png, 320-640.png, 1024-768.png, 1440-900.png ve inspection.png. Test viewport'u sıfırlanıp yerel ana sayfa açık bırakıldı. Aktif Faz 3; aşağıdaki fiziksel cihaz/erişilebilirlik/zor koşul kabul işleri açık kalır.
+
+## Faz 3 — tamamlanma denetimi ve yerel mobil önizleme (2026-10-04)
+
+**Durum: istenen tasarım ve hareketler uygulandı; yerel kod/üretim kontrolleri geçti. Faz 3'ün tam kabulü henüz kapanmadı.** Kullanıcı ana 3D alanı, Neler Yapıyoruz ve Taramadan Üretime tasarımını daha önce onayladı. Aynı modelin büyümesi, üst üste kalan üç kart, kaydırma ve tıklamayla seçilen beş süreç aşaması, çalışan FDM yazıcı ve ayrı üretim sonucu; ana sayfa ve üç alt sayfanın hafif girişleri, fotoğraf düzenleri ve seçilen Yörüngeli O logosu mevcut. Yeni bir tasarım/özellik işi belirlenmedi; aşağıdaki cihaz ve hata kabulü açık. Faz 4 başlatılmadı.
+
+Denetimde 1024px genişlikte süreç View'inin dar en/boy oranı nedeniyle çarkın sağ kenarının kesildiği görüldü. Yalnız ProcessCamera kadrajı düzeltildi: scenes.ts içindeki minimumViewAspect=1 eşiğinin altında kamera bakış hedefinden orantılı uzaklaşır. Geniş süreç sahnesi, hero kamerası, model ölçekleri, kart yerleşimi ve aşama geçişleri korunur. Son production önizlemesinde 1024×900 kadrajı yeniden doğrulandı; çark tamamıyla görünür.
+
+### Bu denetimde geçen kontroller
+
+- npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6). Son kamera düzeltmesinden sonra lint/typecheck/build ve üretim HTML testleri tekrar geçti. Windows sandbox yol erişimi sınırlaması nedeniyle build izinli normal erişimle çalıştırıldı. Yeni bağımlılık veya test eklenmedi.
+- Ana sayfa 320/390/768/1024/1440px genişliklerde incelendi; yatay taşma yok. Vitrin/Hakkımızda/Hizmetlerimiz 1440×900 ve 320×844'te kontrol edildi; fotoğraf sayıları 30/4/0, Canvas=0 ve logo yüklenmiş. Ana sayfanın 5 fotoğrafı üretim testinde korunur. Girişlerin ara opacity/transform değerleri ve hizmetlerde son görünür durum doğrulandı.
+- Hızlı 20 model seçimi beklenen Tide Five hedefine ulaştı. Üç kart üst üste kalır; önceki kartlar görünür ama inert, üst kart etkileşime açıktır. Beş süreç düğmesi, Enter/Space, aria-pressed eşleşmesi ve sonraki doğal scroll kontrol edildi. Mobil düğmeler en az 46px yüksekliktedir.
+- A1 GLB kontrollü olarak geçici erişilemez bırakıldı: hata sonrası Canvas=0, normal belge akışı ve poster seçimi çalıştı. Üretim sonucu düğmesi doğru poster ve erişilebilir sahne adını seçti. Dosya geri kondu; SHA256 306E827C8F470FC7059F76287623E55F677474232A592AF96CFCD07436039645 ile aynı olduğu doğrulandı. Yeniden deneme Canvas=1 ve hareketli görünümü geri getirdi. Önceki yazıcı-GLB hata denemesi eski kayıt olarak kalır.
+- Ana sayfa → Hakkımızda → ana sayfa üç dönüşünde Canvas sayısı 1→0→1 oldu. Bu temel kurulum/kapanış kanıtıdır; uzun oturum GPU bellek sızıntısı ölçümü değildir. Baskıda 46 draw call / 31.384 üçgen gözlendi; bu cihaz FPS ölçümü değildir.
+- Production HTTPS önizlemesinde mobil 390×844'te Canvas=1, hareketli hero, yüklenmiş logo, baskı kartı ve yatay taşma olmaması doğrulandı. Bu son sayfanın tarayıcı error günlüğü boştu. JavaScript olmadan sunulan HTML, posterler, beş düğme, fotoğraflar ve bağlantılar build testlerinde doğrulanır; canlı ekran okuyucu testinin yerine geçmez.
+
+Görsel kanıtlar: output/phase3-audit-2026-10-04/ altında inspection-stack-desktop.png, printing-desktop.png, printing-mobile.png, process-fit-1024.png, missing-glb-fallback.png, result-desktop.png, remote-mobile-hero.png, remote-mobile-printing.png ve lan-mobile-hero.png. Bazı görüntüler hareketin ara durumudur.
+
+### Önceki kapanış denetiminde açık olan kabul işleri
+
+Bu liste 2026-10-04 son kullanıcı test beyanıyla kapandı; güncel durum sayfanın başındaki Faz 3 kapanış kaydıdır. Aşağıdaki metin önceki denetimin tarihsel kapsamını korur.
+
+1. **Gerçek cihaz performansı ve dokunma:** güncel Faz 3 üzerinde telefon modeli/tarayıcısı, ilk model ve tam hat yükleme süresi, akıcılık/FPS, uzun kullanımda ısınma ve bellek; masaüstü performans ölçümü. Fiziksel dikey scroll, yatay seçim/model dönüşü ve pointer-cancel etkileşimi. Önceki telefon akıcılık gözlemi bu güncel ölçümlerin yerine geçmez.
+2. **Canlı erişilebilirlik:** işletim sistemi reduced-motion tercihiyle tüm hareketli akış, gerçek ekran okuyucuda sıra ve aktif seçim duyurusu. Klavye/HTML/unit kontrolleri geçti; OS tercihi ve ekran okuyucu bu turda denenmedi.
+3. **Zor koşullarda yaşam döngüsü:** yavaş ağ/CPU, WebGL2 kapalı ve gerçek context kaybı, uzun kullanımda DPR→poster geçişi, arka plan sekmesinde durma/geri dönme, uzun tekrarlı rota dönüşlerinde GPU bellek. Hata/abort/disposal/düşük kare sayacı birim testleri ve canlı eksik-GLB/yeniden deneme kontrolü bu senaryoların tamamını kanıtlamaz.
+
+Kullanıcının ilk mobil veri erişimi isteği ve geçici tünel onayıyla resmi taşınabilir cloudflared 2026.9.3 TEMP altında kısa süreli kullanıldı. Production HTTPS önizlemesi sayfa/logo 200 ve GLB range 206 döndürdü; tarayıcıda JS/3D açıldı. Kullanıcı aynı ağda test etmeyi seçince tünel ve 3002 production sunucusu kapatıldı; aktif tünel süreci ve 3002 dinleyicisi olmadığı doğrulandı. Önceki internet adresi artık kullanılmaz. Hesap, global kurulum, Windows servisi, firewall değişikliği veya uygulamada harici script/servis bağımlılığı eklenmedi. Public klasöründe kaynak betik/gizli dosya veya geçici GLB hold dosyası bulunmadı. Production response'ta nosniff/referrer-policy henüz bulunmaz; Faz 5 güvenlik başlığı/yayın kapısı açık kalır.
+
+**Güncel telefon test adresi: http://192.168.1.105:3000/**. Wi-Fi IPv4 ve 3000 dinleyicisi bu turda doğrulandı; sayfa 200 döndü. LAN adresinin 390×844 tarayıcı kontrolünde Canvas=1, hareketli akış, model seçimi ve yatay taşma olmaması doğrulandı; error günlüğü boştu. allowedDevOrigins mevcut tek IP ile sınırlıdır. Bu link bilgisayarla aynı ağda, yerel sunucu açıkken kullanılır; fiziksel telefon sonucu henüz bildirilmedi. Son viewport sıfırlandı ve yerel önizleme açık bırakıldı. Diff ve güncellenen belgelerin yerel Markdown bağlantıları kontrol edildi.
+
+## Faz 3 — seçilen Yörüngeli O navbar logosu (2026-10-03)
+
+Kullanıcı hazırlanan üç logo konseptinden ilkini seçip uygulamayı istedi. Seçilen yapay zekâ görselindeki lavanta O, tek mor yörünge, açık renk geometrik ORBITART yazısı ve aralıklı 3D STUDIO alt satırı şeffaf SVG olarak yeniden çizildi. Tüm harfler path'tir; font yüklemesi veya harici medya gerekmez. Yeni marka dosyası public/images/brand/orbitart-orbital-logo.svg (3.050 B); aynı vektörden 2600×512 şeffaf PNG dışa aktarımı orbitart-orbital-logo.png olarak hazırlandı. Navbar SVG'yi kullanır; eski orbitart-logo.svg korunur. Beyaz logo rozeti ve ona ait kullanılmayan CSS kaldırıldı. Logo genişliği mobilde 200px, sm ve üzerinde 224px'tir. Ana sayfa ve alt sayfalar aynı SiteHeader üzerinden yeni logoyu gösterir; menü, header zemini, sahneler ve alt bölüm tasarımları değiştirilmedi.
+
+1224×712 masaüstü ve 390×844 mobil görsel kontrol yapıldı. 1024px masaüstü menü eşiğinde logo, menü ve mağaza bağlantısı çakışmaz; 320×844'te 200px logo ile 44px mobil menü arasında boşluk vardır ve yatay taşma yoktur. Mobil menü açılır, logo bağlantısında görünür klavye odağı vardır ve Enter ile Hakkımızda'dan ana sayfaya dönüş çalışır. Logo her iki sayfada yüklenir. SVG XML'i geçerli; script, foreignObject, harici bağlantı, bitmap ve font metni içermez. PNG alpha kanalı doğrulandı. Yeni hareket eklenmedi; logo JavaScript/Canvas gerektirmez. Tarayıcı error günlüğü boştu; geçici viewport sıfırlandı ve ana sayfa önizlemesi açık bırakıldı.
+
+npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. Önceden doğrulanan Windows sandbox yol erişimi kısıtı nedeniyle build izinli normal dosya erişimiyle çalıştırıldı. Diff ve belge bağlantıları kontrol edildi. Görsel kanıtlar output/logo-review/orbital-logo-desktop.png ve orbital-logo-mobile.png dosyalarındadır. Yeni bağımlılık, servis veya yayın yok; aktif Faz 3, önceki fiziksel cihaz/reduced-motion kabul işleri açık kalır.
+
+## Faz 3 — hizmet detay kutularının ortalanması (2026-10-03)
+
+Kullanıcının Hizmetlerimiz üzerindeki üç notuyla 3D Baskı ve Prototipleme, Yüksek Çözünürlüklü 3D Tarama ve 3D Modelleme ve Özel Tasarım kartlarının dörtlü liste grupları kart içinde ortalandı. Liste self-center ile içeriği kadar yükseklik alır ve uzun sol metin karşısında yukarıda kalmaz; mx-auto ile kendi kolonunda yatay ortalanır. Masaüstü 2×2, dar mobil tek kolon ve mevcut sm iki kolon düzeni korunur. Yalnız ilgili ul sınıfları değişti; metinler, semantik ul/li, anchor'lar, giriş/hover hareketleri ve ana sayfa sahneleri aynıdır.
+
+1224×712 masaüstünde üç grubun dikey merkezi kart merkeziyle 0,01px'ten küçük farkla eşleşti. 390×844 mobilde üç grup yatay ortalı, her biri dört öğe ve tüm kutular kart sınırları içindedir. 320×844'te listelerde/sayfada yatay taşma yoktur. Tarayıcı error günlüğü boş; test viewport'u sıfırlandı, Hizmetlerimiz önizlemesi açık bırakıldı. Semantik liste ve SSR görünürlüğü korunur; hareket kodu değiştirilmedi. OS reduced-motion ayarıyla yeni canlı deneme yapılmadı.
+
+npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. Önceki Windows sandbox yol erişimi hatası nedeniyle build izinli normal dosya erişimiyle çalıştırıldı. Yeni test/bağımlılık/servis eklenmedi. Diff ve belge bağlantıları kontrol edildi. Görsel kanıtlar sohbetin yerel çıktıları klasöründe: services-centered-desktop.jpg ve services-centered-mobile.jpg. Aktif Faz 3; önceki fiziksel cihaz ve reduced-motion kabul işleri açık kalır.
+
+## Faz 3 — sekiz tarayıcı notuyla metin ve boşluk düzenlemesi (2026-10-03)
+
+Kullanıcının sekiz notu uygulandı: ana sayfa, Hakkımızda ve Vitrin'de fotoğraf seçkilerinin altındaki “Gerçek ürün fotoğrafları” etiketi kaldırıldı. Ana sayfa ve Hakkımızda'daki “Tüm vitrini gör” bağlantıları sağda kaldı; bağlantısı olmayan Vitrin galerisinde boş alt satır bırakılmadı. Yalnız Vitrin'in galeri alt padding'i 16px azaltıldı (mobil 80→64px, sm ve üzeri 112→96px). Hakkımızda hero etiketi “Hakkımızda” oldu. Fotoğraf seçkisi başlığının yanındaki Geometri/boyama paragrafı kaldırıldı; “Üretim yaklaşımımızı sonuçlarda görün.” tam genişlik kullanıp yer olduğunda tek satırda kalır, dar ekranda doğal kırılır. Ana hero'nun CTA altındaki temsili kullanım/kaynak satırı ile beş süreç kartının altındaki tekrarlanan render açıklaması kaldırıldı. Neler Yapıyoruz model kartındaki kaynak bağlantısı, Footer bağlantısı ve /model-kaynaklari atıfları korundu; süreç giriş metni/alt metinler kaldı.
+
+Sahne preset'leri, GLB'ler, renderer, model seçim/scroll hesabı ve Reveal hareketleri değiştirilmedi. Masaüstü 1224×712'de Hakkımızda fotoğraf başlığı 40px toplam yükseklik/40px line-height ile tek satırdır. Vitrin galeri alt padding'i 96px ölçüldü. 390×844 mobilde Vitrin alt boşluğu 64px, Hakkımızda başlığı iki satırdır; 320×844 dar ekranda başlık ve fotoğraflar da taşmaz. 5/4/30 fotoğraf sayıları korundu. Ana hero model seçimi, tek Canvas ve 3D baskı kartının Enter ile seçimi/görünümü kontrol edildi. Tarayıcıya özgü geçiş efektleri aynı kalır; yeni hareket eklenmedi. Sunucu HTML'inde işaretlenen dört eski metin dizisi yoktur; Reveal sarmalayıcılarında gizleyen başlangıç opacity'si yoktur ve üretim HTML testleri mevcut poster/klavye/süreç fallback'ini doğrular. Canlı OS reduced-motion ayarı bu turda değiştirilmedi.
+
+npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. İlk sandbox build Windows yol çözümleme erişimi hatasıyla durdu; aynı komut izinli normal dosya erişimiyle geçti. Tarayıcı error günlüğü boştu; test viewport'u sıfırlandı ve Hakkımızda önizlemesi açık bırakıldı. Görsel kanıtlar sohbetin yerel çıktıları klasöründe: about-notes-desktop.jpg, about-notes-mobile.jpg, vitrin-footer-notes-desktop.jpg, vitrin-footer-notes-mobile.jpg, home-notes-desktop.jpg, home-notes-mobile.jpg ve process-notes-desktop.jpg. Belge bağlantıları/diff kontrol edildi. Yeni bağımlılık, servis, yayın veya faz geçişi yok; aktif Faz 3, önceki fiziksel cihaz/reduced-motion kabul işleri açık.
+
+## Faz 3 — Vitrin başlık genişliği ve ayrı model kaynakları sayfası (2026-10-03)
+
+Kullanıcının isteğiyle Vitrin'deki “Her projede farklı bir karakter, aynı üretim disiplini.” başlığı mevcut alanın tamamını kullanır; açıklaması bulunan ana sayfa/Hakkımızda seçkilerinin dar ve dengeli başlık düzeni korunur. Yeterli genişlikte tek satırdır, dar ekranda doğal kırılır. Hakkımızda'daki büyük kaynak bölümü kaldırıldı; dört fotoğraf seçkisi ve sayfa hareketleri korundu. Atıflar ayrı /model-kaynaklari Server Component sayfasına taşındı. Altı modelin kaynak, üretici, lisans ve değişiklik kayıtları ile mevcut kaynak açıklaması aynıdır. CC BY 4.0 atfı korunur; bölümün Hakkımızda içinde bulunması gerekmez. Footer'a küçük Model kaynakları bağlantısı eklendi ve hero'nun iki mevcut kaynak bağlantısı yeni merkezi yola yöneltildi. Ana sayfanın sahne, kart ve süreç tasarımında değişiklik yoktur.
+
+1440×900 masaüstünde Vitrin başlığı 40px satır yüksekliği ve 40px toplam yükseklikle tek satır olarak ölçüldü. 390×844 mobilde başlık doğal kırılır ve taşmaz. Hakkımızda'da eski kaynak bölümü yoktur ve dört fotoğraf kalır. Yeni kaynak sayfası masaüstü, 390×844 ve 320×844 mobilde doğrulandı; yatay taşma yoktur, altı kayıt görünür, dış kaynak/lisans bağlantıları 44px dokunma alanına ve noopener noreferrer korumasına sahiptir. Footer bağlantısı klavye ile odaklanıp Enter ile yeni sayfayı açar. Yeni sayfa statik üretim HTML'inde atıfları sunar; JavaScript veya hareket gerektirmez. Tarayıcı error günlüğü boştu; test viewport'u sıfırlandı, Vitrin önizlemesi açık bırakıldı.
+
+npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. Build testi eski Hakkımızda anchor'ının kaldırılmasını, yeni atıf hedefini ve üretici/lisans/değişiklik metinlerinin üretim HTML'inde korunmasını doğrular. Belge bağlantıları ve diff kontrol edildi. Kanıtlar sohbetin yerel görsel çıktıları klasöründedir: vitrin-single-line-desktop.jpg, about-without-credits-desktop.jpg, model-credits-separate-desktop.jpg ve model-credits-mobile.jpg. Yeni bağımlılık/servis veya yayın yok; Faz 3 aktif, önceki fiziksel cihaz ve canlı reduced-motion kabul işleri açık kalır.
+
+## Faz 3 — Vitrin, Hakkımızda ve Hizmetlerimiz hareketleri (2026-10-03)
+
+Kullanıcı mevcut sayfa düzenlerine hafif hareket ekleyen ilk planı ve Vitrin girişini kısaltmayı onayladı. Vitrin başlığının üzerindeki küçük etiket ve galerinin gelecekteki 3D deneyimini anlatan paragraf kaldırıldı. Menü bağlantısı, ana başlık, tanıtım açıklaması ve 30 onaylı fotoğraf korundu. Yalnız Vitrin hero ve galeri üst boşlukları azaltıldı; Hakkımızda/Hizmetlerimiz giriş ölçüleri aynı kaldı. Ana sayfa, üç onaylı 3D bölüm ve sahne ayarları değiştirilmedi; dört korunan sahne/süreç dosyasının hash değerleri önceki kayıtla aynı.
+
+Üç alt sayfanın başlıkları 0,9 saniyede belirir. Vitrin ve Hakkımızda fotoğrafları görünür satırda 0,75 saniyelik hafif yükselmeyle açılır; 70ms gecikme gerçek grid kolonuna göre her satırda yeniden başlar (masaüstü dört, mobil iki). Galeri tek bir 30 öğelik sırayı beklemez. Fotoğraflarda küçük hover büyümesi ve mor kenarlık/ışık vurgusu vardır. Hakkımızda yaklaşım başlık/metni yavaşça belirir, üç değer kartı kısa aralıklarla açılır. Hizmetlerimiz'deki iki ana kart karşı yönlerden gelir; üç detay bloğu hafifçe yükselir, hover sırasında kenarlık/zemin vurgulanır. Yeni hareket mesafeleri masaüstünde dikey 18px/yatay 28px, dar mobilde 12px/14px'tir. İlk görünmeden sonra içerik açık kalır; klavye odağı içeriği anında görünür yapar. Kaydırma kilidi, yeni Canvas veya bağımlılık eklenmedi.
+
+Görsel doğrulama: üç sayfa 1440×900 masaüstü, 390×844 ve 320×844 mobil boyutlarda incelendi. Galeride satır gecikmesinin yeniden başlaması, ara opacity/transform değerleri, geri kaydırma ve hızlı sayfa başı/sonu geçişleri görüldü. Hakkımızda dört fotoğrafı ve değer kartları; Hizmetlerimiz karşı yön girişleri, hover vurgusu, yaratici-uretim bağlantı hedefi ve klavye odağı kontrol edildi. Yatay taşma yok. 320px'te uzun fotoğraf adlarının caption yüksekliği kartı aşıyordu; yalnız hareketli alt sayfa galerilerinde dar ekran font/padding ayarı düzeltildi ve 30 caption'ın tamamının kart içinde kaldığı ölçüldü. Normal viewport test sonunda geri alındı; yerel Vitrin önizlemesi açık bırakıldı. Tarayıcı hata günlüğünde error yoktu.
+
+npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. İlk sandbox build Windows yol erişimi hatası verdi; aynı komut izinli normal dosya erişimiyle başarılı oldu, son mobil düzeltmeden sonra build yeniden geçti. Üretim HTML'inde /vitrin 32, /hakkimizda 11, /hizmetlerimiz 6 Reveal sınırının gizleyen inline stil taşımadığı ve her sayfada tek h1 bulunduğu doğrulandı. 5/4/30 fotoğraf sayıları ve gerçek bağlantı hedefleri build testlerinde korundu. Reduced-motion CSS/hook yolu ve yeni fotoğraf hover scale kapatma kuralı incelendi; OS ayarıyla canlı reduced-motion denemesi bu turda yapılmadı.
+
+Sözleşme ve mimari belgeleri güncellendi; yerel belge bağlantıları ve diff kontrol edildi. Kanıtlar sohbetin yerel görsel çıktıları klasöründe: vitrin-compact-desktop.jpg, vitrin-motion-mobile.jpg, vitrin-motion-mobile-320.jpg, hakkimizda-motion-desktop.jpg, hizmetler-motion-desktop.jpg ve hizmetler-motion-mobile.jpg. Bazı ekran görüntüleri animasyonun ara görünürlüğünü içerir. Yeni servis, yayın veya Faz 4 geçişi yok; aktif faz Faz 3. Bu üç sayfanın yeni hareketlerinin kullanıcı kabulü ve önceki fiziksel cihaz/reduced-motion kabul işleri açık.
+
+## Faz 3 — onaylanan ilk üç bölüm ve alt bölüm girişleri (2026-10-02)
+
+Kullanıcı ana 3D alanı, Neler Yapıyoruz ve Taramadan Üretime bölümlerinin güncel tasarımını onayladı ve korunmasını istedi. Bu turda bu bölümlerin sahne, kadraj, kart yığını ve süreç düğmeleri değiştirilmedi. Çalışma yalnız ana sayfanın Üretim Vitrini, Nasıl Çalışıyoruz ve iletişim çağrısına sınırlandı.
+
+Vitrindeki büyük fotoğraf 40px soldan, dört küçük fotoğraf birlikte 40px sağdan 0,8 saniyelik yumuşak geçişle gelir. Mevcut masaüstü 1+4 düzeni, büyük fotoğraftaki contain görünümü ve mobilde büyük fotoğrafın altında iki sütunlu dörtlü grup korunur. Nasıl Çalışıyoruz ve iletişim alanı 1,05 saniyede belirir. Girişler ilk görünmede bir kez çalışır; geri kaydırınca içerik görünür kalır. Hareket ayarları motion.ts içinde, Framer Motion yalnız Reveal sınırında tutulur. Hakkımızda ve /vitrin fotoğraf düzenleri bu harekete dahil edilmedi.
+
+1440×900 masaüstü, 390×844 ve 320×844 mobil tarayıcı kontrolleri yapıldı. Başlangıçta iki fotoğraf grubunun ±40px / %12 görünürlüğü, giriş sırasında ara konumları ve sonunda sıfır ofset / tam görünürlük doğrulandı. Çalışma ve iletişim alanlarının ara görünürlük değerleri, geri kaydırmada görünür kalma, klavye odağıyla iletişim içeriğinin açılması ve yatay taşma olmaması kontrol edildi. Canvas=1 kaldı; korunan dört sahne/süreç kaynak dosyasının hash değerleri değişmedi. Test viewport ayarı sıfırlandı; localhost önizlemesi açık bırakıldı.
+
+JavaScript olmadan sunulan üretim HTML'inde dört Reveal sarmalayıcısı gizleyen stil taşımıyor; mevcut 5/4/30 fotoğraf seçkisi ve bağlantılar build testlerinde doğrulandı. Reduced-motion CSS ve hook yolu hareketi kapatıp içeriği görünür tutar; bu turda işletim sistemi ayarıyla canlı reduced-motion denemesi yapılmadı. npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. Görsel kanıtlar: showcase-reveal-desktop.jpg, showcase-reveal-mobile.jpg, work-reveal-desktop.jpg ve work-contact-reveal-mobile.jpg; sohbetin yerel görsel çıktıları klasöründe. Son iki mobil/masaüstü geçiş görüntüsü animasyonun ara durumunu da içerir.
+
+Hareket sözleşmesi ve mimari belgesi güncellendi. Yeni bağımlılık, dış servis veya deploy yok. Aktif faz Faz 3; ilk üç bölümün kullanıcı görsel kabulü tamamlandı. Alt bölüm girişlerinin kullanıcı kabulü, önceki fiziksel cihaz performansı ve canlı reduced-motion kabulü açık; Faz 4'e geçilmedi.
+
+## Faz 3 — sol model kadrajı ve tıklanabilir süreç kartları (2026-10-02)
+
+Neler Yapıyoruz yakın görünümünde model merkezi masaüstü sahnesinin yatay %28 / dikey %50 konumuna projekte edildi. Sabit dünya ofseti yerine ekran ve bir kez ölçülen model merkezi kullanılır; geniş ekranlarda sol alana ortalanır, farklı model biçimleri aynı hedefi izler. Başlangıç platform/ok hizası, model ölçekleri ve mevcut kart yığını korunur.
+
+Beş süreç kartı semantik düğmelerle tıklanabilir oldu. Kart tıklaması ve Enter/Space, seçilen aşamanın %60 iç konumuna native smooth scroll yapar; sahne ve seçili kart aynı scroll hesabından gelir. Sonraki doğal kaydırma aşamaları değiştirmeyi sürdürür. Aktif kartın aria-pressed durumu, erişilebilir adı/açıklaması ve process-model hedefi vardır; renk geçişi yumuşaktır. Poster/açıklamalar Server Component kalır; yalnız düğmeler client context kullanır. Ayrı mobil düğmeler ve model üstündeki “01 · Fiziksel numune” / diğer aşama şeritleri kaldırıldı. Statik/fallback modunda düğmeler ilgili posteri seçer, scroll bu seçimi sıfırlamaz. Reduced-motion kod yolu hareket olmadan poster seçimine izin verir; bu turda OS ayarıyla canlı reduced-motion doğrulaması yapılmadı.
+
+Tarayıcı kontrolleri: 1440×900 ve 1920×926 masaüstü; 390×844 ve 320×844 mobil. Tide Five, Orbit Gear ve Stone Guardian yakın kadrajları incelendi. Beş aşama tıklaması, Enter/Space, seçimin ardından doğal scroll, yazıcı/sonuç görünümü ve kaldırılan şerit doğrulandı. Mobilde düğme dokunma alanı en az 46px; 320px'te sahne kalan yüksekliği kullanır, açıklama alttaki sosyal bağlantılardan ayrılır. Yatay taşma yok ve normal deneyimde Canvas=1. Yazıcı dosyası kontrollü, geri alınabilir biçimde geçici olarak erişilemez yapıldı: Canvas=0 / statik akışta beş düğme kaldı, Üretim sonucu kartı doğru poster ve erişilebilir sahne adını seçti. Dosya geri kondu; yeniden deneme ile Canvas=1 ve baskı animasyonu doğrulandı. Tarayıcı viewport ayarı test sonunda sıfırlandı.
+
+npm run lint, npm run typecheck, npm test (25/25), npm run build ve npm run test:build (6/6) geçti. Yeni testler kart hedefiyle scroll aşamasının responsive boyutlarda eşleşmesini ve üretim HTML'indeki beş klavye düğmesi/erişilebilir hedefleri doğrular. Belgeler güncellendi; git diff --check ve yerel belge bağlantıları kontrol edildi. Görüntüler: inspection-centered-desktop.jpg, process-clickable-desktop.jpg, process-clickable-mobile.jpg ve process-clickable-preview.jpg; bu sohbetin yerel görsel çıktıları klasöründe. Yeni bağımlılık, dış servis veya deploy yok. Aktif faz Faz 3; kullanıcı görsel kabulü ve önceki fiziksel cihaz/reduced-motion kabul işleri açık.
+
+## Faz 3 — çalışan FDM yazıcı ve üretim sonucu (2026-10-02)
+
+Kullanıcı dijital modelden sonraki görünümün başlangıca fazla benzediğini belirtti ve çalışan 3D yazıcıdan tamamlanan parçaya geçiş istedi. Hazır yazıcı varlığı bulunmadığı için tür soruldu; kullanıcı markasız, sade FDM yazıcıyı seçti. Özgün Blender modeli, düzenlenebilir kaynak, üretim betiği ve aynı sahneden iki poster hazırlandı. Kaynaklar ikincil `Blender/Orbiart/process-fdm-printer/` klasöründedir. Web GLB'si 198.064 B, 2.920 üçgen ve 26 mesh'tir; harici URI, doku veya decoder gereksinimi yoktur. Kayıt `model-assets.ts` içindeki ayrı süreç aksesuarıdır; altı hero seçimi korunur. Hak ve ölçüm ayrıntıları [models.md](models.md) içindedir.
+
+Güncel akış beş adımdır: fiziksel numune → tarama verisi → dijital model → 3D baskı → üretim sonucu. Dijital model tel kafeste kalır. Baskıda kafa yatay ilerleyip yükselir, tabla ve üzerindeki çark derinlik ekseninde birlikte hareket eder. Scroll, parçanın katman yüksekliğini ileri/geri yönetir; sayfa dururken yalnız görünür baskı aşamasında kafa/tabla hareketi sürer. Dolu üst katman, clipping ile açık kalan iç yüzeyi kapatır. Sonuçta yazıcı çekilir; aynı A1 çarkı lavanta renkli polimer yüzeyi ve katman izleriyle ayrı büyüyerek gösterilir. Kamera yazıcıda geri çekilir, sonuçta parçaya döner. Bu gösterim gerçek makine yolu, üretim fotoğrafı veya üretilebilirlik kanıtı değildir.
+
+Tek Canvas ve iki View korunur. Yazıcı yalnız süreç görünürlüğünde bir kez yüklenir; kaynak sahibi indirme iptali/timeout, fallback ve cleanup'u yönetir. Hareket gizli View/arka plan sekmesinde durur. Beş semantik adım ve poster JS/WebGL olmadan da HTML'de bulunur. Reduced-motion kamera/kafa hareketini kapatır ve normal belge akışını kullanır; bu kod yolu incelendi, OS ayarıyla canlı reduced-motion denemesi bu turda yapılmadı.
+
+Görsel doğrulama: masaüstü 1440×900 ve 1601×723, mobil 390×844 ve 320×844 kontrol edildi. Yazıcı/kafa/tabla, dolu katman, ayrı sonuç, ileri/geri scroll ve aktif metin eşleşmesi görüldü. 320px'te sahne yüksekliği azaltılarak beş adım/açıklama ekran içinde tutuldu; yatay taşma yok, Canvas=1. Yazıcı GLB'si kontrollü ve geri alınabilir biçimde geçici olarak eksik bırakıldı: hata sonrası Canvas=0, süreç normal akışta, beş poster ve açıklama okunur kaldı. Dosya geri alındı, yeniden deneme düğmesiyle 3D tekrar açıldı. Son kaynak düzeninde sahne tekrar kontrol edildi. Bunlar tarayıcı doğrulamalarıdır; fiziksel telefon FPS/bellek kabulü değildir.
+
+npm run lint, npm run typecheck, npm test (24/24), npm run build ve npm run test:build (5/5) geçti. HTML testleri beş adımı ve mevcut 5/4/30 fotoğraf seçkilerini, yeni testler yazıcı GLB düğümlerini ve scroll yüksekliği/kafa hareketi ayrımını doğrular. Yeni bağımlılık, dış servis veya deploy yok. Aktif faz Faz 3; yeni görünüm kullanıcı kabulü ve önceki fiziksel cihaz/WebGL/reduced-motion kabul borçları açık, Faz 4'e geçilmedi.
+
+## Faz 3 — platform hizası ve geniş ekran kadrajı (2026-10-02)
+
+Kullanıcının istediği ilk hero düzeni uygulandı. Platformun konumu, ok düğmesinin DOM orta çizgisinden 3D kameraya projekte edilerek belirlenir; sabit bir piksel/y değerine bağlı değildir. Model hattı aynı giriş ofsetini izler, ek 0.35 sahne birimi kaldırmayla model–platform boşluğu korunur. Masaüstü seçili model giriş ölçeği %6 artırıldı. Mobilde genişleyen sahneye ayrı başlangıç ölçeği uygulanır; yakın inceleme hedef kadrajı korunur. Platform perspektifte gereksiz büyümesin diye ölçek dengelendi; siyah katmanlı görünümü sürer.
+
+1920px geniş ekranda hero sahnesi içerik kolonundan geniştir; model aralıkları en fazla 1.28 kat açılarak iki kenardaki boşluk azalır. Aktif model/platform yatay merkezde kalır. Yakın incelemeye geçerken giriş ofseti ve geniş hat etkisi söner; mevcut kart yığını ve süreç sahnesi korunur. Ok satırındaki dikey alan platformun alt açıklama/CTA'ya değmesini engeller. Klavye kontrolünde Ctrl/Meta+Home tarayıcının sayfa başına dönüşünü engellemez; yalın Home yakın inceleme dönüşünü sıfırlar.
+
+Doğrulama: 1920×926'da Orbit Vase ve Stone Guardian seçimleri, platform–ok hizası, merkez kadraj, yazı boşluğu ve yan model dağılımı incelendi. 390×844'te platform oklarla aynı satırda, model tam kadrajda ve açıklama/CTA'dan ayrıdır; aşağı kaydırınca aynı model bilgi/kart akışına geçer. 320 ve 1440px kontrollerinde yatay taşma yok, Canvas=1. Bunlar tarayıcı görünüm kontrolleridir; fiziksel telefon performans kabulü değildir. Son görünüm sohbet için kaydedildi.
+
+npm run lint, npm run typecheck, npm test (22/22), npm run build ve npm run test:build (5/5) geçti. Belge bağlantıları ve git diff --check doğrulandı. Yeni dış servis/bağımlılık veya deploy yok. Aktif faz Faz 3; görsel kullanıcı kabulü ve önceki fiziksel cihaz/hata/reduced-motion kabul borçları açık.
+
+## Faz 3 — başlık taşıma ve kart yığını (2026-10-02)
+
+Kullanıcının yeni isteği uygulandı: ilk 3D alandaki büyük başlık kaldırıldı; aynı “Fikri modele, modeli gerçeğe dönüştürüyoruz.” metni Neler Yapıyoruz içindeki “Fikirden fiziksel forma.” yerine, sayfanın tek h1 başlığı olarak taşındı. Okların arasındaki model adı kaldırıldı. Model bilgisi ve erişilebilir canlı duyuru adı korur. Başlangıç sahnesi başlıktan boşalan alana genişletildi; heykel/model kadrajı masaüstü ve mobilde kontrol edildi.
+
+Kartlar aşağıdan geldikten sonra kaybolmaz. İlk model kartı altta kalır; Teknik Çözümler ve Yaratıcı Üretim üzerine yerleşir. Masaüstünde 24px, dar ekranda 16px dikey basamak ve küçük yatay pay görünür. Sonraki kartlar opaktır; giriş sırasında alttaki metinle karışmaz. Örtülen veya henüz görünür alana girmeyen kart bağlantıları inert; geri kaydırmada uygun kart yeniden erişilir. Statik/fallback/reduced-motion düzeninde kartlar normal akışta ayrı ve erişilebilir kalır. Süreç çarkı ve fotoğraf bölümleri korunur.
+
+Doğrulama: 1440×900'de başlıksız giriş, çalışan seçim okları, Stone Guardian kadrajı ve üç kartın opacity=1 durumunda birikmesi incelendi. Üç kartın z-index sırası ve 24px basamağı; öndeki kartın açık, örtülen ikisinin inert olması; geriye kaydırmada önceki kartın açılması doğrulandı. 390×844 ve 320×844'te yeni başlık, model ve kart yığınının kadrajı incelendi; kart alt sınırları görünür alanda, yatay taşma yok. Canvas=1. Bunlar tarayıcı yerleşim kontrolleridir; fiziksel cihaz performans ölçümü değildir.
+
+npm run lint, npm run typecheck, npm test (22/22), npm run build, npm run test:build (5/5) geçti. Üretim HTML kontrolü tek h1'in yeni bölümde olmasını, seçim okları arasında model adı bulunmamasını ve normal HTML içerik/fotoğraf/bağlantıların korunmasını kapsar. Belge bağlantıları ve git diff --check doğrulandı. Yeni görünüm kullanıcı kabulü bekler; önceki fiziksel cihaz/WebGL/reduced-motion kabul borçları korunur. Faz 4'e geçilmedi, deploy yapılmadı.
+
+## Faz 3 — aynı hero üzerinden scroll revizyonu (2026-10-02)
+
+Kullanıcı ilk uygulamayı kabul etmedi: modelin ayrı inceleme alanında yeniden görünmesi yerine ana 3D seçim yerinden büyümesini, Neler Yapıyoruz kartlarının aşağıdan yukarı gelmesini ve çark aşamalarının belirgin efektlerle ilerlemesini istedi. Ciao Energy referansı bu hareket sürekliliği için incelendi. Bu kayıt aşağıdaki önceki Faz 3 düzenini geçersiz kılar; aktif faz Faz 3'tür.
+
+- Ayrı inceleme sahnesi/View'i kaldırıldı. Mevcut heroTrack içindeki seçili gerçek GLB aynı sahnede büyür; komşular uzaklaşır ve ortak platform çekilir. Hero model seçimi scroll ile değişmez. Masaüstünde model sola yerleşir; mobilde üstte, kartlar altında kalır. Uzun modellerin masaüstü/mobil kadraj sınırları scenes.ts içindeki modelPresentation'da tutulur.
+- Model bilgi kartı, Teknik Çözümler ve Yaratıcı Üretimler kartları tek kopya halinde aşağıdan yukarı sırayla gelir. Görünmeyen kartlar inert'tir; fallback/reduced-motion'da normal akışta erişime açılır. Yakın görünümde sürükleme/yön tuşları aynı modeli döndürür, Home dönüşü sıfırlar. Native dikey scroll korunur.
+- Hero masaüstünde 420svh, dar ekranda 360svh; süreç 480/420svh scroll alanı kullanır. Sticky sunum iki ekran düzeninde de uygulanır. Reduced-motion, JS yokluğu ve 3D fallback'te statik belge düzeni korunur. Canvas/renderer=1, View=2; ayrı kopya model yoktur.
+- Taramadan Üretime dört adımı scroll'a bağlar: yüzey, 1800 yüzey noktası ve parlak mor tarama bandı, tel kafesten temiz yüzeye geçiş, opak katmanlı üretim belirmesi. Aynı GLB/kaynak sahipliği korunur. Dört HTML adımı, posterler ve temsili kullanım açıklaması kalır.
+- Fotoğraf vitrini, müşteri süreci ve kapanışın mevcut içerikleri korundu. Yeni dış servis veya deploy yok.
+
+Görsel doğrulama: 1440×900'de aynı modelden bilgi/hizmet kartlarına geçiş, Stone Guardian'ın tam kadrajı ve çarkın yüzey/nokta/tel kafes/katmanlı aşamaları incelendi. Geri kaydırma aşama ilerlemesini tersine çeviriyor. 390×844'te heykelin başı/kaidesi ile bilgi kartı ve süreç sahnesi görünür; yatay taşma yok, Canvas=1. 320/768/1024 genişlik kontrolleri tarayıcı düzen kontrolüdür. Fiziksel telefon performansı veya işletim sistemi reduced-motion kabulü olarak gösterilmez. Görsel örnekler sohbet çıktısına kaydedildi.
+
+Kontroller: npm run lint, npm run typecheck, npm test (22/22), npm run build ve npm run test:build (5/5) geçti. Git diff --check ve güncellenen belgelerin yerel Markdown bağlantıları doğrulandı. Yeni akışın kullanıcı görsel kabulü, fiziksel cihaz FPS/ısınma, gerçek WebGL/context kaybı/yeniden deneme ve işletim sistemi reduced-motion/ekran okuyucu kabulü açık. Faz 3 genel kabulü henüz kapanmadı; Faz 4'e geçilmedi.
+
+## Önceki Faz 3 uygulaması — görsel olarak kabul edilmedi (2026-10-02)
+
+Kullanıcı bu sohbet içinde Faz 3'e geçişi ve uygulamayı açıkça onayladı. Aktif faz artık Faz 3; önceki Faz 2 cihaz/hata kontrol borçları aşağıda korunur. Faz 4'e geçiş onayı verilmedi.
+
+- Altılı yatay hero ve ortak siyah platform korundu. Farede küçük kamera paralaksı ve hero çıkışında geri çekilme eklendi; scroll seçim indeksini değiştirmez.
+- “Neler Yapıyoruz” içinde seçili modelin yakın inceleme görünümü, adı/hizmet/açıklama/atıf kartı ve mevcut iki hizmet kartı tek akışta bulunur. Kartların ikinci kopyası yok. Yakın incelemede yatay sürükleme ve yön tuşları dönüşü, Home başlangıç yönünü yönetir; dikey dokunma sayfayı kaydırır. Masaüstünde model kısa sticky, mobilde normal akıştadır. Model büyür ve çıkışta geri çekilir; palet inceleme başlangıcından ana koyu mor zemine söner.
+- Taramadan Üretime aynı A1 GLB'den normal yüzey, 1800 yüzey örnekli nokta + tarama bandı, tel kafesten temiz yüzeye geçiş ve opak katmanlı belirme üretir. Noktalar sahne kurulurken bir kez örneklenir; her kare üretilmez. Süreç görünümü görünmezken korunur, tekrar girişte yeniden örnekleme yapılmaz. Kaynak geometry/texture paylaşılır; süreç kendi materyallerini ve nokta geometrisini temizler.
+- Masaüstünde scroll dört aşamayı ileri/geri yönetir; mobilde normal akış ve dört görünümü incelemek için küçük adım düğmeleri vardır. Scroll kilidi/otomatik kaydırma yoktur. Reduced-motion'da süreç modeli sabit yüzeydir, sticky/paralaks/giriş hareketleri kapalıdır; dört açıklama/poster korunur. JS/WebGL/hata/düşük performansta HTML, atıflar, hizmet hedefleri ve seçilen adım posteri kalır.
+- Hizmet kartları, mevcut 1+4 fotoğraf vitrini, müşteri süreci ve kapanış için kısa Framer Motion girişleri eklendi. Framer Motion AGENTS.md'deki teknoloji tercihi gereği eklendi; ek scroll motoru veya dış servis yok.
+- Yerel geliştirme Canvas'ı DOM üzerinde renderer geometrileri/dokuları, son View draw call/üçgen ve DPR bütçesini raporlar. Bu değerler son çizilen View içindir; toplam GPU MB veya FPS değildir. 390px tarayıcı örneğinde 20 geometry, 1 texture, son View 21 draw call / 22720 triangle, DPR yaklaşık 1 görüldü; görünürlük/çizim anına göre değişir.
+
+Doğrulama: 1440×900 ve 390×844 yerel tarayıcıda hero, yakın inceleme, klavye dönüşü ve süreç görünümleri incelendi. Masaüstünde yüzey/nokta/üretim ve geriye scroll; mobilde nokta/tel kafes/üretim düğmeleri doğrulandı. 390px ölçümünde innerWidth=391, scrollWidth=376; yatay taşma yok, Canvas=1. 320/768/1024px ek genişlik kontrollerinde de taşma yok; 768px inceleme kolonu static, 1024px sticky. Tide Five seçiminin yakın inceleme adı/modeline taşınması kontrol edildi. Son temiz yüklemede yeni tarayıcı error kaydı görülmedi. Bunlar tarayıcı boyut testidir; fiziksel telefon testi değildir. Production HTML'de ana sayfa 5, Hakkımızda 4 ve Vitrin 30 gerçek fotoğraf ile dört poster/adım korunuyor; hizmet bağlantıları birer kopya.
+
+Son kontroller: npm run lint, npm run typecheck, npm test (20/20), npm run build ve npm run test:build (5/5) geçti. Build ve typecheck aynı anda çalıştırıldığında geçici .next type dosyası yarışması görüldü; build bittikten sonra typecheck ayrı çalıştırılarak geçti. Git diff --check ve güncellenen belgelerin yerel Markdown bağlantıları kontrol edildi. Fiziksel telefon modeli/tarayıcısı soruldu, henüz yanıt gelmedi. Gerçek cihaz FPS/GPU MB/ısınma, gerçek context kaybı/WebGL yokluğu/yeniden deneme, işletim sistemi reduced-motion ve fiziksel ekran okuyucu kabulü açık. Bunları tamamlanmış gibi sunma. Kullanıcının yeni hareketli akış görsel kabulü beklenir; Faz 3 bütünüyle kabul edildi sayılmaz.
+
+## Aşama
+
+2026-10-02 fiziksel mobil kabulü: Kullanıcı telefonda 3D model döndürmenin ve seçili modele göre renk geçişlerinin sorunsuz çalıştığını doğruladı. Telefon modeli, tarayıcı ve ölçülmüş FPS/bellek bilgisi paylaşılmadı; kayıt görsel/etkileşim kabulünü gösterir, nicel performans ölçümü değildir. Geliştirme bilgisayarının Wi-Fi IP'si `192.168.1.105` olarak değişti; `next.config.ts` içindeki dar `allowedDevOrigins` izni yeni IP'ye güncellendi. Güncel telefon bağlantısı `http://192.168.1.105:3000` (aynı Wi-Fi ve çalışan dev sunucusu gerekir).
+
+2026-10-02 telefon/LAN düzeltmesi: `http://192.168.1.101:3000` üzerinde sayfa yalnız poster gösteriyor, seçim düğmeleri çalışmıyor ve Canvas oluşmuyordu. Next.js geliştirme kaynaklarına LAN Origin ile istek 403, localhost ile 200 döndü. `next.config.ts` içindeki `allowedDevOrigins` listesine yalnız mevcut geliştirme bilgisayarının `192.168.1.101` adresi eklendi. Sonrasında LAN ve localhost istekleri 200, izin verilmeyen örnek origin 403 döndü. LAN tarayıcısında Canvas=1, poster opacity=0 ve Orbit Gear→Tide Five seçimi doğrulandı; 390 px görünümde taşma yok. Kullanıcının fiziksel telefonda yenileme sonrası sonucu henüz alınmadı. IP değişirse dar izin listesi güncellenmeli; bu ayar yalnız geliştirme içindir. Lint, typecheck, 18 birim testi, production build, 4 build testi ve diff kontrolü geçti.
+
+**Faz 2A/2B kabul edildi. Faz 2C/2D/2E kodu uygulandı; son kullanıcı revizyonuyla hero yatay model hattına dönüştürüldü. Altı modelin kullanıcı teknik/yayın onayı işlendi; Faz 2 genel kabulü fiziksel cihaz ve hata senaryoları nedeniyle henüz kapanmadı.** Seçim/tema, kontrollü yükleme ve poster fallback'i, iki hizmet yönlendirmesi, dört statik süreç adımı ve kaynak atıfları hazır. Framer Motion ve scroll'a bağlı süreç animasyonu Faz 3 kapsamındadır.
+
+2026-10-02 Faz 2 kabul turu: 320/768/1024/1440 px tarayıcı görünümleri incelendi; yatay taşma yok, hero ve süreçte tek Canvas kullanılıyor. 20 hızlı ileri seçim beklenen iki slotluk ilerlemeyi verdi; ArrowLeft seçimi çalıştı. Süreç alanına kaydırınca A1 3D göründü ve poster gizlendi. Hakkımızda'ya gidip ana sayfaya üç dönüşte Canvas sayısı her seferinde 0→1 oldu. AX ağacında model adı, önceki/sonraki düğmeleri ve canlı duyuru alanı mevcut; gerçek ekran okuyucu testi değildir. Geliştirme tarayıcısında engelleyici hata yok; Three.Clock deprecation uyarısı var. Altı kaydın `technicalStatus=approved`, `publicationStatus=published` durumu kullanıcının açık beyanıyla işlendi; bu beyan bağımsız fikrî mülkiyet garantisi veya ölçülmüş cihaz performansı olarak gösterilmez. Ayrı production derlemesi yerel 3001 portunda açıldı: tek Canvas, gizlenen poster, çalışan model seçimi ve hata konsolunda kayıt olmaması doğrulandı. Dış ortama deploy yapılmadı.
+
+Bu turda `npm run lint`, `npm run typecheck`, `npm test` (18/18), `npm run build`, `npm run test:build` (4/4) ve `git diff --check` geçti. Birim testleri GLB imzası, dosya/poster varlığı, harici URI yokluğu, yükleme kuyruğu, HTTP 404, indirme iptali, kaynak temizliği, yayın filtresi ve kontrastı kapsar. Tarayıcıda yavaş ağ, WebGL2 kapatma, gerçek context kaybı, otomatik DPR düşürme/poster geri dönüşü, gerçek dokunmatik yatay/dikey jest, işletim sistemi reduced-motion tercihi ve fiziksel ekran okuyucu doğrudan çalıştırılamadı. Bunların uygulama yolları kodda bulunur, fakat gerçek uçtan uca kabulü açık kalır.
+
+2026-10-02 kaide görünümü: yalnız hero'daki sabit küçük siyah platform alçak, katmanlı bir sergi kaidesine dönüştürüldü; ince palet kenarı ve mevcut yumuşak parıltı korundu. Kaide seçili modele biraz yaklaştırıldı, fakat GLB ile temas etmiyor. Yeni scroll animasyonu veya başka sayfa/bölüm değişikliği yapılmadı.
+
+Kontrol: `npm run lint`, `npm run typecheck`, `npm test` (18/18), `npm run build`, `npm run test:build` (4/4) ve `git diff --check` geçti. Yerel tarayıcıda masaüstü ve 390 px mobil düzen incelendi; mobilde yatay taşma yok. Fiziksel telefon performansı bu görünüm kontrolüyle doğrulanmış sayılmaz.
+
+2026-10-02 platform ve metin aralığı düzeltmesi: ortak siyah platform seçimden ve ekran boyutundan bağımsız sabit, daha küçük boyuta indirildi; seçili model çok az büyütüldü. Oklar ve model adı sahnenin altındaki kullanılmayan boşluğa yaklaştırıldı; 3D alan yüksekliği ve diğer bölümler değiştirilmedi. Faz 3 animasyonları eklenmedi.
+
+Kontrol: `npm run lint`, `npm run typecheck`, `npm test` (18/18), `npm run build`, `npm run test:build` (4/4) ve `git diff --check` geçti. Yerel tarayıcıda 1060 px masaüstü ve 390 × 844 mobil görünüm incelendi; mobilde yatay taşma görülmedi. Bu kontrol fiziksel cihaz performans veya FPS ölçümü değildir.
+
+2026-10-02 sergi platformu düzeltmesi: ortak platform parlak siyaha dönüştürüldü ve daraltıldı; mobilde daha küçük oval olarak ölçeklenir. Yüzeyde düşük maliyetli yumuşak ışık parıltısı yansıma hissi verir, gerçek zamanlı GLB aynalaması yapılmaz. Platformdan yukarı seçili palet renginde ölçülü spot ışığı eklendi. Model–platform boşluğu biraz azaltıldı; modeller büyütülüp yatay aralıkları açıldı. Sahne köşe etiketi, 01/06 biçimindeki sıra ve altı numaralı yuvarlak seçici kaldırıldı. Aktif model adı, iki ok, yan modele tıklama, sürükleme, klavye seçimi ve ekran okuyucu duyurusu korundu. Kaynak GLB'ler, süreç sahnesi ve Faz 3 kapsamı değiştirilmedi.
+
+Bu düzeltmenin kontrolü: `npm run lint`, `npm run typecheck`, `npm test` (18/18), `npm run build` ve `npm run test:build` (4/4) geçti. Masaüstünde siyah platform ve model aralıkları, 390 × 844 mobil görünümde oval platform ile yazı/kontrol akışı incelendi; yatay taşma yok. Gerçek cihaz FPS/bellek ve fiziksel dokunma deneyi hâlâ açık.
+
+2026-10-02 Faz 2 görünüm revizyonu: hero'daki ayrı koyu 3D panel kaldırıldı; modeller mevcut hero zemini üzerinde görünüyor. Model başına kaidelerin yerini yalnız ilk hero sahnesindeki tek, ince ortak platform aldı; GLB'lerle platform arasında görünür hava boşluğu bırakıldı. Süreç sahnesi ve kaynak GLB'ler değişmedi. Faz 3'ün onaylı “Neler Yapıyoruz” akışı (büyüyen/çevrilen seçili model, kısa model kartı, ardından mevcut iki hizmet kartı ve Taramadan Üretime geçişi) belgelere işlendi; bu animasyonlar ve kart taşıma henüz uygulanmadı.
+
+Kontrol: `npm run lint`, `npm run typecheck`, `npm test` (18/18), `npm run build`, `npm run test:build` (4/4) geçti. Yerel tarayıcıda masaüstü ve 390 × 844 görünüm incelendi; mobilde yatay taşma yok (`scrollWidth=innerWidth=391`), sonraki model seçimi çalıştı. Görselde tek platform ile modeller arasındaki boşluk görüldü. Fiziksel telefon FPS/bellek ve prod 3D yayını hâlâ doğrulanmadı.
+
+## Çalışan mevcut site
+
+- Next.js App Router + TypeScript + Tailwind CSS; `/`, `/hakkimizda`, `/hizmetlerimiz`, `/iletisim`, `/vitrin` rotaları.
+- Ortak navbar/footer, sosyal ve mağaza bağlantıları, kurumsal metinler, responsive temel tasarım.
+- Ana sayfada 1 büyük + 4 küçük gerçek fotoğraf seçkisi, Hakkımızda seçkisi ve 30 fotoğraflı `/vitrin` galerisi. Kullanıcı 30 görselin tamamının bu fotoğraf vitrininde kalacağını onayladı.
+- 30 statik ürün kaydı `src/content/products.ts` içinde taslak durumundadır. Fotoğraf vitrini, `src/content/showcase.ts` içindeki 30 onaylı slug'dan oluşan bağımsız editoryal seçkidir. Yeni ürün otomatik eklenmez; 30 görselin gösterilmesi mağaza yayını veya stok iddiası değildir.
+
+## 3D dosyalar
+
+- `public/models/showcase/` içinde A1–A6 GLB'leri, `public/images/showcase/` içinde altı model posteri ve dört süreç posteri bulunur. GLB toplamı 11.656.372 byte; dört yeni poster toplamı 87.210 byte'tır. Altı varlık kullanıcı beyanıyla teknik/yayın onaylıdır; production 3D sahnesi yerel derlemede açıldı. Fallback posterleri korunur. Bu içerik filtresi public GLB dosyalarını erişime kapatmaz.
+- A4 Blade of Chaos kullanıcı tarafından seçildi ve proje kullanımına onaylandı. CC BY atfı/kaynak notu `model-assets.ts`, [models.md](models.md) ve `/model-kaynaklari` içinde tutuluyor; hero ve Footer'dan görünür bağlantı vardır. Yeni bir hukuki hak garantisi veya teknik kabul verilmedi.
+- Altı modelin açıklaması ve paletleri `src/content/model-assets.ts` ile `src/content/hero-showcase.ts` içinde tanımlı. Paletler hero katmanlarına, seçim/CTA renklerine, ortak platformun ince vurgusuna ve sahne ışığına bağlandı. Navbar ve alt bölümlerde koyu mor tema korunur.
+- GLB içeriği: 159.502 üçgen, taban tahminle 77 draw call, 19 gömülü görsel; yaklaşık 101,4 MiB açılmış doku belleği. A4 bunun ~90,7 MiB'ını oluşturur. Aktarım bütçesi geçse de gerçek telefon akıcılığı henüz bilinmiyor.
+- Kaynak, ölçüler, hak durumu ve kabul adımları için yalnız [models.md](models.md) dosyasını kullan.
+
+## Faz uygulama özeti
+
+1. Faz 2A'da GLB aktarımı, geometri, materyal, taban draw call ve açılmış doku belleği değerlendirildi; A4 görsel seçimi kullanıcı tarafından kabul edildi. Gerçek FPS/bellek ölçümü, çalışan sahne olmadığından henüz yapılmadı.
+2. Faz 2B'de R3F/Drei ve tek renderer/iki görünüm prototipi kuruldu; yerel tarayıcı ve kullanıcı akıcılık gözlemiyle kabul edildi. Bu eski görsel kabul, 2D yükleme değişikliğinin yeniden test edilmesi gereğini kaldırmaz.
+3. Faz 2C: Altı model yatay hatta, seçili model merkezde, komşular küçülüp geride. En yakın konuma oturma, tek son hedef, yerleşmiş seçim duyurusu, hero paletleri ve reduced-motion desteği. Oklar, düğmeler, yatay sürükleme, odaklı klavye ve yan modele tıklama aynı seçimi yönetir. Otomatik sıra ilerlemesi/serbest zoom yoktur.
+4. Faz 2D: Three/Drei ayrı dinamik pakette; A1 öncelikli, diğer beşi en fazla iki eşzamanlı yükleme. Tam hat altı dosyadan sonra açılır. WebGL2/HTTP/parse/context/timeout hatasında posterler ve açık yeniden deneme. Sürekli düşük performansta önce DPR 1, ardından poster. Gizli sekmede/görünmez alanlarda çizim durur; sayfa çıkışı ve fallback'te indirme iptali, ortak geometri/doku temizliği yapılır. A1 hero/süreç arasında sayfa ömrü boyunca paylaşılır; global GLTF cache kaldırıldı.
+5. Faz 2E: Teknik Çözümler ve Yaratıcı Üretim bağlantıları/anchor'ları, A1'den dört statik süreç posteri ve semantik adımlar, ardından mevcut fotoğraf seçkisi ve talep–değerlendirme–teslim akışı. Kaynak/üretici/lisans/değişiklikler Hakkımızda'da görünür. Süreç temsili olarak etiketli; gerçek tarama/CAD/üretim kanıtı iddiası yok.
+
+## Önceki dairesel Faz 2C doğrulaması — 2026-10-01
+
+- `npm run typecheck`, `npm run lint`, production build ve seçim hesabının üç testi geçti. Test komutu: `npm run test:hero` (Node TypeScript strip desteği gerekir).
+- Yerel masaüstü tarayıcıda ileri/geri, yan vazo modeline tıklama, yatay sürükleme ve odaklı ArrowRight denendi; 6 → 1 çevrimi çalıştı. Ardışık 20 ileri seçimde beklenen A4 hedefine ulaşıldı ve yerleşmiş seçim duyurusu eşleşti.
+- 390 × 844 tarayıcı boyutunda kontroller ve model sahnesi görsel olarak doğrulandı. Bu fiziksel dokunmatik cihaz performans ölçümü değildir.
+- DOM'da tek Canvas kaldı; seçili A4 paleti hero'da `#F05A32` iken body'de hero renk değişkeni bulunmadığı doğrulandı. CTA hedefleri sabit kaldı. Kaynak atfı görünür tutuldu.
+- Reduced-motion tercihi 3D konum geçişini anlık, hero katman geçişini animasyonsuz yapar; gerçek işletim sistemi tercihiyle görsel kabul ve fiziksel dokunmada dikey scroll/pointer-cancel testi Faz 2D'de ayrıca doğrulanacak. Otomatik dönme veya serbest zoom eklenmedi.
+
+## Önceki Faz 2B doğrulaması — bu turda yenilenmedi
+
+Önceki 2A doğrulamasına ek olarak 2B'de `npm run typecheck`, `npm run lint`, `npm run build` geçti; masaüstü ve 390 px tarayıcı görünümünde altılı hero ve ortak A1 süreç sahnesi incelendi. DOM'da tek Canvas ve iki View alanı doğrulandı; alt temanın koyu mor kalması ve mevcut 1+4 fotoğraf seçkisi görsel olarak kontrol edildi. Bu bir tarayıcı boyut testidir, fiziksel telefonda FPS/bellek ölçümü değildir. Eski Blender üretim kayıtları [arşivde](archive/progress-history.md) korunur.
+
+Navbar düzenlemesi: Moto-card referansındaki yerleşim mantığıyla ana sayfa girişinde şeffaf, hero üzerinde duran üst alan; kaydırınca ve iç sayfalarda koyu okunur zemin. Logo solda, menü ortada, mağaza butonu sağda kaldı; geniş ekranda kenar hizaları açıldı. 390 px mobil menü açılışı ve 1440 px öğe hizaları tarayıcıda kontrol edildi. Bu düzenleme 3D model seçimi veya Faz 2B performans kabul durumunu değiştirmez. `npm run typecheck`, `npm run lint` ve `npm run build` yeniden geçti.
+
+2026-10-01 Faz 2B kapanış kontrolü: `npm run typecheck`, `npm run lint`, `npm run build` ve `git diff --check` geçti. Yerel geliştirme ön izlemesinde 1280 × 720 ve 390 × 844 tarayıcı boyutlarında altılı sahne görsel olarak incelendi; hero posteri model yüklenince gizlendi. Mobilde ana sayfadan Hakkımızda'ya geçince Canvas sayısı 1'den 0'a indi, geri dönünce 1'e çıktı ve sahne yeniden göründü. Taramadan Üretime bölümünde model görünürken Canvas sayısı 1 kaldı. Navbar altındaki açık renk çizgi ve azaltılmış üst boşluk masaüstünde görüldü. Bu kontroller renderer'ın temel kurulum/kapanışını doğrular; fiziksel telefon FPS'si, GPU belleği ve uzun/tekrarlı gezinmede sızıntı ölçümü değildir. Tarayıcıda engelleyici hata görülmedi; Three.js Clock deprecation ve Next.js smooth-scroll uyarıları mevcut. Production build'de model kayıtları hâlâ `review` olduğundan poster gösterimi kasıtlıdır.
+
+Kullanıcı 2026-10-01'de hızlı geçişlerde sorun olmadığını, sahnenin akıcı kaldığını ve Canvas'ın donmadığını bildirdi; Faz 2B prototipini onayladı. Test cihazı ve ölçülen FPS/bellek bildirilmediğinden bunlar doğrulanmış sayılmaz. Faz 2'nin genel çıkışında orta sınıf fiziksel telefonun modeli/tarayıcısı, yaklaşık FPS, ısınma veya takılma gözlemi ve tekrar eden sayfa dönüşleri ayrıca kaydedilecek.
+
+## Faz 2C–2E son yerel kontroller — 2026-10-01
+
+- `npm run lint`, `npm run typecheck`, `npm test` (16 test), production build ve `npm run test:build` (4 test) geçti. Node 24.19.0. Testlerdeki MODULE_TYPELESS_PACKAGE_JSON uyarısı engelleyici değil; paket modül biçimi görev dışında değiştirilmedi.
+- Test kapsamı: indeks çevrimi/en yakın seçim, iki eşzamanlı yükleme sınırı, abort ve hata sonrası kuyruk, A1 gerçek GLB parse, 404, indirme iptali, ortak geometri/materyal/dokuyu bir kez dispose, sürekli yavaş kare sayacı, 3+3 seçki, yayın filtresi, dosyalar/HTTPS/harici URI kontrolü ve altı CTA paletinde en az 4,5:1 metin kontrastı.
+- Production HTML testleri: bölüm sırası, dört poster/adım, sabit CTA'lar, hizmet/atıf anchor'ları, erişilebilir kaynaklar, ana sayfa 5 / Hakkımızda 4 / Vitrin 30 gerçek fotoğraf ve kaldırılması istenen iki metnin bulunmaması. JS olmadan açıklayıcı HTML bulunması doğrulandı; bu test görsel veya ekran okuyucu testinin yerine geçmez.
+- `git diff --check` ve güncellenen Markdown belgelerindeki yerel belge bağlantıları kontrolü geçti. Git'in LF/CRLF uyarıları içerik veya test hatası değildir.
+- A1'den üretilen dört 512px süreç posteri yerel görsel ön izlemede incelendi. GLB geometrisi/renkleri değiştirilmedi; yeni bağımlılık, dış servis, env/gizli değer, deploy veya Git push eklenmedi.
+- Önceki turda tarayıcı işlemi otomatik kullanım limitine takılmıştı. Yeni kullanıcı isteğinde orijinal yerel tarayıcı oturumu yeniden erişilebilir oldu; aşağıdaki yatay hat görsel kontrolleri yapıldı. Yavaş ağ/bozuk GLB/context kaybı ve fiziksel cihaz ölçümü hâlâ ayrı kabul işleridir.
+
+## Önceki yatay hero revizyonu — 2026-10-01
+
+- Son kontrol: `npm run lint`, `npm run typecheck`, `npm test` (18/18), `npm run build`, `npm run test:build` (4/4) ve `git diff --check` geçti. Satır sonu LF/CRLF uyarıları engelleyici değil.
+- Kullanıcının referansıyla görünür halka ve yörüngesel hareket kaldırıldı; seçili model merkezde, komşular tek yatay eksende büyüklük/derinlik farkıyla yerleşir. Her modelin altında dik kalan koyu, kısa destekli ayrı bir kaide ve ince aktif renk vurgusu bulunur. Model hafif yana eğilir, kaide eğilmez. Diğer sayfalar ve GLB dosyaları değiştirilmedi.
+- İstenen iki açıklama satırı kaldırıldı; başlık, model adı, durum/atıf ve CTA'lar korundu. Eski metinler production HTML testinde de bulunmuyor.
+- Yerel tarayıcıda 1280 × 1000 ve 390 × 844 görünüm incelendi; 390 px'de `scrollWidth=376` ve `innerWidth=391`, yatay taşma yok. Mobil ileri seçimi ModuShell'den Blade of Chaos'a geçti; ad/renk ve yerleşmiş ekran okuyucu duyurusu eşleşti. Tek Canvas görüldü. Bunlar tarayıcı boyut kontrolüdür, fiziksel telefon FPS veya GPU bellek ölçümü değildir.
+- Otomatik seçim döngüsü ve sürekli model dönüşü eklenmedi; kullanıcı ok/sürükleme/yan modele tıklama ile hareketi yönetir. Sonraki Faz 3 scroll animasyonu ayrı kalır.
+
+## Önceki Faz 2 genel kabulü kontrol listesi
+
+Bu önceki liste tarihsel kayıttır. Faz 3 aktif; en güncel kapanış ve kalan cihaz/hata kabulü sayfanın başındaki 2026-10-04 denetimindedir.
+
+1. Tarayıcı boyutları 320/768/1024/1440px, tek Canvas, hero/süreç görünürlüğü, hızlı 20 seçim, klavye ve tekrar eden rota dönüşü kontrol edildi. Kullanıcı fiziksel telefonda 3D model döndürmeyi ve model seçimine göre renk değişimini sorunsuz doğruladı.
+2. HTTP 404, abort ve kaynak temizliği birim testinde geçti. Yavaş ağ, WebGL2 kapatma, gerçek context kaybı, yeniden deneme ve arka plan sekmesi uçtan uca; işletim sistemi reduced-motion ve fiziksel ekran okuyucu kabulü açık.
+3. Fiziksel telefondaki etkileşim ve kullanıcının akıcılık gözlemi başarılı; cihaz modeli/tarayıcısı, yükleme süresi, sayısal FPS/GPU bellek ve uzun kullanımda ısınma ölçülmedi. Masaüstü performans ölçümü de açık.
+4. Altı modelin teknik/yayın onayı kullanıcı beyanıyla kaydedildi; atıf ve A4 üçüncü taraf hak notu korunuyor. Bu izin, dış sisteme deploy onayı değildir. Açık cihaz/hata kontrolleri kapanmadan Faz 2'ye tamamen bitti veya üretim performansı onaylandı deme.
+5. Sonraki kod fazı, ayrı onayla Faz 3: Taramadan Üretime scroll animasyonu ve ölçülü sayfa hareketleri.

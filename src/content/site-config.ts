@@ -7,6 +7,7 @@ export const siteConfig = {
   description:
     "3D baskı, 3D tarama ve özel tasarım çözümleriyle fikirleri fiziksel üretime dönüştüren yaratıcı stüdyo.",
   location: "Bodrum, Muğla",
+  modelCreditsPath: "/model-kaynaklari",
   storeUrl: publicValue(
     process.env.NEXT_PUBLIC_STORE_URL,
     "https://orbitart.com.tr",

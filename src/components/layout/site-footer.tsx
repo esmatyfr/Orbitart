@@ -21,6 +21,7 @@ export function SiteFooter() {
           <div>
             <h2 className="text-sm font-semibold text-white">Keşfet</h2>
             <ul className="mt-4 space-y-3 text-sm text-zinc-400">
+              <li><Link className="hover:text-white" href="/vitrin">Vitrin</Link></li>
               <li><Link className="hover:text-white" href="/hakkimizda">Hakkımızda</Link></li>
               <li><Link className="hover:text-white" href="/hizmetlerimiz">Hizmetlerimiz</Link></li>
               <li><Link className="hover:text-white" href="/iletisim">İletişim</Link></li>
@@ -50,8 +51,9 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="site-container mt-12 border-t border-white/8 pt-6 text-xs text-zinc-500">
-        © {new Date().getFullYear()} Orbitart. Tüm hakları saklıdır.
+      <div className="site-container mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/8 pt-6 text-xs text-zinc-500">
+        <p>© {new Date().getFullYear()} Orbitart. Tüm hakları saklıdır.</p>
+        <Link href={siteConfig.modelCreditsPath} className="inline-flex min-h-11 items-center rounded-sm hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300">Model kaynakları</Link>
       </div>
     </footer>
   );
