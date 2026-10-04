@@ -110,7 +110,19 @@ Bu değişiklik ayrı mimari onay gerektirir. Minimum gereksinimler:
 - Veri minimizasyonu, saklama süresi ve silme politikası
 - KVKK kapsamında açık bilgilendirme ve gerekliyse onay yönetimi
 
-## 9. Faz 4 Preview sınırı (2026-10-04)
+## 9. Faz 5 güvenlik politikası (2026-10-04)
+
+`security-headers.ts` production CSP'sini tüm yanıtlara uygular: self kaynaklar, object/frame/worker/form-action ve frame-ancestors none; eval/wildcard yoktur. Image ve connect blob izinleri gömülü GLB dokuları içindir; ImageBitmapLoader blob URL'ye fetch yapar. Dış decoder, worker, font, analytics veya form servisi eklenmedi.
+
+Statik App Router bootstrap ve Motion stilleri için script/style unsafe-inline istisnası gerekir. Nonce kadar güçlü değildir; statik render korunarak [Next.js nonce'sız CSP yaklaşımı](https://nextjs.org/docs/app/guides/content-security-policy) kullanılır. Kullanıcı içeriği/API eklenirse politika yeniden ele alınmalı. Dev'de HMR için CSP verilmez; Vercel HTTPS build'lerinde upgrade-insecure-requests, yerel HTTP/LAN'da HTTPS zorlaması yoktur. Alan adı geçişi öncesi HSTS preload eklenmedi.
+
+Yalnız Preview'da [resmî Toolbar izinleri](https://vercel.com/docs/vercel-toolbar/managing-toolbar#using-a-content-security-policy) vardır: vercel.live, connect ws-us3.pusher.com, img vercel.com ve font assets.vercel.com. Production bu dış origin'leri içermez. Authentication ve production build kapısı korunur.
+
+Checksum doğrulamalı Gitleaks 8.30.1 ile tüm erişilebilir Git geçmişi, ignore dışı kaynak kopyası ve son .next/static taramasında sıfır bulgu; raporlar yüzde 100 redaksiyonla Git dışı output içinde. Git'te yalnız public örnekli .env.example var; .env.local/.vercel, Blender kaynakları ve yerel kanıtlar izlenmiyor. Vercel env listesi boş; production onayı yok. Örüntü taraması mutlak güvence değildir; kimlik dosyaları dışa gönderilmedi. Build logları/uzak Preview başlık kabulü son kayıtta ayrıca belirtilir.
+
+Runtime audit sıfır; braces geliştirme zincirinin beş high bulgusu ve upstream çözümü açık. Güvenilen repo/lockfile girdileri kullanılır; force downgrade yapılmaz. Hak denetimi mevcut kaynak/atıf kayıtlarını ve kullanıcı kararını korur; bağımsız hak garantisi iddia edilmez.
+
+## 10. Faz 4 Preview sınırı (2026-10-04)
 
 Kullanıcı `esmatyfr/orbitartt` oluşturulmasını ve Preview yayını onayladı; production/alan adı taşıma onayı verilmedi. Authentication koruması açık, Preview noindex ve boş sitemap kullanır. Yayın kapısı Vercel production ortamında ayrı `PRODUCTION_RELEASE_APPROVED=true` olmadan derlemeyi durdurur. İlk yüklemenin beklenmedik production hedefi bu kapıyla durduruldu; sonraki gerçek Preview READY oldu.
 

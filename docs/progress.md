@@ -2,6 +2,18 @@
 
 Son güncelleme: 2026-10-04. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
 
+## Faz 5 güvenlik hazırlığı ve Git bağlantısı (2026-10-04)
+
+Faz 4 **3d50821f4756be5a9ee42796661804f947e951e0** ile main/origin üzerinde kayıtlı; uzak HEAD eşleşmesi doğrulandı. Kullanıcı GitHub erişimini tamamladıktan sonra CLI doğru **esmatyfr/Orbitart** deposunu mevcut **esmatyfr/orbitartt** projesine bağladı; API repo ve productionBranch main değerlerini doğruladı. Dashboard Next.js, Node 24.x, npm ci ve npm run build kullanır. Otomatik Git yayını yalnız codex/* dallarına açık; main production kapısı korunur.
+
+Faz 5 codex/phase5-security dalında sürüyor. CSP, nosniff, DENY, Referrer-Policy ve kullanılmayan cihaz izinlerini kapatan Permissions-Policy eklendi. Statik Next bootstrap/Motion için inline istisnası belgelenmiştir; production eval, wildcard veya dış script içermez. GLTFLoader gömülü dokuları blob URL'ye fetch ile okur; tarayıcıda bulunan doku engeli gereken connect-src blob: izniyle düzeltildi. Preview yalnız resmî Toolbar origin'lerini içerir. Tasarım, sahne ve medya değişmedi.
+
+Yerel son kaynakta lint/typecheck, 34/34 birim, production build, 12/12 HTML ve HTTP smoke (altı rota, üç 404, robots/sitemap, üç PNG ölçüsü, 37 görsel ve güvenlik başlıkları) geçti. Gitleaks 8.30.1 resmî checksum doğrulanarak Git dışı output altında çalıştırıldı: tüm erişilebilir Git geçmişi, izlenen/ignore dışı kaynak kopyası ve son .next/static çıktısında sıfır bulgu. Bu örüntü taraması mutlak sızıntı garantisi değildir. Vercel env listesi boş; production onayı değişkeni eklenmedi. Secret/CLI kimlik dosyaları dışa gönderilmedi.
+
+Güncel npm audit runtime sıfır, braces geliştirme zincirinde beş high bulgu gösterir. Patched sürüm yok; Next ESLint'i düşüren force değişikliği uygulanmadı. Yalnız güvenilen repo/build girdileri kullanılır; upstream takibi açık. Yedi GLB'nin gömülü kaynak/decoder kontrolü ve altı modelin atıf/kaynak sayfası doğrulandı. A4 kullanıcı kararı ve konsept hak notu korunur; yeni hukuki hak garantisi verilmez.
+
+Alan adı API/DNS denetimi: orbitartt.com ve www.orbitartt.com eski orbiant projesinde verified; apex www'ye yönlenir. A 216.198.79.1, www CNAME e71ce2874cddefbe.vercel-dns-017.com olarak gözlendi. Kayıtlar taşınmadı. Yeni site için öneri apex orbitartt.com ana adres, www → apex 308; iki kayıt birlikte yeni projeye taşınmalı, sertifika/yönlendirme/geri dönüş kontrol edilmeli. Otomatik Git Preview ve uzak CSP kabulü bu commit sonrası denetlenir. Production ve domain taşıma ayrı son onayı bekler; Faz 5 kapalı değildir.
+
 ## Faz 4 kullanıcı kabulü, Git kaydı ve Faz 5 başlangıcı (2026-10-04)
 
 **Faz 4 kapandı.** Kullanıcı mevcut HTTPS Preview'ı açıp sorunsuz çalıştığını bildirdi ve önerilen GitHub/Vercel bağlantı adımlarını onayladı. Önceki turdaki 31/31 birim, 12/12 HTML, lint/typecheck/build ve gerçek Preview kontrolleri kabul edildi; bu belge/Git turunda yeniden yapılmış gibi raporlanmaz.

@@ -9,9 +9,21 @@ if (origin.protocol !== 'https:' && !['localhost','127.0.0.1'].includes(origin.h
 const preview = process.argv.includes('--preview');
 const routes = ['/','/vitrin','/hakkimizda','/hizmetlerimiz','/iletisim','/model-kaynaklari'];
 const pages = [];
+function checkSecurity(response, path) {
+  assert.equal(response.headers.get('x-content-type-options'),'nosniff',path);
+  assert.equal(response.headers.get('x-frame-options'),'DENY',path);
+  assert.equal(response.headers.get('referrer-policy'),'strict-origin-when-cross-origin',path);
+  assert.ok(response.headers.get('permissions-policy')?.includes('camera=()'),path);
+  const csp = response.headers.get('content-security-policy') ?? '';
+  assert.ok(csp.includes("frame-ancestors 'none'"),path);
+  assert.ok(csp.includes("connect-src 'self'"),path);
+  assert.ok(!csp.includes('unsafe-eval') && !csp.includes('*'),path);
+  assert.equal(csp.includes('vercel.live'),preview,path);
+}
 for (const route of routes) {
   const response = await fetch(new URL(route,origin),{signal:AbortSignal.timeout(30000)});
   assert.equal(response.status,200,`route failed: ${route}`);
+  checkSecurity(response,route);
   const html = await response.text();
   assert.match(html,/<html[^>]*lang="tr"/);
   assert.ok(html.includes('https://orbitartt.com'));
@@ -22,19 +34,23 @@ for (const route of routes) {
 for (const path of ['/phase4-missing-page','/images/phase4-missing.webp','/models/phase4-missing.glb']) {
   const response = await fetch(new URL(path,origin),{signal:AbortSignal.timeout(30000)});
   assert.equal(response.status,404,`expected 404: ${path}`);
+  checkSecurity(response,path);
   if (path === '/phase4-missing-page') assert.ok((await response.text()).includes('Bu sayfa bulunamadı.'));
   else await response.body?.cancel();
 }
 const robots = await fetch(new URL('/robots.txt',origin));
 assert.equal(robots.status,200);
+checkSecurity(robots,'/robots.txt');
 assert.match(await robots.text(),preview ? /Disallow: \// : /Allow: \//);
 const sitemap = await fetch(new URL('/sitemap.xml',origin));
 assert.equal(sitemap.status,200);
+checkSecurity(sitemap,'/sitemap.xml');
 const xml = await sitemap.text();
 assert.equal((xml.match(/<loc>/g) ?? []).length,preview ? 0 : routes.length);
 for (const [file,width,height] of [['orbitart-social.png',1200,630],['orbitart-icon.png',32,32],['orbitart-apple-icon.png',180,180]]) {
   const response = await fetch(new URL(`/images/brand/${file}`,origin));
   assert.equal(response.status,200);
+  checkSecurity(response,file);
   assert.match(response.headers.get('content-type') ?? '',/image\/png/);
   const meta = await sharp(Buffer.from(await response.arrayBuffer())).metadata();
   assert.equal(meta.width,width);
@@ -49,4 +65,4 @@ for (const path of media) {
   assert.match(response.headers.get('content-type') ?? '',/image\//);
   await response.body?.cancel();
 }
-console.log(`HTTP smoke passed: ${routes.length} routes, 3 expected 404s, robots/sitemap, 3 image sizes and ${media.size} real image URLs. Preview=${preview}`);
+console.log(`HTTP smoke passed: ${routes.length} routes, 3 expected 404s, robots/sitemap, 3 image sizes, security headers and ${media.size} real image URLs. Preview=${preview}`);
