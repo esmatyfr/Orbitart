@@ -1,13 +1,37 @@
-# Orbitart Vercel Preview rehberi
+# Orbitart Vercel yayın rehberi
 
-## Güncel hedefler (2026-10-04)
+## Güncel canlı yayın (2026-10-05)
+
+Kullanıcı “Canlıya al” ile Production ve iki domainin taşınmasını onayladı; **Faz 5 kapandı**. Site [https://orbitartt.com](https://orbitartt.com) adresinde herkese açıktır. www → apex ve HTTP → HTTPS 308, path/query korunarak doğrulandı. Mevcut DNS iki domain için misconfigured=false olduğundan değiştirilmedi.
+
+- Vercel projesi: **esmatyfr/orbitartt**; Git: **esmatyfr/Orbitart**, main.
+- Yayınlanan main kaynakları: **348d6ec22e308853d6918ebb4be1abe6052e60c4**; uygulama güvenlik kaynakları cb9ba5c9fa597431ec241e27b11fd7e46c6b6149.
+- Gerçek Production rebuild: **dpl_FofhwsryM7hHoxoUXCAjevvRh9t9**, target production, READY; [kaynak deployment](https://orbitartt-81oxrfr70-esmatyfr.vercel.app). Vercel kaynak URL'leri Authentication isteyebilir; canlı özel alan adı herkese açıktır.
+- İki domain yeni projede verified; apex redirect yok, www redirect orbitartt.com/308.
+- `PRODUCTION_RELEASE_APPROVED=true` yalnız Production Config. Preview/dev'e eklenmedi; kod kapısı korunur. `SITE_URL` HTTPS varsayılanı orbitartt.com; mağaza farklıdır.
+- Önceki **orbiant** projesi/deployment'ı korunur: **dpl_6XMKnYEfzNKNvZ1s9U3hq1qbn845**, [eski kaynak deployment](https://orbiant-80a9vvdp2-esmatyfr.vercel.app), READY.
+
+Main otomatik Git production yayını hâlâ kapalıdır; codex/* Git Preview'ları açıktır. Gelecek production sürümü için yeni kullanıcı onayı ve aynı kalite/yayın kontrolleri gerekir. Onaylı main kaynağından manuel yayın:
+
+```powershell
+npx --yes vercel@latest deploy --prod --yes --scope esmatyfr --project orbitartt --logs
+npm run test:preview -- https://orbitartt.com
+```
+
+Altı rota, üç 404, robots/sitemap, üç PNG ölçüsü, 37 gerçek görsel ve güvenlik başlıkları gerçek canlı HTTP'te geçti. Masaüstü/mobil Chrome'da tek Canvas, yedi GLB, model seçimi, süreç ve menü; WebGL yokluğu/reduced-motion/JS kapalı fallback kontrolleri tamamlandı. Kanıtlar ve sınırlar [progress.md](progress.md) içinde.
+
+### Geri dönüş
+
+Eski proje silinmez. Geri dönüş gerektiğinde resmi domain move API'siyle şu an ana domain **orbitartt.com** yeni orbitartt'tan eski orbiant'a taşınır; buna yönlenen www aynı işlemde birlikte taşınır. Eski projenin kimliği **prj_i4UqhU5N2O8yRy3XHcPv3TRnTr1W**. Ardından eski www yönlendirmesi kaldırılır ve apex → www eski yönü geri ayarlanır; HTTPS, path/query ve eski deployment hedefi doğrulanır. Aksi sırayla yönler değiştirilirse redirect döngüsü oluşabilir. Orijinal domain kaydı ve eski deployment kimliği Git dışı output/release-2026-10-05/rollback-*.json dosyalarında kaydedildi. DNS kayıtları bu yayında değişmedi.
+
+## Preview hazırlığı geçmişi (2026-10-04)
 
 - Tanıtım sitesinin onaylanan production adresi: `https://orbitartt.com`.
 - Mağaza: `https://orbitart.com.tr`; canonical adresi olarak kullanılmaz.
 - Yeni Vercel projesi: `esmatyfr/orbitartt`.
 - Kullanıcının kabul ettiği Faz 4 Preview: [orbitartt-ks916xf13-esmatyfr.vercel.app](https://orbitartt-ks916xf13-esmatyfr.vercel.app).
 - Güncel güvenlik/Git Preview: [orbitartt-qj2xllgi9-esmatyfr.vercel.app](https://orbitartt-qj2xllgi9-esmatyfr.vercel.app), cb9ba5c kaynakları, target preview/READY; gerçek HTTP ve masaüstü/mobil tarayıcı kontrolleri geçti.
-- Önceki `esmatyfr/orbiant` projesi ve onun `www.orbitartt.com` kaydı değiştirilmedi. Alan adı sahipliği/DNS ve taşıma kararı Faz 5'te ayrı kullanıcı onayıyla çözülmelidir.
+- Bu tarihli hazırlık sırasında önceki `esmatyfr/orbiant` projesinin alan adları değiştirilmemişti. 2026-10-05 canlı geçişi yukarıda kayıtlıdır.
 
 Bu Preview, CLI kaynak görüntüsüdür ve kullanıcı tarafından kabul edildi. Faz 4 main/origin üzerinde `3d50821f4756be5a9ee42796661804f947e951e0` ile kayıtlı. Kullanıcı GitHub erişimini açtıktan sonra mevcut proje `esmatyfr/Orbitart` deposuna bağlandı; API repo/productionBranch main değerlerini doğruladı. Dashboard Next.js, Node 24.x, npm ci ve npm run build kullanır. `vercel.json` Git yayınını yalnız `codex/*` Preview dallarına açar; `*` false kuralıyla main dahil diğer dallar kapalıdır. Gerçek Git Preview sonucu progress.md içinde kayıtlıdır.
 
@@ -34,7 +58,7 @@ npx --yes vercel@latest deploy --yes --target preview --scope esmatyfr --project
 
 Çıktıda Preview/READY ve `productionUrl:null` doğrulanır. `--prod`, promote, alias veya alan adı taşıma bu fazın parçası değildir.
 
-İlk proje yüklemesinde CLI `--target preview` almasına rağmen Vercel denemeyi production olarak sınıflandırdı. `scripts/check-deployment.mjs` bunu durdurdu; deployment ERROR kaldı, hazır production oluşmadı. Sonraki yüklemeler gerçek Preview/READY oldu. Bu durumda kapıyı kaldırmayın ve `PRODUCTION_RELEASE_APPROVED` tanımlamayın; sonuç ortamını kontrol edin. [Vercel deploy belgesi](https://vercel.com/docs/cli/deploy) hedef seçeneklerini açıklar; [issue #17069](https://github.com/vercel/vercel/issues/17069) ilk yükleme davranışını kaydeder.
+İlk proje yüklemesinde CLI `--target preview` almasına rağmen Vercel denemeyi production olarak sınıflandırdı. `scripts/check-deployment.mjs` bunu durdurdu; deployment ERROR kaldı, o denemede hazır production oluşmadı. Sonraki yüklemeler gerçek Preview/READY oldu. Beklenmedik hedefte kapıyı kaldırmayın veya onaysız `PRODUCTION_RELEASE_APPROVED` tanımlamayın; sonuç ortamını kontrol edin. Kullanıcının sonraki 2026-10-05 onayıyla gerçek Production yayını yukarıdaki kayıtta tamamlandı. [Vercel deploy belgesi](https://vercel.com/docs/cli/deploy) hedef seçeneklerini açıklar; [issue #17069](https://github.com/vercel/vercel/issues/17069) ilk yükleme davranışını kaydeder.
 
 ## Ortam ve kaynak sınırları
 

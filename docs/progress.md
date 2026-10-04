@@ -1,6 +1,29 @@
 # Orbiart — güncel ilerleme
 
-Son güncelleme: 2026-10-04. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
+Son güncelleme: 2026-10-05. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
+
+## Canlı yayın ve Faz 5 kapanışı (2026-10-05)
+
+**Faz 5 tamamlandı; site [https://orbitartt.com](https://orbitartt.com) adresinde canlıdır.** Kullanıcının “Canlıya al” isteği; güvenlik dalını main'e alma, Production yayını, iki alan adını eski projeden taşıma ve yayın sonrası kontroller için açık onaydır. Önceki “onay bekleniyor” kayıtları tarihsel durumdur.
+
+`codex/phase5-security` main'e fast-forward edildi; **348d6ec22e308853d6918ebb4be1abe6052e60c4** GitHub origin/main'e gönderildi. Güvenlik kodunun SHA'sı cb9ba5c9fa597431ec241e27b11fd7e46c6b6149. Aynı main kaynakları resmi Vercel CLI ile gerçek Production ortamında yeniden derlendi; Preview promote edilmedi. Deployment **dpl_FofhwsryM7hHoxoUXCAjevvRh9t9**, [production kaynak URL'si](https://orbitartt-81oxrfr70-esmatyfr.vercel.app), target production, READY.
+
+`PRODUCTION_RELEASE_APPROVED=true` yalnız yeni orbitartt projesinin Production ortamına, gizli olmayan Config olarak eklendi. Preview/Development'a kopyalanmadı. Kodda yayın kapısı ve `vercel.json` içindeki yalnız codex/* Git Preview politikası korunur; main push otomatik production yayını başlatmaz. Bu onay gelecek her sürüm için sınırsız yayın yetkisi değildir.
+
+`orbitartt.com` ve `www.orbitartt.com`, Vercel'in domain move işlemiyle **esmatyfr/orbiant → esmatyfr/orbitartt** taşındı. Mevcut apex → www yönü nedeniyle Vercel www'yi önce taşımayı ve bağlı apex'i birlikte taşımayı gerektirdi; işlem tamamlandı. Apex yönlendirmesi kaldırıldı, **www → apex 308** ayarlandı. API iki kaydı verified olarak doğruladı; path/query korunarak gerçek 308, HTTP → HTTPS 308 ve apex HTTPS 200 görüldü. Her iki domainin DNS config sonucu misconfigured=false; mevcut DNS kayıtları değiştirilmedi. Mağaza orbitart.com.tr olarak kaldı.
+
+Bu turdaki yeni kontroller:
+
+- Lint/typecheck, **34/34 birim**, yerel production build ve **12/12 üretim HTML** testi geçti. Vercel Production bulut derlemesi de başarılı.
+- Domain taşınmadan önce yetkili resmi Vercel curl ile Production ana sayfa/CSP, indekslenebilir robots ve altı URL'li sitemap doğrulandı. Başlık adlarının harf biçimini normalize eden kontrol tekrarında geçti; uygulama politikası değiştirilmedi.
+- Domain taşındıktan sonra herkese açık HTTPS'te **altı rota, üç beklenen 404, robots/sitemap, üç PNG ölçüsü, 37 gerçek görsel URL'si ve güvenlik başlıkları** geçti. Production CSP Preview Toolbar origin'lerini içermez; gömülü GLB dokuları için connect-src blob: korunur.
+- Paketli Chrome tarayıcısında **1440×900 ve 390×844**: ana sayfa tek Canvas, 3D açılınca poster opacity=0, yedi GLB (altı model ve yazıcı) HTTP 200, model/klavye seçimi ve mobil Dijital model (stage=2)/3D baskı geçişi çalıştı. A4 dokuları ve mobil süreç kadrajı ekran görüntülerinde incelendi. Galeriye mobil menü geçişi kapanıp SUMMARY odağına döndü; galeri Canvas=0. Taşma, başarısız istek veya uygulama/CSP hatası yok; kasıtlı 404 konsol yanıtı ayrı kaydedildi.
+- WebGL kapalı/reduced-motion mobil oturumunda poster opacity=1, Canvas=0, model seçimi ve CTA çalıştı. JavaScript kapalı oturumda iletişim CTA'sı erişilebilir. Bunlar emüle Chrome testidir; yeni fiziksel telefon/FPS/OS ekran okuyucu ölçümü değildir. Önceki kullanıcı mobil/Preview kabulü korunur.
+- Gitleaks ile tüm erişilebilir Git geçmişi, son .next/static ve yeni Production build logları **sıfır bulgu** verdi. Raporlar yüzde 100 redaksiyonlu; kanıtlar output/release-2026-10-05 altında Git dışında. Runtime npm audit **0**, geliştirme braces zinciri **5 high**; önceki belgelenmiş upstream takip maddesi devam eder, force downgrade yapılmadı.
+
+Eski **orbiant** projesi ve READY **dpl_6XMKnYEfzNKNvZ1s9U3hq1qbn845** deployment'ı silinmedi. Geri dönüş için eski domain/proje değerleri kaydedildi; [deployment.md](deployment.md) taşıma/redirect sırasını açıklar. Yayın engeli kalmadı. Sonraki çalışma yeni kullanıcı isteğine bağlı bakım; upstream dev bağımlılığı takibi faz kapanışını engelleyen uygulama hatası olarak sunulmaz.
+
+Bu kapanış belgeleri main/GitHub'a ayrı belge commit'iyle kaydedilir; yayınlanan uygulama kaynak SHA'sı yukarıdaki 348d6ec'dir.
 
 ## Faz 5 teknik kabul ve canlı geçiş onayı (2026-10-04)
 

@@ -2,6 +2,8 @@
 
 ## Faz çalışma kuralı
 
+**Güncel durum (2026-10-05): Faz 1–5 tamamlandı; [orbitartt.com](https://orbitartt.com) canlıdır.** Açık production/alan adı onayı, yayın ve son kontroller [progress.md](progress.md) içinde kayıtlıdır. Aşağıdaki eski tarihli durum notları kendi dönemini anlatır.
+
 Fazlar sırayla uygulanır. Aktif faz tamamlanmadan sonraki fazın uygulama koduna başlanmaz. Her faz sonunda ilgili kontroller çalıştırılır, sonuç `docs/progress.md` içine yazılır ve sonraki faz için kullanıcı onayı beklenir.
 
 ## Faz 1 — İskelet ve marka sistemi
@@ -213,7 +215,7 @@ Kullanıcı Preview sonucunu onaylar; Production öncesi Faz 5 güvenlik kapıs�
 
 ## Faz 5 — Güvenlik, gizlilik ve yayın kapısı
 
-**Durum (2026-10-04): aktif.** Preview kabulünden sonra kullanıcı sonraki adımları onayladı. Production deploy ve alan adı taşıma son denetim sonrası ayrı açık onayla yapılır.
+**Durum (2026-10-05): tamamlandı.** Kullanıcı “Canlıya al” ile production/alan adı geçişini açıkça onayladı. Güvenlik dalı main/GitHub'a alındı, gerçek Production READY oldu, iki domain yeni projeye taşındı ve www → apex 308 ayarlandı. Herkese açık HTTPS, altı rota/medya/SEO/güvenlik, masaüstü/mobil 3D, erişilebilir menü ve poster fallback kontrolleri geçti. Eski proje geri dönüş için korunur. Geliştirme bağımlılığı upstream takibi bakım maddesidir; kanıt ve sınırlar [progress.md](progress.md) içinde kayıtlıdır.
 
 ### Amaç
 

@@ -1,5 +1,13 @@
 # Orbiart Güvenlik ve Gizlilik Rehberi
 
+## Canlı yayın kabulü (2026-10-05)
+
+Kullanıcı “Canlıya al” ile Production ve domain taşımasını açıkça onayladı. **Faz 5 tamamlandı; https://orbitartt.com canlıdır.** `PRODUCTION_RELEASE_APPROVED=true` yalnız Production ortamında gizli olmayan Config olarak tanımlandı. Preview/Development kapsamına eklenmedi; kod kapısı ve main'in otomatik Git production kapatması korunur. Önceki tarihli “env boş/onay yok” kayıtları hazırlık anını anlatır. Bu sürüm onayı gelecek production yayınlarına sınırsız yetki vermez.
+
+Yeni Production READY ve herkese açık HTTPS yanıtlarında production CSP, nosniff/DENY/Referrer/Permissions doğrulandı; Preview Toolbar dış origin'leri production'da yoktur. Gömülü GLB dokuları için connect-src blob: gerekir ve korunur. Gerçek tarayıcıda altı model/yazıcı, mobil süreç, menü odağı ve WebGL/JS yokluğu fallback'i geçti. Altı rota, üç beklenen 404, robots/sitemap, görsel ve HTTPS/www yönü kontrolleri tamamlandı. Eski proje silinmedi; geri dönüş kaydı [deployment.md](deployment.md) içinde.
+
+Bu turdaki Gitleaks Git geçmişi, son client çıktısı ve Production build loglarında sıfır bulgu verdi; raporlar yüzde 100 redaksiyonlu ve Git dışında. Kaynak içerikleri önceki kabulden beri değişmedi; önceki tam kaynak taraması kaydı korunur. Runtime npm audit 0; dev braces zinciri 5 high ile upstream takip maddesi olarak sürer. Force downgrade uygulanmadı. Kanıtlar ve emüle tarayıcı/gerçek telefon ayrımı [progress.md](progress.md) içinde.
+
 ## 1. Tehdit modeli
 
 İlk sürüm statik bir tanıtım sitesidir. Kullanıcı hesabı, ödeme, form gönderimi, veritabanı veya özel API olmadığı için ana riskler şunlardır:

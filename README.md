@@ -1,10 +1,12 @@
 # Orbiart
 
-Orbitart için Next.js App Router, TypeScript, Tailwind CSS, React Three Fiber ve Framer Motion ile geliştirilecek statik tanıtım sitesi.
+Orbitart için Next.js App Router, TypeScript, Tailwind CSS, React Three Fiber ve Framer Motion ile geliştirilen statik tanıtım sitesi.
 
 ## Mevcut durum
 
-Faz 3, kullanıcının tasarım, mobil kullanım ve test kabulüyle 2026-10-04'te kapatıldı. Altı modelli yatay sergi hattı, aynı modelle Neler Yapıyoruz incelemesi, iki hizmet kartı, beş aşamalı Taramadan Üretime ve FDM yazıcı animasyonu hazırdır. Ana sayfanın 1+4, Hakkımızda'nın 4 ve `/vitrin` galerisinin 30 fotoğrafı, alt sayfa hareketleri ve Yörüngeli O logosu korunur. Faz 4 uygulandı: merkezi bağlantılar/hazır WhatsApp mesajı, metadata/canonical, sitemap/robots, marka ikonları/paylaşım görseli, 404 ve kontrollü Vercel Preview hazırdır. [Preview](https://orbitartt-ks916xf13-esmatyfr.vercel.app) kullanıcı tarafından sorunsuz kabul edildi; Vercel hesabıyla giriş isteyebilir. Tanıtım hedefi `https://orbitartt.com`, mağaza `https://orbitart.com.tr` olarak ayrıdır. Production ve alan adı taşıma Faz 5 onayına bağlıdır.
+**2026-10-05: Faz 1–5 tamamlandı; [https://orbitartt.com](https://orbitartt.com) canlıdır.** Kullanıcının açık yayın onayıyla main/GitHub kaydı, Production READY, alan adı geçişi ve yayın sonrası kontroller tamamlandı. `www.orbitartt.com` ana adrese 308 ile yönlenir. Eski Vercel projesi geri dönüş için korunur; ayrıntı [yayın rehberinde](docs/deployment.md) ve [ilerleme kaydında](docs/progress.md).
+
+Faz 3, kullanıcının tasarım, mobil kullanım ve test kabulüyle 2026-10-04'te kapatıldı. Altı modelli yatay sergi hattı, aynı modelle Neler Yapıyoruz incelemesi, iki hizmet kartı, beş aşamalı Taramadan Üretime ve FDM yazıcı animasyonu hazırdır. Ana sayfanın 1+4, Hakkımızda'nın 4 ve `/vitrin` galerisinin 30 fotoğrafı, alt sayfa hareketleri ve Yörüngeli O logosu korunur. Faz 4 uygulandı: merkezi bağlantılar/hazır WhatsApp mesajı, metadata/canonical, sitemap/robots, marka ikonları/paylaşım görseli, 404 ve kontrollü Vercel Preview hazırdır. [Preview](https://orbitartt-ks916xf13-esmatyfr.vercel.app) kullanıcı tarafından sorunsuz kabul edildi; Vercel hesabıyla giriş isteyebilir. Canlı tanıtım adresi `https://orbitartt.com`, mağaza `https://orbitart.com.tr` olarak ayrıdır.
 
 Altı model kullanıcı teknik/yayın onayıyla `approved`/`published` durumundadır; production build desteklenen tarayıcıda 3D sahneyi açar. Poster fallback'i korunur. Agent doğrulamaları ve kullanıcı test kabulünün ayrı kayıtları için [progress.md](docs/progress.md) belgesine bakın. Public GLB dosyalarının erişilebilirliği yayın filtresinden bağımsızdır.
 
