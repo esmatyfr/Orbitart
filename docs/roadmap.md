@@ -164,6 +164,18 @@ Beş aşama anlaşılır, temsili olduğu açıktır; doğal scroll ve fallback 
 
 ## Faz 4 — Bağlantılar, kalite kontrolü ve Vercel hazırlığı
 
+**Durum (2026-10-04): aktif.** Kullanıcı Faz 3'ün son içerik revizyonunu kabul edip GitHub kaydı ve Faz 4'e geçişi onayladı. Başlangıç envanteri/planı hazır; uygulama ve Preview kurulumu henüz tamamlanmadı.
+
+### Başlangıç planı
+
+1. **Bağlantılar:** merkezi mağaza/Instagram/WhatsApp hedeflerini tüm CTA'larda doğrula; hizmet ve kaynak anchor'larını kontrol et. WhatsApp hazır mesajını ortak yardımcıyla güvenli URL-encode et; yeni servis ekleme.
+2. **Arama ve paylaşım:** tanıtım sitesi adresini mağaza adresinden ayır; sayfa başlık/açıklama ve canonical adreslerini, sitemap/robots, favicon ve Open Graph/Twitter görselini tamamla. Kesin site adresi doğrulanana kadar production adresi uydurma.
+3. **Yerel kalite:** lint/typecheck/test/build, üretim HTML, responsive kullanıcı akışları, 404/bozuk medya ve fallback senaryolarını kontrol et. Önceki tasarım/3D kabulünü koru; bulunan kusurları dar kapsamda düzelt.
+4. **Preview hazırlığı:** Vercel projesi/hesabı, GitHub bağlantısı, build ayarları ve Preview/Production ortam ayrımını netleştir. Dış kurulum/deploy öncesinde kullanıcı onayı al; onaylı Preview'da HTTPS, medya, bağlantı, metadata ve gerçek cihaz smoke testini kaydet.
+5. **Faz 4 kabulü:** Preview sonuçlarını kullanıcıya sun. Kullanıcı kabulünden sonra Faz 5 güvenlik kapısına geç; production deploy için ayrı açık onay al.
+
+Mevcut başlangıç: site-config.ts içindeki üç dış bağlantı ve temel metadata hazır. Hazır mesaj yardımcısı, sitemap/robots, favicon ve paylaşım görseli eksik; metadataBase mağaza adresinden ayrılacak. Vercel Preview henüz doğrulanmadı. Güncel kanıt [progress.md](progress.md) içindedir.
+
 ### Amaç
 
 Tüm dönüşüm bağlantılarını doğrulamak ve tekrarlanabilir bir Preview/Production yayın süreci hazırlamak.

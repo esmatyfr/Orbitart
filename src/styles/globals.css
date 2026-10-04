@@ -380,7 +380,6 @@ a {
   [data-story="animated"] .hero-cards-heading h1 { font-size: clamp(1.75rem, 2.6vw, 2.4rem); }
   [data-story="animated"] .story-card { position: absolute; z-index: calc(20 + var(--stack-index, 0)); top: calc(34% + var(--stack-index, 0) * 24px); left: calc(59% + var(--stack-index, 0) * 6px); right: 0; min-height: 19rem; margin: 0; background: #100d1b; box-shadow: 0 -8px 24px #00000028; opacity: var(--card-opacity, 0); transform: translateY(var(--card-y, 115%)); pointer-events: auto; }
   [data-story="animated"] [data-story-card="1"] { --stack-index: 1; }
-  [data-story="animated"] [data-story-card="2"] { --stack-index: 2; }
   [data-story="animated"] .story-card h3 { margin-top: 2rem; }
   [data-story="animated"]::after { position: absolute; inset: 0; content: ""; pointer-events: none; background: #09080f; opacity: var(--story-theme, 0); z-index: 0; }
   .hero-screen, .process-screen { z-index: 20; }

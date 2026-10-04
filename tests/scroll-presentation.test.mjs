@@ -47,14 +47,14 @@ test('hero model enlarges continuously in the original scene before cards arrive
   assert.equal(stickyProgress(-3000, 3000, 900), 1);
 });
 test('cards rise from below, remain in the stack and withdraw only on reverse scroll', () => {
-  for (const [index, center] of [[0,0.34],[1,0.55],[2,0.76]]) {
+  for (const [index, center] of [[0,0.34],[1,0.76]]) {
     assert.equal(storyCardPose(center - 0.07, index).opacity, 0);
     assert.ok(storyCardPose(center - 0.04, index).y > 0);
     assert.ok(Math.abs(storyCardPose(center + 0.025, index).opacity - 1) < 0.001);
   }
   assert.equal(storyCardPose(0.55, 0).opacity, 1);
-  assert.equal(storyCardPose(0.55, 2).opacity, 0);
-  for (const index of [0,1,2]) {
+  assert.equal(storyCardPose(0.55, 1).opacity, 0);
+  for (const index of [0,1]) {
     assert.equal(storyCardPose(0.9, index).opacity, 1);
     assert.equal(storyCardPose(0.9, index).y, 0);
   }
@@ -63,7 +63,7 @@ test('cards rise from below, remain in the stack and withdraw only on reverse sc
 });
 
 test('phone card entrances have complete targets at a fixed scroll position and reverse cleanly', () => {
-  for (const [index, center] of [[0,0.34],[1,0.55],[2,0.76]]) {
+  for (const [index, center] of [[0,0.34],[1,0.76]]) {
     assert.deepEqual(storyCardPose(center - 0.04, index, true), { y: 125, opacity: 0 });
     assert.deepEqual(storyCardPose(center - 0.02, index, true), { y: 0, opacity: 1 });
     assert.deepEqual(storyCardPose(0.9, index, true), { y: 0, opacity: 1 });

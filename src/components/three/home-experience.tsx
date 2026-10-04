@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Link from "next/link";
 import { Component, type CSSProperties, type PointerEvent, type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import { ButtonLink } from "@/components/ui/button-link";
@@ -161,13 +160,15 @@ export function HomeExperience({
     const root = heroRef.current;
     const processRoot = processRef.current;
     const introElements = root?.querySelectorAll<HTMLElement>("[data-hero-intro], .hero-controls");
-    const cards = root?.querySelectorAll<HTMLElement>("[data-story-card]");
+    let cards = root?.querySelectorAll<HTMLElement>("[data-story-card]");
     const heroScreen = root?.querySelector<HTMLElement>(".hero-screen");
     const processScreen = processRoot?.querySelector<HTMLElement>(".process-screen");
     const arrowElement = root?.querySelector<HTMLButtonElement>(".hero-control");
     const phoneQuery = window.matchMedia("(max-width: 639px)");
     const update = () => {
       frame = 0;
+      // Server-rendered service children can arrive after this client boundary mounts.
+      if (!cards?.length) cards = root?.querySelectorAll<HTMLElement>("[data-story-card]");
       // Read geometry together before writing styles; use the same stable viewport as sticky CSS.
       const hero = root?.getBoundingClientRect();
       const process = processRoot?.getBoundingClientRect();
@@ -192,11 +193,11 @@ export function HomeExperience({
         root.style.setProperty("--story-theme", String(pose.theme));
         root.style.setProperty("--story-intro-opacity", String(pose.intro));
         introElements?.forEach(element => { element.inert = enabled && pose.intro < 0.08; });
-        cards?.forEach(element => {
+        cards?.forEach((element, index, currentCards) => {
           const card = storyCardPose(progress, Number(element.dataset.storyCard), phoneQuery.matches);
           element.style.setProperty("--card-y", card.y + "%");
           element.style.setProperty("--card-opacity", String(card.opacity));
-          const covered = Number(element.dataset.storyCard) < 2 && storyCardPose(progress, Number(element.dataset.storyCard) + 1, phoneQuery.matches).y < 25;
+          const covered = index < currentCards.length - 1 && storyCardPose(progress, Number(element.dataset.storyCard) + 1, phoneQuery.matches).y < 25;
           element.inert = enabled && (card.opacity < 0.1 || card.y > 35 || covered);
         });
         root.style.setProperty("--story-heading-opacity", String(pose.heading));
@@ -321,7 +322,6 @@ export function HomeExperience({
             <button type="button" aria-label="Önceki model" disabled={show3D && !heroReady} onClick={() => selectStep(motion.current.target - 1)} className="hero-control">←</button>
             <button type="button" aria-label="Sonraki model" disabled={show3D && !heroReady} onClick={() => selectStep(motion.current.target + 1)} className="hero-control">→</button>
           </div>
-          <p className="mt-3 text-sm text-zinc-200">{activeItem.serviceLabel} · {activeItem.description}</p>
           {fallback && <div className="mx-auto mt-4 max-w-md text-sm text-zinc-300" role="status">
             <p>{fallback === "slow" ? "Daha akıcı bir deneyim için görseller gösteriliyor." : "3D görünüm açılamadı. Modelleri görselleriyle inceleyebilirsiniz."}</p>
             <button type="button" onClick={retry} className="mt-3 min-h-11 rounded-full border border-white/25 px-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">3D görünümü yeniden dene</button>
@@ -340,13 +340,6 @@ export function HomeExperience({
               <p className="text-xs font-bold uppercase tracking-[0.25em] text-violet-300">Neler yapıyoruz?</p>
               <h1 id="inspection-title" className="mt-3 text-balance text-3xl font-semibold leading-tight tracking-[-0.04em] text-white">Fikri modele, modeli gerçeğe dönüştürüyoruz.</h1>
             </div>
-            <article className="story-card service-card" data-story-card="0">
-              <p className="text-xs uppercase tracking-widest text-violet-300">{activeItem.serviceLabel}</p>
-              <h3 className="mt-8 text-3xl font-semibold text-white">{activeAsset.name}</h3>
-              <p className="mt-5 text-sm leading-7 text-zinc-300">{activeItem.description}</p>
-              <p className="mt-5 text-xs leading-6 text-zinc-400">Temsili hizmet görselleştirmesi.</p>
-              <Link href={siteConfig.modelCreditsPath} className="mt-5 inline-block rounded-sm text-sm text-violet-200 underline focus-visible:outline-2 focus-visible:outline-offset-4">Model kaynakları ve lisanslar</Link>
-            </article>
             {children}
           </section>
         </div>
@@ -362,9 +355,7 @@ export function HomeExperience({
               Fiziksel formdan dijital çalışmaya, oradan üretime.
             </h2>
             <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-400">
-              Numuneden dijital modele, katman katman baskıdan tamamlanan parçaya beş adım.
-              Bu sahne ve adım görselleri sürecin temsili gösterimidir; gerçek tarama verisi,
-              CAD onarımı veya üretilebilirlik kanıtı değildir.
+              {scanProcess.description}
             </p>
             <div className="process-steps" data-active-stage={stage}>
               <ProcessStepControls stage={stage} selectStage={selectProcessStage}>{processSteps}</ProcessStepControls>

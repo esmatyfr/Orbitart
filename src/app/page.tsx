@@ -29,8 +29,8 @@ export default function HomePage() {
         processSteps={<ScanProcessSteps />}
       >
         <div className="story-services">
-            {servicePaths.map((service) => (
-              <article key={service.number} data-story-card={Number(service.number)} className="story-card service-card group">
+            {servicePaths.map((service, index) => (
+              <article key={service.number} data-story-card={index} className="story-card service-card group">
                 <span className="text-xs font-bold tracking-[0.2em] text-violet-300">
                   {service.number}
                 </span>
@@ -54,7 +54,7 @@ export default function HomePage() {
       <ProductShowcase
         eyebrow="Üretim vitrini"
         title="Detay, karakter ve yüzey kalitesi bir arada."
-        description="Koleksiyon figürlerinden dekoratif objelere uzanan seçilmiş çalışmalarımızı gerçek ürün fotoğraflarıyla inceleyin. Her parça, dijital modelden son yüzey işlemine kadar kontrollü bir üretim sürecinden geçer."
+        description="Figür ve dekoratif objelerimizi gerçek fotoğraflarıyla inceleyin. Her parça, baskıdan son rötuşa kadar özenli bir süreçten geçer."
         items={homeShowcaseItems}
         viewAllHref="/vitrin"
         scrollReveal

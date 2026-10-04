@@ -2,6 +2,26 @@
 
 Son güncelleme: 2026-10-04. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
 
+## Faz 3 son revizyon kabulü ve Faz 4 geçişi (2026-10-04)
+
+Kullanıcı son dokuz not revizyonunu onayladı; yerel Git/GitHub kaydını ve Faz 4'e geçişi açıkça istedi. **Faz 3 kapalı; aktif faz Faz 4'tür.** Bu tur Faz 4 başlangıç envanteri ve planı hazırlandı; yeni uygulama kodu veya yayın değişikliği yapılmadı. Son kod revizyonunun önceki turdaki lint/typecheck, 27/27 birim testi, production build, 6/6 üretim HTML testi ve masaüstü/mobil tarayıcı kontrolleri geçerlidir; bu belge/Git turunda tekrar çalıştırılmış gibi sunulmaz.
+
+Faz 4 ilk envanteri: mağaza, Instagram ve WhatsApp adresleri site-config.ts içinde mevcut. Hazır WhatsApp mesajını güvenli kodlayan ortak links.ts, sitemap/robots, favicon ve sosyal paylaşım görseli henüz yok. Temel metadata mevcut, ancak metadataBase mağaza adresini kullanıyor; tanıtım sitesi yayın adresi mağaza adresinden ayrılmalı. Vercel Preview kurulumu ve yayındaki smoke test henüz yapılmadı.
+
+Çalışma sırası [roadmap.md](roadmap.md) Faz 4 başlangıç planında kayıtlıdır. Önce bağlantı/metadata envanteri, ardından yerel eksiklerin tamamlanması ve kalite kontrolleri, sonrasında kullanıcı onaylı Preview kurulumu yapılır. Tanıtım sitesi için kesin alan adı ve kullanılacak Vercel projesi dış kurulumdan önce netleştirilecek; adres/proje uydurulmaz. Production yayını Faz 5 güvenlik kontrolü ve ayrı açık onaydan sonra yapılır. Onaylanan tasarım ve 3D akış korunur.
+
+Git kaydı: gönderim öncesi origin fetch edildi; main ile origin/main aynıydı. Son ana sayfa revizyonu ve faz geçiş belgeleri bu kaydı içeren commit kapsamında yerel Git'e ve mevcut GitHub origin/main deposuna kaydedilir. Gönderimden sonra commit kimliği, uzak HEAD eşleşmesi ve temiz çalışma ağacı doğrulanır. Yerel test kanıtları ve ek dosyalar Git dışında kalır.
+
+## Kapanış sonrası ana sayfa içerik revizyonu (2026-10-04)
+
+Kullanıcının dokuz tarayıcı notu uygulandı: hero altındaki seçili model açıklaması ve Neler Yapıyoruz içindeki model bilgi kartı kaldırıldı. Bu bölümde yalnız Teknik Çözümler ve Yaratıcı Üretim kaldı. İki kart mevcut ilk/son giriş aralığını kullanır; arkadaki kart inert olur, son kartın bağlantısı erişilebilir kalır. Server Component çocukları istemci sınırından sonra geldiğinde kart listesinin boş kalması da giderildi. Model/kamera ayarları, platform, bölüm uzunlukları ve süreç animasyonları değiştirilmedi.
+
+Taramadan Üretime giriş metni, beş aşamanın açıklamaları ve ana sayfa üretim vitrini açıklaması kullanıcının verdiği metinlerle değiştirildi. Süreç girişi scan-process.ts içinde merkezileştirildi. Footer kaynak bağlantısı, /model-kaynaklari sayfası, temsili poster alt metinleri ve erişilebilir sahne adları korunur.
+
+Bu revizyonda lint, typecheck, 27/27 birim testi, production build ve 6/6 üretim HTML testi geçti. Masaüstünde 1164×712, telefona karşılık gelen 390×844 ve 320×640 tarayıcı boyutlarında yerleşim kontrol edildi; tek Canvas ve yatay taşma olmaması doğrulandı. Mobil iki kartın sırası, arkadaki/üstteki kartın inert durumu ve yeni uzun süreç metninin küçük ekrana sığması kontrol edildi. Bunlar tarayıcı kontrolleridir; bu revizyon için yeni fiziksel telefon veya canlı OS erişilebilirlik testi yapılmadı. Üretim HTML testleri JavaScript öncesi poster, semantik kontrol ve kaynak bağlantılarını doğrular. Kanıtlar output/home-copy-2026-10-04/ altındadır.
+
+Faz 3 kapalı kalır; bu kayıt kapanış sonrası kullanıcı revizyonudur. Faz 4 veya deploy başlatılmadı. Önceki kapanış commit'i 971de03 main/origin üzerinde kalır; bu revizyon henüz yeni bir commit'e kaydedilmedi. Güncellenen belge bağlantıları ve diff kontrol edildi.
+
 ## Faz 3 — tamamlandı, kullanıcı test kabulü ve Git kaydı (2026-10-04)
 
 **Faz 3 kapatıldı.** Kullanıcı önce mobil kullanım ve tasarımı onayladı; ardından son kalan performans, erişilebilirlik ve zor koşul testlerinin hepsini yaptığını ve başarıyla geçtiğini bildirerek Faz 3'ün kapatılmasını istedi. Son teknik kabul kullanıcı beyanına dayanır; bu kayıt agent tarafından yeni bir fiziksel cihaz ölçümü yapıldığını veya paylaşılmamış FPS/bellek/yükleme süresi değerlerini iddia etmez. Daha önce bildirilen telefon Redmi Note 10S / Chrome'dur. Önceki kayıtların açık kabul maddeleri bu son onayla kapanmıştır.

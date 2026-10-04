@@ -22,7 +22,7 @@ test("final home sequence and five explanatory steps are in HTML without JavaScr
     cursor = next;
   }
   for (const stage of ["sample", "scan", "model", "printing", "result"]) assert.ok(home.includes(`process-${stage}.webp`));
-  assert.match(home, /gerçek tarama verisi/);
+  assert.match(home, /Elinizdeki parçadan 3D baskıya uzanan 5 adımlı şeffaf süreç/);
   assert.match(home, /<noscript>/);
   assert.match(home, /href="\/iletisim"/);
   assert.match(home, /href="https:\/\/orbitart.com.tr\/?"/);
@@ -78,11 +78,15 @@ test("five process cards have keyboard controls, accessible names and a shared s
 });
 
 
-test("Phase 3 inspection contains model details and one copy of each service link", () => {
+test("inspection contains only two service cards and one copy of each service link", () => {
   assert.ok(home.includes('id="neler-yapiyoruz"'));
   assert.match(home, /class="[^"]*hero-story/);
   assert.ok(!home.includes("inspection-stage"));
-  assert.equal((home.match(/data-story-card=/g) ?? []).length, 3);
+  assert.equal((home.match(/data-story-card=/g) ?? []).length, 2);
+  assert.ok(home.includes('data-story-card="0"'));
+  assert.ok(home.includes('data-story-card="1"'));
+  assert.ok(!home.includes('data-story-card="2"'));
+  assert.ok(!home.includes('Temsili hizmet görselleştirmesi.'));
   for (const id of ["teknik-cozumler", "yaratici-uretim"]) assert.equal((home.match(new RegExp('href="/hizmetlerimiz#' + id + '"', 'g')) ?? []).length, 1);
   assert.ok(home.indexOf('id="neler-yapiyoruz"') < home.indexOf('id="taramadan-uretime"'));
   const heading = home.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/g) ?? [];

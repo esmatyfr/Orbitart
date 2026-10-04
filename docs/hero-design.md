@@ -2,6 +2,12 @@
 
 Karar tarihi: 2026-09-28; yatay sergi hattı ve tek platform revizyonu: 2026-10-01. Kullanıcı dairesel modeli kaldırıp Ciao Energy referansındaki merkez/yan model düzenini seçti. Faz 2'de tek ortak platform ve hero zeminiyle bütünleşik sahne uygulanır; son tarayıcı/cihaz kabulü [progress.md](progress.md) içindedir. Kaydırmayla büyüyen model, bilgi kartları ve süreç animasyonu 2026-10-02 Faz 3 onayıyla uygulandı; yerel kanıt ve açık kullanıcı/cihaz kabulü progress.md içindedir.
 
+## Güncel kullanıcı revizyonu — 2026-10-04 kapanış sonrası
+
+Hero oklarının altındaki görünür hizmet/model açıklaması ve Neler Yapıyoruz model bilgi kartı kaldırılır. Neler Yapıyoruz yalnız Teknik Çözümler ve Yaratıcı Üretim kartlarından oluşur; iki kart mevcut kaydırma aralığının ilk/son giriş noktalarında birikir. Arkadaki kart etkileşime kapanır, son kartın bağlantısı açık kalır. Seçili modelin canlı erişilebilir duyurusu, model kadrajı, platform ve iki CTA korunur. Kaynak/lisans erişimi ortak Footer ve /model-kaynaklari sayfasından sürer. Aşağıdaki önceki üç kart/model açıklaması kararlarının yerine bu revizyon geçer.
+
+Taramadan Üretime giriş ve beş adım açıklaması kullanıcı metinleriyle src/content/scan-process.ts içinde yönetilir. Ana sayfa fotoğraf seçkisinin açıklaması da kullanıcı metniyle güncellenir; sahne efektleri ve fotoğraf düzeni değişmez. Faz 3 kapanışı korunur; doğrulama [progress.md](progress.md) içindedir.
+
 ## Amaç ve referanslar
 
 Kullanıcının çizimi kompozisyonun ana kaynağıdır. Moto'nun başlık–ürün–buton sırası, Ciao Energy'nin merkez/yan model seçimi, Red Bull'un ürüne bağlı renk hissi ve Lusion örneğindeki bölüm geçişleri görsel referanstır. Referansların kodu, modeli veya görselleri kopyalanmaz.

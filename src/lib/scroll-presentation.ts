@@ -55,7 +55,7 @@ export function heroStoryPose(progress: number) {
   };
 }
 export function storyCardPose(progress: number, index: number, settleOnPhone = false) {
-  const center = 0.34 + index * 0.21;
+  const center = 0.34 + index * 0.42;
   // Phones trigger a timed entrance instead of freezing a card midway through a swipe.
   const enter = settleOnPhone ? Number(progress >= center - 0.03) : smooth((progress - center + 0.06) / 0.06);
   return { y: (1 - enter) * 125, opacity: index === 0 ? enter : enter > 0 ? 1 : 0 };
