@@ -4,20 +4,20 @@ import { FloatingSocialLinks } from "@/components/layout/floating-social-links";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig } from "@/content/site-config";
+import { deployment, pageMetadata } from "@/lib/site-metadata";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.storeUrl),
+  ...pageMetadata("/"),
+  metadataBase: new URL(deployment.imageOrigin),
   title: {
     default: "Orbitart 3D | Tasarım, Tarama ve Üretim",
     template: "%s | Orbitart 3D",
   },
-  description: siteConfig.description,
-  openGraph: {
-    title: "Orbitart 3D",
-    description: siteConfig.description,
-    locale: "tr_TR",
-    type: "website",
+  applicationName: siteConfig.name,
+  icons: {
+    icon: [{ url: "/images/brand/orbitart-icon.svg", type: "image/svg+xml" }, { url: "/images/brand/orbitart-icon.png", type: "image/png", sizes: "32x32" }],
+    apple: [{ url: "/images/brand/orbitart-apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 

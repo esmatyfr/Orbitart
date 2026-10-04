@@ -1,6 +1,6 @@
 # Orbiart Mimari Rehberi
 
-Revizyon: 2026-10-04. Faz 2A–2E ve Faz 3 kod düzenini açıklar; doğrulama ve açık cihaz/kullanıcı kabulü [progress.md](progress.md) içindedir. Altılı hero, yakın inceleme, seçim/tema, kontrollü yükleme ve çalışan FDM yazıcılı beş aşamalı süreç animasyonu uygulandı.
+Revizyon: 2026-10-04. Faz 2A–2E, Faz 3 ve Faz 4 bağlantı/metadata kod düzenini açıklar; doğrulama ve kullanıcı kabulü [progress.md](progress.md) içindedir. Altılı hero, yakın inceleme, seçim/tema, kontrollü yükleme ve çalışan FDM yazıcılı beş aşamalı süreç korunur.
 
 ## Sistem sınırı ve sayfa düzeni
 
@@ -17,6 +17,7 @@ Next.js App Router, TypeScript, Tailwind CSS, React Three Fiber/Drei ve Framer M
 - scenes.ts: ortak kamera, nötr ana ışık, yatay hat/süreç görünümü ve model sunum dönüşümleri.
 - service-paths.ts: iki hizmet yönlendirmesi ve Hizmetlerimiz içindeki aynı kimlikli anchor içerikleri.
 - site-config.ts: public mağaza ve sosyal bağlantılar ile model kaynakları sayfasının dahili yolu. sourceKind ile ürün sahipliği, status ile yayın, teknik hazırlık ve lisans onayı birbirinden ayrı kararlardır.
+- site-pages.ts: altı rotanın başlık/açıklaması. links.ts dış HTTPS hedeflerini ve WhatsApp mesajını; deployment-settings.ts/site-metadata.ts onaylı site origin'ini, Preview noindex ve paylaşım origin'ini yönetir. Metadata Server Component katmanında üretilir.
 
 Yayın filtresi server tarafındadır. Hero için publicationStatus published + rightsStatus approved + technicalStatus approved + geçerli model/poster + kullanıcı model seçimi gerekir. Altı farklı varlık ve 3+3 slot dağılımı doğrulanır. Kullanıcının teknik/yayın onayından sonra altı kayıt 2026-10-02'de production 3D filtresinden geçer; fallback yeteneği korunur. Bu filtre public dosyaları gizlemez. Aday model seçimi tek başına teknik/yayın onayı değildir.
 
@@ -24,6 +25,7 @@ Yayın filtresi server tarafındadır. Hero için publicationStatus published + 
 
 - src/app: beş tanıtım rotası ve statik model kaynakları rotası, metadata ve Server Component metin/bağlantıları.
 - src/components/layout: Navbar, Footer.
+- MobileNavigation, yerel details/summary menüsünün link seçiminde kapanması ve odağını koruması için küçük client sınırıdır; SiteHeader ve menü bağlantıları server içeriği olarak kalır.
 - src/components/ui: iki hizmet kartı, semantik süreç adımları, HTML kontroller, bağlantılar, hareketler.
 - src/components/products: mevcut gerçek fotoğraf vitrinleri.
 - src/components/three: ortak deneyim yöneticisi, Canvas, hero model hattı, süreç görünümleri ve yükleme/hata sınırları.
@@ -37,6 +39,10 @@ Yayın filtresi server tarafındadır. Hero için publicationStatus published + 
 - docs/models.md: güncel model dosyaları, hak durumu ve teknik kabul kapısı. Eski aday/Blender kayıtları docs/archive altındadır.
 
 Hedef dosyalar henüz mevcutmuş gibi raporlanmaz.
+
+## Faz 4 yayın sınırı
+
+robots.ts ve sitemap.ts build ortamından politika üretir; not-found.tsx erişilebilir kurtarma bağlantıları sağlar. Marka ikonları/paylaşım PNG'si onaylı orbital SVG'den `scripts/generate-brand-assets.mjs` ile çevrimdışı üretilir. `scripts/check-deployment.mjs` Vercel production build'ini ayrı yayın onayına bağlar; vercel.json ve .vercelignore build/upload sınırlarını tanımlar. Kurulum ve güncel Preview [deployment.md](deployment.md) içindedir. Mevcut 3D bileşenleri ve sahne ayarları bu fazda değiştirilmedi.
 
 ## Mevcut koddan geçiş — Faz 2A
 

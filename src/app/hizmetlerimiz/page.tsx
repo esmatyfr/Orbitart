@@ -1,15 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 import Link from "next/link";
 
 import { PageHero } from "@/components/ui/page-hero";
 import { Reveal } from "@/components/ui/reveal";
 import { servicePaths } from "@/content/service-paths";
 
-export const metadata: Metadata = {
-  title: "Hizmetlerimiz",
-  description:
-    "Orbitart 3D baskı, 3D tarama ve özel tasarım hizmetlerini inceleyin.",
-};
+export const metadata = pageMetadata("/hizmetlerimiz");
 
 const services = [
   {

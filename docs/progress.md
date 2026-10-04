@@ -2,6 +2,40 @@
 
 Son güncelleme: 2026-10-04. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
 
+## Faz 4 kullanıcı kabulü, Git kaydı ve Faz 5 başlangıcı (2026-10-04)
+
+**Faz 4 kapandı.** Kullanıcı mevcut HTTPS Preview'ı açıp sorunsuz çalıştığını bildirdi ve önerilen GitHub/Vercel bağlantı adımlarını onayladı. Önceki turdaki 31/31 birim, 12/12 HTML, lint/typecheck/build ve gerçek Preview kontrolleri kabul edildi; bu belge/Git turunda yeniden yapılmış gibi raporlanmaz.
+
+Faz 4 kaynakları, onay kaydı ve yayın yapılandırması bu kaydı içeren commit ile main/origin deposuna gönderilir. Gönderim öncesi origin fetch edildi; yerel/uzak main ayrışması sıfırdı. Vercel `esmatyfr/orbitartt` yalnız doğru `esmatyfr/Orbitart` deposuna bağlanır. Otomatik Git yayını `codex/*` Preview dallarına açıldı, diğer tüm dallar (main dahil) kapalıdır. Production build kapısı ayrıca korunur. Bağlantı işleminin sonucu ve commit kimliği sonraki denetim kaydına yazılır.
+
+Aktif faz Faz 5'tir: güvenlik başlıkları/CSP, secret/Git geçmişi/client bundle, ortam kapsamları, model/public hakları ve alan adı/DNS denetimi. Production ve eski projenin alan adı taşınması henüz yapılmadı; son denetim sonrası ayrı yayın onayı alınır. Eski tarihli “kabul bekleniyor” kayıtları başlangıç anını anlatır.
+
+## Faz 4 uygulaması ve Vercel Preview (2026-10-04)
+
+**Faz 4 uygulandı; yeni HTTPS Preview kullanıcı kabulü bekleniyor. Faz 3 kapalıdır, Faz 5/production başlamadı.** Kullanıcı tanıtım alan adını `orbitartt.com` olarak belirledi, yeni Vercel projesi oluşturma ve Preview yayınını açıkça onayladı; hesap girişi ve CLI cihaz yetkilendirmesini kendisi tamamladı.
+
+Uygulananlar:
+
+- Altı rotanın metadata başlık/açıklaması site-pages.ts içinde; canonical `https://orbitartt.com`, mağaza `https://orbitart.com.tr` olarak ayrıldı. OG/Twitter, SVG/PNG favicon ve Apple ikonu tamamlandı. Paylaşım görseli onaylı Yörüngeli O SVG'sinden mevcut sharp ile üretilen 1200×630 PNG'dir; yeni logo veya bağımlılık eklenmedi.
+- Merkezi HTTPS dış bağlantı doğrulaması ve güvenli WhatsApp hazır mesajı eklendi. Ortak Footer, kayan bağlantı ve İletişim CTA'ları aynı numara/metni kullanır; iç rota/anchor ve yeni sekme rel hedefleri denetlendi.
+- Production sitemap altı rotayı içerir; Preview noindex/nofollow, robots Disallow ve boş sitemap kullanır. Paylaşım görseli Preview origin'inden, canonical onaylı alan adından üretilir.
+- Marka dilinde 404 ve ana sayfa/iletişim kurtarma bağlantıları eklendi. Mobil menünün sayfa seçilince açık kalması dar bir client sınırıyla düzeltildi; kapanınca summary odağı korunur. İletişim'e tasarımı etkilemeyen erişilebilir h1 eklendi.
+- Build/upload ortamı, .env/.vercel/yerel kanıt dışlamaları ve production yayın kapısı eklendi. Tasarım, üç boyutlu bileşenler, sahne/palet ayarları ve fotoğraf seçkileri değiştirilmedi.
+
+Yeni proje `esmatyfr/orbitartt`; **[güncel Preview](https://orbitartt-ks916xf13-esmatyfr.vercel.app)** READY, deployment kimliği `dpl_9LviUXyHNVcos2sFcKra4tcGCoYM`, `productionUrl:null`. Authentication açık; Vercel hesabıyla giriş gerekebilir. İlk `--target preview` denemesi Vercel tarafından production sayıldı ve yayın kapısı build'i durdurdu (ERROR). Sonraki iki yükleme gerçek Preview/READY oldu; kapı aşılmadı. Eski `esmatyfr/orbiant` projesi ve onun `www.orbitartt.com` kaydı değiştirilmedi; alan adı/DNS ve production için ayrı Faz 5 onayı gerekir. Kurulum/yeniden yayın [deployment.md](deployment.md) içinde.
+
+Bu turdaki doğrulamalar:
+
+- Son kaynakta lint/typecheck, 31/31 birim testi, production build ve 12/12 üretim HTML testi geçti. Windows sandbox dosya erişiminden etkilenen build normal erişimde aynı kaynakla başarılı oldu.
+- Preview fixture build, o noktadaki 11/11 HTML testi ve localhost HTTP smoke geçti; son ek h1 kontrolü production çıktısında 12/12 olarak doğrulandı. Gerçek Vercel Preview build'i de başarılı; normal yerel production çıktısı geri üretildi.
+- Yetkili Vercel curl üzerinden altı rota, üç beklenen 404, Preview robots/sitemap, üç PNG ölçüsü ve HTML'deki 37 görsel adresi denetlendi. HTTP doğrulaması Authentication kapatılmadan yapıldı.
+- Tarayıcıda 1440×900 masaüstü ve 390×844 mobil ölçülerde altı rotada taşma yok; ana sayfada tek Canvas, alt sayfalarda sıfır Canvas doğrulandı. Menü dokunma ve Enter ile kapanır, odak geri gelir; 404 kurtarma linki çalışır. Model seçimi ve mobil tarama sahnesi çalışır. Fotoğraf/poster dosyaları, semantik kontroller ve kaynak bağlantıları HTML/birim testlerinde korunur. Yeni fiziksel telefon, OS ekran okuyucu veya sayısal FPS ölçümü yapılmadı.
+- Git ignore sınırları, upload manifest ve dar secret/diff kontrolü geçti; kimlik değerleri okunup raporlanmadı. Bu, Faz 5 tam geçmiş/client bundle secret taraması ve CSP kabulü değildir. Kanıtlar `output/phase4-2026-10-04/` altında Git dışında tutulur.
+
+Audit çalışma zamanı bağımlılıklarında sıfır bulgu; geliştirme zincirinde braces kaynaklı beş high kayıt gösterdi. Mevcut advisory patched sürüm belirtmediğinden ve force çözümü Next ESLint'i 14.2.35'e düşürdüğünden zorunlu sürüm değişikliği yapılmadı. Bu konu, mevcut ESLint destek/deprecation ve Three.Clock uyarılarıyla birlikte Faz 5'te upstream uyumluluk ve gerçek saldırı yüzeyi değerlendirmesine kaydedildi. Tarayıcıda uygulama hata kaydı görülmedi; deprecated uyarıları hata gibi sunulmaz.
+
+Git durumu: Faz 3 `b28b2d5` main/origin kaydı korunur. Faz 4 çalışma ağacı CLI ile Preview'a yüklendi; henüz yeni Git commit/push yapılmadı. Kullanıcının yeni HTTPS Preview kabulünden sonra faz kapanışı/Git kaydı ve Faz 5 geçişi ele alınır. Önceki kayıtların “henüz uygulanmadı” ifadeleri kendi tarihli başlangıç anını anlatır; güncel durum bu bölümdür.
+
 ## Faz 3 son revizyon kabulü ve Faz 4 geçişi (2026-10-04)
 
 Kullanıcı son dokuz not revizyonunu onayladı; yerel Git/GitHub kaydını ve Faz 4'e geçişi açıkça istedi. **Faz 3 kapalı; aktif faz Faz 4'tür.** Bu tur Faz 4 başlangıç envanteri ve planı hazırlandı; yeni uygulama kodu veya yayın değişikliği yapılmadı. Son kod revizyonunun önceki turdaki lint/typecheck, 27/27 birim testi, production build, 6/6 üretim HTML testi ve masaüstü/mobil tarayıcı kontrolleri geçerlidir; bu belge/Git turunda tekrar çalıştırılmış gibi sunulmaz.

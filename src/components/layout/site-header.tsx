@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HeaderSurface } from "@/components/layout/header-surface";
+import { MobileNavigation } from "@/components/layout/mobile-navigation";
 import { siteConfig } from "@/content/site-config";
 
 const navigation = [
@@ -56,11 +57,7 @@ export function SiteHeader() {
             Mağazaya Git
           </a>
 
-          <details className="mobile-navigation relative lg:hidden">
-            <summary className="flex size-11 cursor-pointer list-none items-center justify-center rounded-full border border-white/15 bg-white/5 text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-300">
-              <span className="sr-only">Menüyü aç</span>
-              <span className="menu-icon" aria-hidden="true" />
-            </summary>
+          <MobileNavigation>
             <nav
               className="absolute right-0 top-14 w-[min(21rem,calc(100vw-2.5rem))] rounded-3xl border border-white/10 bg-[#11101a] p-4"
               aria-label="Mobil menü"
@@ -85,7 +82,7 @@ export function SiteHeader() {
                 </a>
               </div>
             </nav>
-          </details>
+          </MobileNavigation>
         </div>
       </div>
     </header>

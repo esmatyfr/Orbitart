@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 
 import { ProductShowcase } from "@/components/products/product-showcase";
 import { PageHero } from "@/components/ui/page-hero";
@@ -7,11 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { motionSettings } from "@/content/motion";
 import { aboutShowcaseItems } from "@/content/showcase";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda",
-  description:
-    "Orbitart'ın 3D tasarım, tarama ve katmanlı üretime yaklaşımını keşfedin.",
-};
+export const metadata = pageMetadata("/hakkimizda");
 
 const values = [
   [

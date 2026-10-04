@@ -2,6 +2,7 @@
 // Run after npm run build. Does not replace visual/WebGL/device tests.
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { access } from "node:fs/promises";
 import test from "node:test";
 
 const readPage = async name => (await readFile(new URL(`../.next/server/app/${name}.html`, import.meta.url), "utf8"))
@@ -11,7 +12,16 @@ const about = await readPage("hakkimizda");
 const services = await readPage("hizmetlerimiz");
 const gallery = await readPage("vitrin");
 const credits = await readPage("model-kaynaklari");
+const contact = await readPage("iletisim");
 const photoCount = html => (html.match(/<img\b[^>]*>/g) ?? []).filter(tag => tag.includes("%2Fimages%2Fproducts%2F")).length;
+
+test("every public page has one main heading and the shared skip-link destination", () => {
+  for (const html of [home, about, services, gallery, credits, contact]) {
+    assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+    assert.match(html, /<main\b[^>]*id="ana-icerik"/);
+    assert.match(html, /href="#ana-icerik"/);
+  }
+});
 
 test("final home sequence and five explanatory steps are in HTML without JavaScript", () => {
   const labels = ["Fikri modele", "Teknik Çözümler", "Yaratıcı Üretim", 'id="taramadan-uretime"', "Fiziksel numune", "Tarama verisi", "Dijital model", "3D baskı", "Üretim sonucu", "Üretim vitrini", "Talebinizi paylaşın", "Birlikte değerlendirelim", "Üretim ve teslim", "Bir fikrin mi var?"];
@@ -96,4 +106,82 @@ test("inspection contains only two service cards and one copy of each service li
   const controls = home.match(/<button\b[^>]*aria-label="Önceki model"[\s\S]*?<button\b[^>]*aria-label="Sonraki model"/)?.[0];
   assert.ok(controls);
   assert.ok(!controls.includes('Orbit Gear'));
+});
+
+const routePages = new Map([['/',home],['/hakkimizda',about],['/hizmetlerimiz',services],['/vitrin',gallery],['/iletisim',contact],['/model-kaynaklari',credits]]);
+const siteOrigin = new URL(process.env.SITE_URL || 'https://orbitartt.com').origin;
+const isPreview = ['preview','development'].includes(process.env.VERCEL_ENV);
+
+test('every page has its own canonical, social title, image, Twitter card and robots policy', () => {
+  for (const [route,html] of routePages) {
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+    assert.ok(canonical);
+    assert.equal(new URL(canonical).href,new URL(route,siteOrigin).href);
+    assert.match(html,/<meta property="og:title" content="[^"]+"/);
+    assert.ok(html.includes('/images/brand/orbitart-social.png'));
+    assert.match(html,/<meta name="twitter:card" content="summary_large_image"/);
+    assert.ok(html.includes(`name="robots" content="${isPreview ? 'noindex, nofollow' : 'index, follow'}"`));
+    assert.ok(html.includes('rel="apple-touch-icon"'));
+  }
+});
+
+test('all internal CTA and fragment targets exist and external links use safe HTTPS attributes', () => {
+  for (const [route,html] of routePages) {
+    for (const tag of html.match(/<a\b[^>]*>/g) ?? []) {
+      const href = tag.match(/href="([^"]+)"/)?.[1]?.replaceAll('&amp;','&');
+      if (!href) continue;
+      if (href.startsWith('https:')) {
+        if (tag.includes('target="_blank"')) assert.match(tag,/rel="noopener noreferrer"/);
+      } else {
+        assert.ok(href.startsWith('/') || href.startsWith('#'),`unexpected protocol: ${href}`);
+        const url = new URL(href,new URL(route,siteOrigin));
+        const target = routePages.get(url.pathname);
+        assert.ok(target,`missing route: ${url.pathname}`);
+        if (url.hash) assert.ok(target.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`),`missing anchor: ${url.hash}`);
+      }
+    }
+  }
+});
+
+test('all WhatsApp links share one valid number and an intact prepared message', () => {
+  for (const html of routePages.values()) {
+    const links = [...html.matchAll(/href="(https:\/\/wa\.me\/[^\"]+)"/g)];
+    assert.ok(links.length >= 2);
+    for (const [,href] of links) {
+      const url = new URL(href.replaceAll('&amp;','&'));
+      assert.match(url.pathname,/^\/[1-9]\d{7,14}$/);
+      assert.equal(url.searchParams.get('text'),'Merhaba Orbitart, 3D baskı, tarama veya özel tasarım projem hakkında bilgi almak istiyorum.');
+    }
+  }
+});
+
+test('sitemap and robots contain only approved site URLs; Preview has no sitemap entries', async () => {
+  const robots = await readFile(new URL('../.next/server/app/robots.txt.body',import.meta.url),'utf8');
+  const sitemap = await readFile(new URL('../.next/server/app/sitemap.xml.body',import.meta.url),'utf8');
+  if (isPreview) {
+    assert.match(robots,/Disallow: \//);
+    assert.doesNotMatch(sitemap,/<loc>/);
+  } else {
+    assert.match(robots,/Allow: \//);
+    assert.ok(robots.includes(`${siteOrigin}/sitemap.xml`));
+    const entries = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match=>match[1]);
+    assert.deepEqual(entries.sort(),[...routePages.keys()].map(route=>new URL(route,siteOrigin).href).sort());
+  }
+});
+
+test('prerendered photos and metadata assets resolve to repository files, and 404 offers recovery links', async () => {
+  for (const html of routePages.values()) {
+    for (const [,src] of html.matchAll(/<img\b[^>]*src="([^"]+)"/g)) {
+      const url = new URL(src.replaceAll('&amp;','&'),siteOrigin);
+      const path = url.pathname === '/_next/image' ? url.searchParams.get('url') : url.pathname;
+      assert.ok(path?.startsWith('/images/'));
+      await access(new URL(`../public${path}`,import.meta.url));
+    }
+  }
+  for (const asset of ['orbitart-social.png','orbitart-icon.svg','orbitart-icon.png','orbitart-apple-icon.png']) await access(new URL(`../public/images/brand/${asset}`,import.meta.url));
+  const missing = await readPage('_not-found');
+  assert.ok(missing.includes('Bu sayfa bulunamadı.'));
+  assert.match(missing,/href="\/"/);
+  assert.match(missing,/href="\/iletisim"/);
+  assert.match(missing,/noindex/);
 });

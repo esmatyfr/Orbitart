@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 
 import { modelAssets } from "@/content/model-assets";
 
-export const metadata: Metadata = {
-  title: "Model kaynakları ve lisanslar",
-  description: "Ana sayfadaki temsili 3D modellerin üretici, kaynak, lisans ve değişiklik bilgileri.",
-};
+export const metadata = pageMetadata("/model-kaynaklari");
 
 export default function ModelCreditsPage() {
   return (

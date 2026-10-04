@@ -1,0 +1,15 @@
+.git/
+.vercel/
+.env*
+node_modules/
+.next/
+output/
+.codex-remote-attachments/
+.cursor/
+.codex/
+.agents/
+.aws/
+docs/
+tests/
+*.log
+*.tsbuildinfo

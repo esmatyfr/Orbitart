@@ -121,7 +121,7 @@ Kullanıcı altı modelli sonuç ve statik sayfa akışını onaylar; Faz 3 hare
 
 ## Faz 3 — Taramadan Üretime animasyonu ve hareket dili
 
-**2026-10-04 son durum: tamamlandı.** Kullanıcı tasarım ve mobil kullanımdan sonra kalan testlerin tümünü başarıyla tamamladığını bildirip Faz 3'ün kapatılmasını onayladı. Agent'in son yerel kod/üretim kontrolleri ile kullanıcı tarafından bildirilen son teknik kabul [progress.md](progress.md) içinde ayrı kayıtlıdır; önceki açık test notları tarihsel kalır. Faz 4 için ayrı geçiş onayı beklenir; henüz uygulaması veya production deploy başlatılmadı.
+**2026-10-04 son durum: tamamlandı.** Kullanıcı tasarım ve mobil kullanımdan sonra kalan testlerin tümünü başarıyla tamamladığını bildirip Faz 3'ün kapatılmasını onayladı. Agent'in son yerel kod/üretim kontrolleri ile kullanıcı tarafından bildirilen son teknik kabul [progress.md](progress.md) içinde ayrı kayıtlıdır; önceki açık test notları tarihsel kalır. Sonraki kullanıcı onayıyla Faz 4 uygulandı ve Preview yayınlandı; ayrıntı aşağıdaki Faz 4 bölümündedir. Production başlamadı.
 
 2026-10-02 son kullanıcı düzeltmesi: ilk uygulama görsel olarak kabul edilmedi. Aynı ana sahnede büyüyen model, alttan yükselen kartlar ve belirgin çark efektleri sözleşmesi [hero-design.md](hero-design.md) içindedir; bu revizyon eski ayrı inceleme/mobil düğme sunumundan önceliklidir.
 
@@ -164,7 +164,7 @@ Beş aşama anlaşılır, temsili olduğu açıktır; doğal scroll ve fallback 
 
 ## Faz 4 — Bağlantılar, kalite kontrolü ve Vercel hazırlığı
 
-**Durum (2026-10-04): aktif.** Kullanıcı Faz 3'ün son içerik revizyonunu kabul edip GitHub kaydı ve Faz 4'e geçişi onayladı. Başlangıç envanteri/planı hazır; uygulama ve Preview kurulumu henüz tamamlanmadı.
+**Durum (2026-10-04): tamamlandı.** Kullanıcı HTTPS Preview'ı açıp sorunsuz çalıştığını onayladı ve GitHub/Vercel bağlantı adımlarını yetkilendirdi. Bağlantı/WhatsApp, metadata/canonical, sitemap/robots, marka ikonları/paylaşım görseli, 404 ve yayın kapısı hazır. Tanıtım adresi `https://orbitartt.com`, mağaza `https://orbitart.com.tr` olarak ayrıdır. Git otomasyonu yalnız `codex/*` Preview dallarına açılır; main production yayını ayrı onaya bağlıdır. Kanıtlar [progress.md](progress.md), yayın kuralları [deployment.md](deployment.md) içindedir. Aktif faz Faz 5 güvenlik/yayın hazırlığıdır.
 
 ### Başlangıç planı
 
@@ -174,7 +174,7 @@ Beş aşama anlaşılır, temsili olduğu açıktır; doğal scroll ve fallback 
 4. **Preview hazırlığı:** Vercel projesi/hesabı, GitHub bağlantısı, build ayarları ve Preview/Production ortam ayrımını netleştir. Dış kurulum/deploy öncesinde kullanıcı onayı al; onaylı Preview'da HTTPS, medya, bağlantı, metadata ve gerçek cihaz smoke testini kaydet.
 5. **Faz 4 kabulü:** Preview sonuçlarını kullanıcıya sun. Kullanıcı kabulünden sonra Faz 5 güvenlik kapısına geç; production deploy için ayrı açık onay al.
 
-Mevcut başlangıç: site-config.ts içindeki üç dış bağlantı ve temel metadata hazır. Hazır mesaj yardımcısı, sitemap/robots, favicon ve paylaşım görseli eksik; metadataBase mağaza adresinden ayrılacak. Vercel Preview henüz doğrulanmadı. Güncel kanıt [progress.md](progress.md) içindedir.
+Başlangıçta eksik olan hazır mesaj, sitemap/robots, favicon ve paylaşım görseli tamamlandı; metadataBase mağaza adresinden ayrıldı. Önceki tasarım/3D sözleşmesi korunarak Preview ve kullanıcı kabulü tamamlandı. Geliştirme bağımlılığı audit bulgusu ve alan adı sahipliği Faz 5 kaydına taşındı.
 
 ### Amaç
 
@@ -212,6 +212,8 @@ Tüm bağlantılar doğru hedefe gider, Preview ortamı doğrulanır ve producti
 Kullanıcı Preview sonucunu onaylar; Production öncesi Faz 5 güvenlik kapısı uygulanır.
 
 ## Faz 5 — Güvenlik, gizlilik ve yayın kapısı
+
+**Durum (2026-10-04): aktif.** Preview kabulünden sonra kullanıcı sonraki adımları onayladı. Production deploy ve alan adı taşıma son denetim sonrası ayrı açık onayla yapılır.
 
 ### Amaç
 

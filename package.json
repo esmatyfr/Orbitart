@@ -4,13 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/check-deployment.mjs && next build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:hero": "node --experimental-strip-types --test tests/hero-selection.test.mjs",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
-    "test:build": "node --test tests/build-smoke.mjs"
+    "test:build": "node --test tests/build-smoke.mjs",
+    "brand:generate": "node scripts/generate-brand-assets.mjs",
+    "test:preview": "node scripts/smoke-preview.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",

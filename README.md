@@ -4,7 +4,7 @@ Orbitart için Next.js App Router, TypeScript, Tailwind CSS, React Three Fiber v
 
 ## Mevcut durum
 
-Faz 3, kullanıcının tasarım, mobil kullanım ve son kalan testlerin tamamının başarılı olduğu yönündeki onayıyla 2026-10-04'te kapatıldı; son içerik revizyonu da kabul edildi. Altı modelli yatay sergi hattı; seçim, hero'ya özel paletler, kontrollü yükleme ve poster fallback'i bulunur. Kaydırmayla aynı modelin büyüdüğü Neler Yapıyoruz bölümünde Teknik Çözümler ve Yaratıcı Üretim kartları, beş aşamalı Taramadan Üretime ve çalışan FDM yazıcı animasyonu hazırdır. Ana sayfanın 1+4, Hakkımızda'nın 4 ve `/vitrin` galerisinin 30 fotoğrafı korunur. Alt sayfalarda hafif giriş hareketleri ve ortak Yörüngeli O logosu vardır. Aktif faz Faz 4'tür; bağlantı, metadata ve Vercel hazırlığı için başlangıç envanteri/planı hazırlandı. Preview kurulumu ve production yayını henüz yapılmadı.
+Faz 3, kullanıcının tasarım, mobil kullanım ve test kabulüyle 2026-10-04'te kapatıldı. Altı modelli yatay sergi hattı, aynı modelle Neler Yapıyoruz incelemesi, iki hizmet kartı, beş aşamalı Taramadan Üretime ve FDM yazıcı animasyonu hazırdır. Ana sayfanın 1+4, Hakkımızda'nın 4 ve `/vitrin` galerisinin 30 fotoğrafı, alt sayfa hareketleri ve Yörüngeli O logosu korunur. Faz 4 uygulandı: merkezi bağlantılar/hazır WhatsApp mesajı, metadata/canonical, sitemap/robots, marka ikonları/paylaşım görseli, 404 ve kontrollü Vercel Preview hazırdır. [Preview](https://orbitartt-ks916xf13-esmatyfr.vercel.app) kullanıcı tarafından sorunsuz kabul edildi; Vercel hesabıyla giriş isteyebilir. Tanıtım hedefi `https://orbitartt.com`, mağaza `https://orbitart.com.tr` olarak ayrıdır. Production ve alan adı taşıma Faz 5 onayına bağlıdır.
 
 Altı model kullanıcı teknik/yayın onayıyla `approved`/`published` durumundadır; production build desteklenen tarayıcıda 3D sahneyi açar. Poster fallback'i korunur. Agent doğrulamaları ve kullanıcı test kabulünün ayrı kayıtları için [progress.md](docs/progress.md) belgesine bakın. Public GLB dosyalarının erişilebilirliği yayın filtresinden bağımsızdır.
 
@@ -13,6 +13,7 @@ Altı model kullanıcı teknik/yayın onayıyla `approved`/`published` durumunda
 - [Mimari](docs/architecture.md)
 - [Yol haritası](docs/roadmap.md)
 - [Güvenlik](docs/security.md)
+- [Vercel Preview ve yayın rehberi](docs/deployment.md)
 - [İçerik ekleme rehberi](docs/content-guide.md)
 - [İlerleme durumu](docs/progress.md)
 - [Onaylı hero tasarımı](docs/hero-design.md)

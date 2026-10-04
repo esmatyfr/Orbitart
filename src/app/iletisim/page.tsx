@@ -1,18 +1,15 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 
 import { ButtonLink } from "@/components/ui/button-link";
 import { InstagramIcon, ShopIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { siteConfig } from "@/content/site-config";
 
-export const metadata: Metadata = {
-  title: "İletişim",
-  description:
-    "3D baskı, tarama veya özel tasarım projeniz için Orbitart ile iletişime geçin.",
-};
+export const metadata = pageMetadata("/iletisim");
 
 export default function ContactPage() {
   return (
     <section className="py-10 sm:py-16">
+      <h1 className="sr-only">İletişim</h1>
       <div className="site-container grid gap-5 md:grid-cols-3">
         <article className="contact-card flex flex-col">
           <span className="contact-icon">

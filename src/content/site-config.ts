@@ -1,11 +1,14 @@
-const publicValue = (value: string | undefined, fallback: string) =>
-  value?.trim() || fallback;
+import { httpsUrl, whatsappLink } from "@/lib/links";
+import { sitePages } from "@/content/site-pages";
+
+const publicValue = (value: string | undefined, fallback: string) => httpsUrl(value?.trim() || fallback);
+const whatsappMessage = "Merhaba Orbitart, 3D baskı, tarama veya özel tasarım projem hakkında bilgi almak istiyorum.";
+const whatsapp = whatsappLink(process.env.NEXT_PUBLIC_WHATSAPP_URL?.trim() || "https://wa.me/905438901310", whatsappMessage);
 
 export const siteConfig = {
   name: "Orbitart 3D",
   shortName: "Orbitart",
-  description:
-    "3D baskı, 3D tarama ve özel tasarım çözümleriyle fikirleri fiziksel üretime dönüştüren yaratıcı stüdyo.",
+  description: sitePages["/"].description,
   location: "Bodrum, Muğla",
   modelCreditsPath: "/model-kaynaklari",
   storeUrl: publicValue(
@@ -16,9 +19,7 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_INSTAGRAM_URL,
     "https://www.instagram.com/orbitart_3d/",
   ),
-  whatsappNumber: "+90 543 890 13 10",
-  whatsappUrl: publicValue(
-    process.env.NEXT_PUBLIC_WHATSAPP_URL,
-    "https://wa.me/905438901310",
-  ),
+  whatsappNumber: whatsapp.number === "905438901310" ? "+90 543 890 13 10" : `+${whatsapp.number}`,
+  whatsappUrl: whatsapp.href,
+  whatsappMessage,
 } as const;

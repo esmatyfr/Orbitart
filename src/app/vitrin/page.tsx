@@ -1,14 +1,10 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site-metadata";
 
 import { ProductShowcase } from "@/components/products/product-showcase";
 import { PageHero } from "@/components/ui/page-hero";
 import { allShowcaseItems } from "@/content/showcase";
 
-export const metadata: Metadata = {
-  title: "Vitrin",
-  description:
-    "Orbitart'ın figür, büst, dekoratif obje ve özel üretim çalışmalarından oluşan fotoğraf vitrini.",
-};
+export const metadata = pageMetadata("/vitrin");
 
 export default function ShowcasePage() {
   return (

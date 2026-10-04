@@ -109,3 +109,11 @@ Bu değişiklik ayrı mimari onay gerektirir. Minimum gereksinimler:
 - Gizli servis anahtarlarının yalnızca server runtime'da tutulması
 - Veri minimizasyonu, saklama süresi ve silme politikası
 - KVKK kapsamında açık bilgilendirme ve gerekliyse onay yönetimi
+
+## 9. Faz 4 Preview sınırı (2026-10-04)
+
+Kullanıcı `esmatyfr/orbitartt` oluşturulmasını ve Preview yayını onayladı; production/alan adı taşıma onayı verilmedi. Authentication koruması açık, Preview noindex ve boş sitemap kullanır. Yayın kapısı Vercel production ortamında ayrı `PRODUCTION_RELEASE_APPROVED=true` olmadan derlemeyi durdurur. İlk yüklemenin beklenmedik production hedefi bu kapıyla durduruldu; sonraki gerçek Preview READY oldu.
+
+`.env.local`/`.vercel` ve yerel kanıt dosyalarının Git ve upload dışında olduğu doğrulandı. CLI kimlik bilgileri/otomasyon erişim anahtarı okunup koda/loglara yazılmadı. Public bağlantılarda HTTPS, yeni sekme rel ve WhatsApp kodlaması test edildi. Bu dar denetim, Faz 5 tam Git geçmişi/client bundle secret taraması veya CSP kabulü değildir.
+
+Audit geliştirme bağımlılığında `braces` üzerinden beş high kaydı gösterdi; çalışma zamanı taraması sıfır bulgu verdi. Yayın öncesi güncel upstream çözümü ve build'e güvenilmeyen pattern girişi değerlendirilmelidir; sürüm düşüren `audit fix --force` uygulanmadı. Alan adı mevcut eski projeye bağlı olduğundan DNS/sahiplik ve geçiş de Faz 5 maddesidir. Kanıtlar ve yayın yöntemi [deployment.md](deployment.md) içinde kayıtlıdır.
