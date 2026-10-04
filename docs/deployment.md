@@ -5,12 +5,15 @@
 - Tanıtım sitesinin onaylanan production adresi: `https://orbitartt.com`.
 - Mağaza: `https://orbitart.com.tr`; canonical adresi olarak kullanılmaz.
 - Yeni Vercel projesi: `esmatyfr/orbitartt`.
-- Preview: [orbitartt-ks916xf13-esmatyfr.vercel.app](https://orbitartt-ks916xf13-esmatyfr.vercel.app).
+- Kullanıcının kabul ettiği Faz 4 Preview: [orbitartt-ks916xf13-esmatyfr.vercel.app](https://orbitartt-ks916xf13-esmatyfr.vercel.app).
+- Güncel güvenlik/Git Preview: [orbitartt-qj2xllgi9-esmatyfr.vercel.app](https://orbitartt-qj2xllgi9-esmatyfr.vercel.app), cb9ba5c kaynakları, target preview/READY; gerçek HTTP ve masaüstü/mobil tarayıcı kontrolleri geçti.
 - Önceki `esmatyfr/orbiant` projesi ve onun `www.orbitartt.com` kaydı değiştirilmedi. Alan adı sahipliği/DNS ve taşıma kararı Faz 5'te ayrı kullanıcı onayıyla çözülmelidir.
 
 Bu Preview, CLI kaynak görüntüsüdür ve kullanıcı tarafından kabul edildi. Faz 4 main/origin üzerinde `3d50821f4756be5a9ee42796661804f947e951e0` ile kayıtlı. Kullanıcı GitHub erişimini açtıktan sonra mevcut proje `esmatyfr/Orbitart` deposuna bağlandı; API repo/productionBranch main değerlerini doğruladı. Dashboard Next.js, Node 24.x, npm ci ve npm run build kullanır. `vercel.json` Git yayınını yalnız `codex/*` Preview dallarına açar; `*` false kuralıyla main dahil diğer dallar kapalıdır. Gerçek Git Preview sonucu progress.md içinde kayıtlıdır.
 
 Faz 5 güvenlik başlıkları HTTP smoke testine dahildir; üretim ve Preview CSP'si ayrılır. Production öncesi iki domain eski orbiant projesinden orbitartt projesine birlikte taşınmalı. Önerilen canonical apex https://orbitartt.com ve www'den apex'e 308'dir; mevcut yön ters olduğundan taşıma sırasında düzeltilir. Onay öncesi eski alan adı kayıtları silinmez veya değiştirilmez.
+
+Canlı geçiş sırası: açık onay → güvenlik dalını main'e alma → yalnız Production release kapısını açma → yeni production deploy/HTTP doğrulama → iki domaini yeni projeye taşıma ve www → apex yönü → HTTPS, canonical, indekslenebilir robots/altı sitemap URL'si ve medya smoke. Önceki orbiant projesi/deployment silinmez; sorun halinde iki domain eski projeye ve apex → www yönüne geri alınır. Domain hedefi Vercel'in geçiş anındaki önerisiyle karşılaştırılmadan DNS değeri körlemesine değiştirilmez.
 
 ## Kurulum ve yeniden yayın
 

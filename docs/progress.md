@@ -2,6 +2,16 @@
 
 Son güncelleme: 2026-10-04. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
 
+## Faz 5 teknik kabul ve canlı geçiş onayı (2026-10-04)
+
+Güvenlik kaynakları **cb9ba5c9fa597431ec241e27b11fd7e46c6b6149** ile codex/phase5-security/origin dalına gönderildi; uzak SHA eşleşti. Git bağlantısı gerçekten Preview oluşturdu: **[güvenlik Preview'ı](https://orbitartt-qj2xllgi9-esmatyfr.vercel.app)**, dpl_B46QrmauF1ypnnxSeAwbaWVaUQPt, target preview, READY. Main için yeni production oluşmadı; önceki ilk ERROR kaydı canlı başarı değildir.
+
+Son HTTPS kaynağında yetkili resmî Vercel curl üzerinden altı rota, üç beklenen 404, robots/sitemap, üç PNG ölçüsü, 37 medya adresi ve CSP/güvenlik başlıkları geçti. Authentication kapatılmadı. Masaüstü ve 390×844 tarayıcıda tek Canvas, klavye model seçimi, A4 dokuları ve mobil Dijital model aşaması çalıştı; galeriye menü geçişi kapanıp SUMMARY odağına döndü, Canvas sıfıra indi. Yatay taşma veya uygulama/CSP hata kaydı görülmedi; yalnız mevcut Three.Clock deprecation uyarısı var. Bunlar emüle tarayıcı kontrolleridir; yeni fiziksel telefon/FPS ölçümü değildir.
+
+Checksum doğrulamalı Gitleaks kaynak, tüm erişilebilir Git geçmişi, son client çıktısı ve bu Preview'ın build loglarında sıfır bulgu verdi. Raporlar yüzde 100 redaksiyonla output/phase5-2026-10-04 altında, Git dışında. Runtime audit sıfır; dev braces zincirinin beş high bulgusu, henüz patched sürüm olmadığından belgelenmiş upstream takip maddesi olarak kalır. Güvenilen build girdileri ve mevcut lockfile kullanıldı; force downgrade yapılmadı.
+
+**Faz 4 kapalı; Faz 5'in teknik hazırlığı tamamlandı, production/alan adı onayı ve yayın sonrası kontrol bekleniyor.** Onaydan sonra güvenlik dalı main'e alınır; yalnız Production kapsamındaki release kapısı açılır ve önce yeni production deployment doğrulanır. Ardından orbitartt.com ve www.orbitartt.com eski orbiant'tan yeni orbitartt projesine taşınır; www → apex 308, HTTPS/canonical/sitemap/medya kontrol edilir. Eski proje ve deployment korunur; sorun çıkarsa domainler eski yönüyle geri bağlanır. Onay öncesi domain/DNS veya production release değişmedi. Bu son kabul kaydı, aşağıdaki “commit sonrası denetlenecek” başlangıç ifadelerinin yerini alır.
+
 ## Faz 5 güvenlik hazırlığı ve Git bağlantısı (2026-10-04)
 
 Faz 4 **3d50821f4756be5a9ee42796661804f947e951e0** ile main/origin üzerinde kayıtlı; uzak HEAD eşleşmesi doğrulandı. Kullanıcı GitHub erişimini tamamladıktan sonra CLI doğru **esmatyfr/Orbitart** deposunu mevcut **esmatyfr/orbitartt** projesine bağladı; API repo ve productionBranch main değerlerini doğruladı. Dashboard Next.js, Node 24.x, npm ci ve npm run build kullanır. Otomatik Git yayını yalnız codex/* dallarına açık; main production kapısı korunur.
