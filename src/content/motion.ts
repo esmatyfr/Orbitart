@@ -4,6 +4,7 @@ export const motionSettings = {
   pointCount: 1800,
   inspectionScale: 1.12,
   parallax: 0.16,
+  heroEntrance: { delay: 0.3, duration: 1.1, depth: 0.55 },
   revealDistance: 18,
   revealHorizontalDistance: 40,
   revealOpacity: 0.12,

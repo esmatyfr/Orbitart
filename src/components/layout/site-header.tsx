@@ -29,7 +29,7 @@ export function SiteHeader() {
             alt=""
             width={1300}
             height={256}
-            className="h-auto w-[200px] sm:w-[224px]"
+            className="h-auto w-[176px] sm:w-[224px]"
             loading="eager"
             unoptimized
           />

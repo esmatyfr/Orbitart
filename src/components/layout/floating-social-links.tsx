@@ -2,7 +2,7 @@ import { InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { siteConfig } from "@/content/site-config";
 
 const floatingLinkClass =
-  "fixed bottom-4 z-40 grid size-12 place-items-center rounded-full border shadow-[0_12px_35px_rgba(0,0,0,0.4)] transition duration-200 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 sm:bottom-6 sm:size-13";
+  "fixed bottom-4 z-40 hidden size-12 place-items-center rounded-full border shadow-[0_12px_35px_rgba(0,0,0,0.4)] transition duration-200 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 sm:bottom-6 sm:grid sm:size-13";
 
 export function FloatingSocialLinks() {
   return (

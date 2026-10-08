@@ -5,11 +5,13 @@ import Image from "next/image";
 import { Component, type CSSProperties, type PointerEvent, type ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import { ButtonLink } from "@/components/ui/button-link";
+import { HeroLoading } from "@/components/ui/hero-loading";
 import { ProcessStepControls } from "@/components/ui/process-step-control";
 import { heroShowcase } from "@/content/hero-showcase";
 import { getModelAsset } from "@/content/model-assets";
 import { scanProcess } from "@/content/scan-process";
 import { siteConfig } from "@/content/site-config";
+import { scenePresets } from "@/content/scenes";
 import { processStage, processStageScrollTop, processStageFrameScrollTop, heroStoryPose, storyCardPose, stickyProgress, stickyFrameProgress, type PresentationMotion } from "@/lib/scroll-presentation";
 import { nearestSelection, wrapSelection, type HeroMotion } from "@/lib/hero-selection";
 
@@ -59,6 +61,8 @@ export function HomeExperience({
   const [heroVisible, setHeroVisible] = useState(false);
   const [processVisible, setProcessVisible] = useState(false);
   const [heroReady, setHeroReady] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
+  const markLoadProgress = useCallback((progress: number) => setLoadProgress(progress), []);
   const [processReady, setProcessReady] = useState(false);
   const [fallback, setFallback] = useState<"unsupported" | "error" | "slow" | null>(null);
   const [attempt, setAttempt] = useState(0);
@@ -202,7 +206,18 @@ export function HomeExperience({
         });
         root.style.setProperty("--story-heading-opacity", String(pose.heading));
         if (enabled && track && arrow && track.height > 0) {
-          presentation.current.platformNdcY = 1 - ((arrow.top + arrow.height / 2 - track.top) / track.height) * 2;
+          // The View scissor clips 3D geometry even when the DOM stage allows overflow.
+          // Keep room below the platform's center for its front rim and thickness.
+          const inset = Math.max(scenePresets.hero.platformBottomInset, track.height * scenePresets.hero.platformBottomInsetRatio);
+          const phoneLift = phoneQuery.matches
+            ? Math.min(scenePresets.hero.phonePlatformLiftMax, Math.max(scenePresets.hero.phonePlatformLiftMin, window.innerHeight * scenePresets.hero.phonePlatformLiftRatio))
+            : 0;
+          const portraitTablet = window.innerWidth >= 640 && window.innerWidth <= scenePresets.hero.portraitTabletMaxWidth && window.innerHeight > window.innerWidth;
+          const tabletLift = portraitTablet
+            ? Math.min(scenePresets.hero.tabletPlatformLiftMax, Math.max(scenePresets.hero.tabletPlatformLiftMin, window.innerHeight * scenePresets.hero.tabletPlatformLiftRatio))
+            : 0;
+          const centerY = Math.min(arrow.top + arrow.height / 2 - phoneLift - tabletLift, track.bottom - inset);
+          presentation.current.platformNdcY = 1 - ((centerY - track.top) / track.height) * 2;
         } else presentation.current.platformNdcY = undefined;
       }
       if (process && processRoot) {
@@ -252,6 +267,7 @@ export function HomeExperience({
   }, [show3D, heroReady, heroVisible, pageVisible, markFailed]);
 
   const retry = () => {
+    setLoadProgress(0);
     setHeroReady(false);
     setProcessReady(false);
     setFallback(null);
@@ -260,14 +276,17 @@ export function HomeExperience({
 
   return (
     <>
-      <section ref={heroRef} style={{ "--hero-accent": activeItem.palette.accent, "--hero-button": activeItem.palette.buttonBackground, "--hero-button-text": activeItem.palette.buttonText } as CSSProperties} className="showcase-hero hero-story relative -mt-18 border-b border-white/8">
-        {orderedShowcase.map((item, index) => <div key={item.assetId} aria-hidden="true" className="pointer-events-none absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none" style={{ opacity: index === selected ? 1 : 0, background: `radial-gradient(ellipse at 50% 55%, ${item.palette.glow}35, transparent 65%), linear-gradient(${item.palette.background} 65%, #09080f)` }} />)}
+      {enable3D && !fallback && <HeroLoading progress={heroReady ? 100 : loadProgress} ready={heroReady} />}
+      <section ref={heroRef} data-hero-loading={enable3D && !fallback && !heroReady} style={{ "--hero-accent": activeItem.palette.accent, "--hero-button": activeItem.palette.buttonBackground, "--hero-button-text": activeItem.palette.buttonText } as CSSProperties} className="showcase-hero hero-story relative -mt-18 border-b border-white/8">
+        {orderedShowcase.map((item, index) => <div key={item.assetId} aria-hidden="true" className="pointer-events-none absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none" style={{ opacity: index === selected ? 1 : 0, background: `radial-gradient(ellipse at 50% 55%, ${item.palette.glow}${Math.round((item.palette.glowOpacity ?? 53 / 255) * 255).toString(16).padStart(2, "0")}, transparent 65%), linear-gradient(${item.palette.background} 65%, #09080f)` }} />)}
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-screen site-container relative pb-14 pt-24 text-center sm:pb-18 sm:pt-28">
           <p data-hero-intro className="text-xs font-bold uppercase tracking-[0.3em] text-violet-300">
             3D Tasarım · Tarama · Üretim
           </p>
           <div ref={setHeroTrack} role="group" aria-label="3D model seçkisi" aria-keyshortcuts="ArrowLeft ArrowRight" aria-describedby="hero-interaction-help" tabIndex={0}
+            data-hero-loading={enable3D && !fallback && !heroReady}
+            aria-busy={show3D && !heroReady}
             onKeyDown={(event) => {
               if (event.target !== event.currentTarget || (show3D && !heroReady)) return;
               if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
@@ -379,7 +398,9 @@ export function HomeExperience({
           <SharedCanvas assets={heroAssets} heroTrack={heroTrack} processTrack={processTrack}
             presentation={presentation} heroVisible={heroVisible} processVisible={processCanvasVisible} pageVisible={pageVisible}
             motion={motion} reducedMotion={reducedMotion} accent={activeItem.palette.accent}
+            platformRimEmission={activeItem.palette.platformRimEmission ?? 0}
             onHeroReady={markHeroReady} onProcessReady={markProcessReady} onSettled={setSettled}
+            onLoadProgress={markLoadProgress}
             onFailure={markFailed} onSlow={markSlow} pickRef={pickRef} wakeRef={wakeRef} />
         </SceneErrorBoundary>
       )}

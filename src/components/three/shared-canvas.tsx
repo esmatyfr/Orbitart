@@ -24,7 +24,9 @@ type SharedCanvasProps = {
   motion: RefObject<HeroMotion>;
   reducedMotion: boolean;
   accent: string;
+  platformRimEmission: number;
   onHeroReady: () => void;
+  onLoadProgress: (progress: number) => void;
   onProcessReady: () => void;
   onSettled: (index: number) => void;
   onFailure: () => void;
@@ -82,7 +84,7 @@ function RendererHealth({ active, scrolling, animating, onDegrade, onFailure, on
 }
 
 export default function SharedCanvas(props: SharedCanvasProps) {
-  const { assets, heroVisible, processVisible, pageVisible, onFailure } = props;
+  const { assets, heroVisible, processVisible, pageVisible, onFailure, onLoadProgress } = props;
   const [loaded, setLoaded] = useState<LoadedModel[]>([]);
   const [printerScene, setPrinterScene] = useState<LoadedModel["scene"] | null>(null);
   const [scrolling, setScrolling] = useState(false);
@@ -95,6 +97,7 @@ export default function SharedCanvas(props: SharedCanvasProps) {
   const markAnimation = useCallback((active: boolean) => { motionSources.current.hero = active; animating.current = active || motionSources.current.process; }, []);
   const markProcessAnimation = useCallback((active: boolean) => { motionSources.current.process = active; animating.current = active || motionSources.current.hero; }, []);
   const heroTrack = useMemo(() => ({ current: props.heroTrack }), [props.heroTrack]);
+  const heroIntroPlayed = useRef(false);
   const processTrack = useMemo(() => ({ current: props.processTrack }), [props.processTrack]);
 
   useEffect(() => {
@@ -115,6 +118,8 @@ export default function SharedCanvas(props: SharedCanvasProps) {
       if (controller.signal.aborted) { disposeModels([model.scene]); return; }
       owned.push(model);
       setLoaded([...owned]);
+      // Count successfully downloaded AND parsed hero models. The final percent waits for the scene.
+      onLoadProgress(Math.floor(owned.length / assets.length * 99));
     };
     const failure = () => { if (!controller.signal.aborted) onFailure(); };
     void load(assets[0]).catch(failure);
@@ -140,7 +145,7 @@ export default function SharedCanvas(props: SharedCanvasProps) {
       disposeModels(owned.map(model => model.scene));
       if (accessory) disposeModels([accessory]);
     };
-  }, [assets, onFailure]);
+  }, [assets, onFailure, onLoadProgress]);
 
   useEffect(() => {
     if (loaded.length > 0 && heroVisible && pageVisible) session.current?.startRemaining();
@@ -162,7 +167,7 @@ export default function SharedCanvas(props: SharedCanvasProps) {
     return () => { window.removeEventListener("scroll", onScroll); clearTimeout(idleTimer); };
   }, []);
 
-  const models = assets.flatMap(asset => loaded.filter(model => model.asset.id === asset.id));
+  const models = useMemo(() => assets.flatMap(asset => loaded.filter(model => model.asset.id === asset.id)), [assets, loaded]);
   const processModel = models[0];
   const active = pageVisible && (heroVisible || processVisible);
   return (
@@ -177,7 +182,9 @@ export default function SharedCanvas(props: SharedCanvasProps) {
         <View track={heroTrack} visible={heroVisible && pageVisible} index={1}>
           {heroVisible && pageVisible && models.length === assets.length && (
             <HeroScene assets={assets} models={models} onFirstReady={props.onHeroReady}
+              introPlayedRef={heroIntroPlayed}
               presentation={props.presentation} motion={props.motion} reducedMotion={props.reducedMotion} accent={props.accent}
+              platformRimEmission={props.platformRimEmission}
               onSettled={props.onSettled} pickRef={props.pickRef} onMotionChange={markAnimation} />
           )}
         </View>

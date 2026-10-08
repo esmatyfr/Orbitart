@@ -4,6 +4,8 @@ export type HeroPalette = {
   background: string;
   accent: string;
   glow: string;
+  glowOpacity?: number;
+  platformRimEmission?: number;
   buttonBackground: string;
   buttonText: string;
 };
@@ -17,7 +19,7 @@ export type HeroShowcaseItem = {
   palette: HeroPalette;
 };
 
-export const heroShowcase = [
+export const heroShowcase: readonly HeroShowcaseItem[] = [
   {
     assetId: "a1-orbit-gear",
     order: 0,
@@ -41,7 +43,9 @@ export const heroShowcase = [
     palette: {
       background: "#12151A",
       accent: "#E8E9E6",
-      glow: "#BFCAD4",
+      glow: "#FFFFFF",
+      glowOpacity: 0.28,
+      platformRimEmission: 1,
       buttonBackground: "#F1F1ED",
       buttonText: "#14171B",
     },

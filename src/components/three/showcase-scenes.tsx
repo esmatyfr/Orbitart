@@ -50,9 +50,11 @@ export function HeroScene({
   assets,
   models,
   onFirstReady,
+  introPlayedRef,
   motion,
   reducedMotion,
   accent,
+  platformRimEmission,
   onSettled,
   pickRef,
   presentation,
@@ -61,9 +63,11 @@ export function HeroScene({
   assets: readonly ModelAsset[];
   models: readonly LoadedModel[];
   onFirstReady: () => void;
+  introPlayedRef: RefObject<boolean>;
   motion: RefObject<HeroMotion>;
   reducedMotion: boolean;
   accent: string;
+  platformRimEmission: number;
   onSettled: (index: number) => void;
   pickRef: RefObject<((x: number, y: number) => number | undefined) | null>;
   presentation: RefObject<PresentationMotion>;
@@ -77,11 +81,15 @@ export function HeroScene({
   const focusRay = useRef(new Vector3());
   const modelCenters = useRef<Vector3[]>([]);
   const modelGroups = useRef<(Group | null)[]>([]);
-  const { camera, invalidate } = useThree();
+  const { camera, invalidate, gl } = useThree();
   const lastSettled = useRef<number | null>(null);
   const currentStep = useRef<number | null>(null);
-
-  useEffect(() => { onFirstReady(); }, [onFirstReady]);
+  const entrance = motionSettings.heroEntrance;
+  const elapsed = useRef<number | null>(null);
+  const reportedReady = useRef(false);
+  // Fade the fully depth-tested image, never the individual GLB surfaces.
+  // Restore the shared canvas when this View leaves so the process scene stays visible.
+  useEffect(() => () => { gl.domElement.style.opacity = "1"; }, [gl]);
   useEffect(() => () => onMotionChange(false), [onMotionChange]);
   useEffect(() => {
     if (modelCenters.current.length === models.length) return;
@@ -105,9 +113,17 @@ export function HeroScene({
   }, [camera, pickRef]);
 
   useFrame((frame, delta) => {
+    const previousElapsed = elapsed.current ?? (introPlayedRef.current ? entrance.delay + entrance.duration : 0);
+    elapsed.current = reducedMotion ? entrance.delay + entrance.duration : Math.min(entrance.delay + entrance.duration, previousElapsed + Math.min(delta, 0.05));
+    const t = MathUtils.clamp((elapsed.current - entrance.delay) / entrance.duration, 0, 1);
+    const reveal = t * t * (3 - 2 * t);
+    frame.gl.domElement.style.opacity = String(reveal);
     const state = motion.current;
-    const narrow = frame.gl.domElement.clientWidth < 1024;
-    const phone = frame.gl.domElement.clientWidth < 640;
+    // Match CSS breakpoints including the scrollbar, rather than the narrower canvas box.
+    const viewportWidth = window.innerWidth;
+    const phone = viewportWidth < 640;
+    const portraitTablet = !phone && viewportWidth <= preset.portraitTabletMaxWidth && window.innerHeight > viewportWidth;
+    const narrow = viewportWidth < 1024 || portraitTablet;
     // View updates projection after scene callbacks; fit against this frame's DOM measurements first.
     if (frame.camera instanceof ThreePerspectiveCamera && presentation.current.heroAspect !== undefined) {
       frame.camera.aspect = presentation.current.heroAspect;
@@ -124,8 +140,8 @@ export function HeroScene({
       platformY = frame.camera.position.y + ray.y * ((-0.35 - frame.camera.position.z) / ray.z);
     }
     const exit = reducedMotion ? 0 : presentation.current.inspection;
-    const entryScale = narrow ? preset.mobileEntryScale : preset.entryScale;
-    const entryOffset = (platformY - preset.platformY + preset.entryLift) * (1 - exit);
+    const entryScale = portraitTablet ? preset.tabletEntryScale : narrow ? preset.mobileEntryScale : preset.entryScale;
+    const entryOffset = (platformY - preset.platformY + (portraitTablet ? preset.tabletEntryLift : preset.entryLift)) * (1 - exit);
     const railSpread = 1 + (MathUtils.clamp(frame.gl.domElement.clientWidth / 1440, 1, preset.wideRailSpread) - 1) * (1 - exit);
     currentStep.current = reducedMotion || currentStep.current === null ? state.target : MathUtils.damp(currentStep.current, state.target, state.dragging ? 20 : 8, Math.min(delta, 0.05));
     if (Math.abs(currentStep.current - state.target) < 0.001) currentStep.current = state.target;
@@ -136,27 +152,30 @@ export function HeroScene({
       const departure = reducedMotion || phone ? 0 : Math.max(0, (presentation.current.heroExit - 0.88) / 0.2);
       const active = index === wrapSelection(Math.round(step), assets.length);
       const focusScale = modelPresentation[assets[index].id].focusScale ?? preset.focusScale;
-      const mobileFocusScale = (modelPresentation[assets[index].id].mobileFocusScale ?? preset.mobileFocusScale) * (phone ? preset.phoneFocusScaleMultiplier : 1);
+      const mobileFocusScale = (modelPresentation[assets[index].id].mobileFocusScale ?? preset.mobileFocusScale) * (phone ? preset.phoneFocusScaleMultiplier : portraitTablet ? preset.tabletFocusScaleMultiplier : 1);
       group.scale.setScalar(pose.scale * (active ? (entryScale + exit * ((narrow ? mobileFocusScale : focusScale) - entryScale)) * (1 - departure * 0.65) : 1 - exit * 0.8));
       group.rotation.y = pose.yaw + (active ? exit * 0.2 + presentation.current.rotation * exit : 0);
       const z = pose.z - (active ? departure * 3 : exit * 7);
       let x = pose.x, y = preset.floorY + entryOffset + exit * (narrow ? 0.2 : -0.25);
-      if (active && (!narrow || phone) && modelCenters.current[index]) {
+      if (active && (!narrow || phone || portraitTablet) && modelCenters.current[index]) {
         // Project the fitted model's center into the left column, independent of screen width or model shape.
-        const ray = focusRay.current.set(phone ? 0 : preset.focusCenter[0] * 2 - 1, phone ? 0 : 1 - preset.focusCenter[1] * 2, 0.5)
+        const ray = focusRay.current.set(narrow ? 0 : preset.focusCenter[0] * 2 - 1, narrow ? 0 : 1 - preset.focusCenter[1] * 2, 0.5)
           .unproject(frame.camera).sub(frame.camera.position);
         const distance = (z - frame.camera.position.z) / ray.z;
         const center = modelCenters.current[index];
         x = MathUtils.lerp(x, frame.camera.position.x + ray.x * distance - center.x * group.scale.x, exit);
         y = MathUtils.lerp(y, frame.camera.position.y + ray.y * distance - center.y * group.scale.y, exit);
       }
-      group.position.set(x, y, z);
+      group.position.set(x, y, z + (1 - reveal) * entrance.depth);
       group.visible = pose.visible && (active || exit < 0.8);
       if (modelGroups.current[index]) modelGroups.current[index].rotation.z = pose.tilt;
     });
-    if (platform.current) { platform.current.position.y = platformY; platform.current.scale.setScalar((1 - exit) * preset.platformScale); platform.current.visible = exit < 0.98; }
+    if (platform.current) { platform.current.position.y = platformY; platform.current.scale.setScalar((1 - exit) * (portraitTablet ? preset.tabletPlatformScale : preset.platformScale)); platform.current.visible = exit < 0.98; }
     if (platformLight.current) platformLight.current.position.y = platformY + 0.12;
-    const animating = step !== state.target || state.dragging;
+    // Notify only after the first responsive layout is applied, before the View's first draw.
+    if (!reportedReady.current) { reportedReady.current = true; onFirstReady(); }
+    if (reveal === 1) introPlayedRef.current = true;
+    const animating = reveal < 1 || step !== state.target || state.dragging;
     onMotionChange(animating);
     if (animating) invalidate();
     else if (lastSettled.current !== state.target) {
@@ -185,7 +204,7 @@ export function HeroScene({
         </mesh>
         <mesh position={[0, -0.012, 0]} scale={[preset.platformHalfWidth, 1, 0.92]}>
           <cylinderGeometry args={[0.96, 1, 0.05, 64]} />
-          <meshStandardMaterial color={accent} transparent opacity={0.28} metalness={0.65} roughness={0.32} />
+          <meshStandardMaterial color={accent} emissive={accent} emissiveIntensity={platformRimEmission} transparent opacity={platformRimEmission > 0 ? preset.platformLitRimOpacity : preset.platformRimOpacity} metalness={0.65} roughness={0.32} />
         </mesh>
         <mesh position={[0, 0.045, 0]} scale={[preset.platformHalfWidth, 1, 0.92]}>
           <cylinderGeometry args={[0.82, 0.89, 0.08, 64]} />
@@ -207,7 +226,7 @@ export function HeroScene({
         return (
           <group key={asset.id} ref={(group) => { groups.current[index] = group; }}
             position={[pose.x, preset.floorY, pose.z]} rotation={[0, pose.yaw, 0]}
-            scale={pose.scale} visible={pose.visible}>
+            scale={pose.scale} visible={false}>
             <group ref={(group) => { modelGroups.current[index] = group; }} rotation={[0, 0, pose.tilt]}>
               <ReadyModel
                 asset={asset}
@@ -237,6 +256,7 @@ function ProcessCamera({ presentation, active, reducedMotion }: { presentation: 
       ? Math.max(1, preset.minimumViewAspect / Math.max(camera.aspect, 0.1))
       : 1;
     if (reducedMotion) {
+      if (camera instanceof ThreePerspectiveCamera && camera.view?.enabled) camera.clearViewOffset();
       camera.position.set(...preset.cameraPosition).multiplyScalar(fit);
       camera.lookAt(...preset.cameraTarget);
       camera.updateMatrixWorld();
@@ -246,6 +266,18 @@ function ProcessCamera({ presentation, active, reducedMotion }: { presentation: 
     const stage = processStage(progress);
     const t = stage === 4 ? 1 - clampProgress(processStageProgress(progress) / 0.25) : clampProgress((progress - 0.57) / 0.03);
     const mix = t * t * (3 - 2 * t);
+    if (camera instanceof ThreePerspectiveCamera) {
+      const viewportWidth = window.innerWidth;
+      const tablet = viewportWidth >= 640 && (viewportWidth < 1024 || (viewportWidth <= preset.portraitTabletMaxWidth && window.innerHeight > viewportWidth));
+      const resultReveal = stage === 4 ? clampProgress(processStageProgress(progress) / 0.25) : 0;
+      const lift = tablet ? MathUtils.lerp(preset.tabletViewLiftRatio, preset.tabletPrinterViewLiftRatio, mix) * (1 - resultReveal) : 0;
+      if (lift > 0) {
+        // Shift the composition up without changing model scale, lighting or camera angle.
+        const height = frame.size.height;
+        const width = height * camera.aspect;
+        camera.setViewOffset(width, height, 0, height * lift, width, height);
+      } else if (camera.view?.enabled) camera.clearViewOffset();
+    }
     const targetY = preset.printer.cameraTarget[1] * mix;
     camera.position.set(
       MathUtils.lerp(preset.cameraPosition[0], preset.printer.cameraPosition[0], mix) * fit,

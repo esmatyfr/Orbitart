@@ -73,6 +73,15 @@ test("production includes model poster and semantic controls before any 3D load"
   assert.ok(!home.includes("Yatay sürükleyin, modele dokunun veya odağı sahneye alıp yön tuşlarını kullanın."));
 });
 
+test("hero loading starts at zero with a branded progressbar while retaining the fallback poster", () => {
+  assert.match(home, /role="progressbar"[^>]*aria-label="3D sahne yükleniyor"[^>]*aria-valuemin="0"[^>]*aria-valuemax="100"[^>]*aria-valuenow="0"/);
+  assert.ok(home.includes("hero-loading-brand"));
+  assert.ok(home.includes("/images/brand/orbitart-orbital-logo.svg"));
+  assert.ok(home.includes('data-hero-loading="true"'));
+  assert.ok(home.includes("showcase-poster"));
+  assert.ok(home.includes("3D sahne hazırlanıyor"));
+});
+
 test("five process cards have keyboard controls, accessible names and a shared scene target", () => {
   const controls = (home.match(/<button\b[^>]*>/g) ?? []).filter(tag => tag.includes('aria-controls="process-model"'));
   assert.equal(controls.length, 5);
