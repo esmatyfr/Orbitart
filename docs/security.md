@@ -1,5 +1,13 @@
 # Orbiart Güvenlik ve Gizlilik Rehberi
 
+## Canlı işletim denetimi (2026-10-09)
+
+Faz 5'in yayın sonrası güvenlik, kayıt saklama, kaynak yedeği, geri dönüş ve olay müdahale prosedürleri [operations.md](operations.md) içinde tamamlandı. Canlı rota/medya/başlık smoke, HTTPS/www, TLS, on hassas dosya URL'sinde 404 ve 3/3 güvenlik başlığı testi geçti. Env değerleri alınmadan hedef metadatası denetlendi: onay bayrağı yalnız Production'da, generated deployment/fork koruması açık. Git/client/belge secret taraması sıfır bulgu; bundle verify ve ayrı yerel klonda fsck geçti. Uygulama/bağımlılık veya canlı ayar değiştirilmedi.
+
+Audit 8 high (runtime 3), 0 critical; bakım kullanıcı isteğiyle yapılmadı. Main branch protection yok; 2FA/kurtarma/secret alert ayarları özel panelde doğrulanmalı. Hobby'de drain yok, runtime saklama bir saat; son saatte error/aktif alarm bulunmaması uzun dönem güvenlik garantisi değildir. Retention API'sinin 30 gün/10 alanı süresiz yedek kabul edilmez; güncel Hobby istisnaları operations rehberindedir.
+
+**Öncelikli açık kontroller:** Verisign sicili domain bitişini 2026-10-09 23:51:21 Türkiye saati gösterir; auto-renew/ödeme bugün registrar panelinde kontrol edilmeli. Hobby'de ticari ürün/hizmet tanıtımına paket uygunluğu değerlendirilmeli. Yenileme, ücretli plan, paket bakımı veya monitoring servisi yapılmadı.
+
 ## Revizyon yayını denetimi (2026-10-09)
 
 Açık kullanıcı isteğiyle e56ab2f kaynakları mevcut Production projesinde yayınlandı. Ortam kapsamları, deployment koruması ve güvenlik başlıkları değiştirilmedi. Canlı HTTPS/CSP/rota/medya kontrolleri geçti; Gitleaks Git geçmişi, kaynak, son client çıktısı ve yeni build logunda sıfır bulgu verdi. Kanıtlar Git/upload dışındaki output/release-2026-10-09 içindedir.

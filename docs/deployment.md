@@ -1,5 +1,11 @@
 # Orbitart Vercel yayın rehberi
 
+## Yayın sonrası işletim (2026-10-09)
+
+Güncel kayıt saklama/yedek/geri dönüş ve güvenlik prosedürü [operations.md](operations.md) içindedir. Normal uygulama geri dönüşü aynı orbitartt projesindeki sağlam eski Production hedefiyle yapılır; aşağıdaki eski orbiant projesine domain taşıma kaydı yalnız ilk geçişin geçmişidir. Retention süresiz kaynak yedeği değildir; adayın hâlâ READY olduğu her yayında kontrol edilir.
+
+Bu denetim salt okunur ve belge/yedek kapsamındadır; deploy yapılmadı. Paket Hobby; domain sicil bitişi 2026-10-09 23:51:21 Türkiye saati, otomatik yenileme bilinmiyor. Yenileme ve ticari hosting paket uygunluğu hesap sahibinin öncelikli takip maddeleridir. Yapılmayan bakım operations rehberindedir.
+
 ## Güncel revizyon yayını (2026-10-09)
 
 Kullanıcının açık isteğiyle main'deki **e56ab2f71d5c03c8ae7fab79d0d16fe9ca26beea** aynı **esmatyfr/orbitartt** projesine Production olarak yayınlandı. **dpl_GQrPVUJ49G5AqDnv4sQu31k2jJA6**, target production, READY; [kaynak deployment](https://orbitartt-5i6b1nzhl-esmatyfr.vercel.app), [canlı site](https://orbitartt.com). --prod --skip-domain ile gerçek Production rebuild yapıldı; yetkili HTTP kabulünden sonra aynı derleme promote edildi. Build 1m 55s. Canlı özel alan adı yeni deployment'a çözülür; altı rota/üç 404, robots/sitemap, 37 görsel, güvenlik başlıkları ve HTTPS/www 308 kontrolleri geçti. Telefon/tablet/masaüstü görsel kontrolü ve sınırları [progress.md](progress.md) içindedir.

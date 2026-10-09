@@ -215,6 +215,8 @@ Kullanıcı Preview sonucunu onaylar; Production öncesi Faz 5 güvenlik kapıs�
 
 ## Faz 5 — Güvenlik, gizlilik ve yayın kapısı
 
+**Yayın sonrası ek (2026-10-09):** güvenlik/ortam/canlı HTTP denetimi yenilendi; kayıt saklama, kaynak yedeği, geri dönüş ve olay müdahale prosedürü [operations.md](operations.md) ile eklendi. Bağımlılık bakımı kullanıcı isteğiyle yapılmadı; güncel 8 high/3 runtime, domain yenileme tarihi, Hobby ticari kullanım uygunluğu ve hesap/branch koruması açık takip maddeleridir. İlk fazın yayın kabulü bu sürekli işletim işlerinin kendiliğinden tamamlandığı anlamına gelmez.
+
 **Durum (2026-10-05): tamamlandı.** Kullanıcı “Canlıya al” ile production/alan adı geçişini açıkça onayladı. Güvenlik dalı main/GitHub'a alındı, gerçek Production READY oldu, iki domain yeni projeye taşındı ve www → apex 308 ayarlandı. Herkese açık HTTPS, altı rota/medya/SEO/güvenlik, masaüstü/mobil 3D, erişilebilir menü ve poster fallback kontrolleri geçti. Eski proje geri dönüş için korunur. Geliştirme bağımlılığı upstream takibi bakım maddesidir; kanıt ve sınırlar [progress.md](progress.md) içinde kayıtlıdır.
 
 ### Amaç

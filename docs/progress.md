@@ -2,6 +2,17 @@
 
 Son güncelleme: 2026-10-09. Ayrıntılı geçmiş [arşivdedir](archive/progress-history.md); sonraki işler için bu sayfa ve [model durumu](models.md) esas alınır. Aşağıdaki son denetim güncel kabul durumudur; önceki tarihli kayıtlar kendi turunun kanıtıdır.
 
+## Faz 5 canlı güvenlik ve işletim kontrolü (2026-10-09)
+
+Kullanıcının güvenlik/prosedür denetimi isteğiyle [canlı işletim rehberi](operations.md) eklendi: public/gizli bilgi ayrımı, kayıt saklama, kaynak yedeği, aynı projede geri dönüş, olay müdahalesi ve manuel kontrol takvimi. Bakım yapmama sınırı korundu; uygulama/lockfile, env, domain/DNS, plan, firewall ve Production deployment değişmedi. Zamanlanmış görev/yeni dış servis kurulmadı.
+
+- Bu tur canlı smoke (altı rota/üç 404/37 görsel/SEO/güvenlik başlıkları), HTTP→HTTPS/www→apex path/query 308, güvenilir TLS ve on hassas dosya URL'sinde 404 geçti. Güvenlik başlığı testleri yeniden 3/3 geçti; diğer lint/typecheck/build/görsel kontrolleri belge değişikliği nedeniyle yeniden çalıştırılmadı, önceki kabul yeni test gibi sunulmaz.
+- Yetkili CLI/API ile Production READY, generated deployment Authentication, fork koruması, main otomatik Git yayın kapısı ve yalnız Production env hedefi doğrulandı; gizli değer alınmadı. Temel mitigations aktif, özel WAF yok. Son saat error kaydı/firewall alarmı yok; pencere dışı olaylar için sonuç çıkarılmaz.
+- Hesap Hobby, drains 0. Runtime bir saat; kalıcı log/uptime takibi yok. API'nin retention 30 gün/10 alanı ile güncel Hobby 3 READY Production istisnası ayrımı rehberde açıklandı; eski URL süresiz yedek değildir.
+- Gitleaks Git/client/belgeler sıfır bulgu; beş belgenin 36 yerel bağlantısı ve diff kontrolü geçti. Git bundle verify, ayrı yerel --no-checkout klonu ve git fsck --full geçti; yedek son belge commit'iyle yenilenir ve HEAD/SHA-256 manifestte tutulur. Kanıtlar Git/upload dışındaki output/security-2026-10-09 altında. Aynı bilgisayar yedeği bağımsız offsite yedek değildir; Blender/gizli ortamlar ve araç içi checkpoint ref'leri bundle'a dahil değil.
+- Salt okunur audit yeniden **8 high, 0 critical; runtime 3 high**. Next/sharp/source-map-js ve beş lint zinciri bakım maddesi olarak kaldı; force fix/güncelleme yapılmadı.
+- **Acil takip:** RDAP domain expiration 2026-10-09T20:51:21Z, Türkiye saati bugün 23:51:21. Auto-renew/ödeme doğrulanamadı; registrar paneli kontrolü gerekir, yenileme yapılmadı. Hobby ticari kullanım uygunluğu, main koruması (protected=false), 2FA/kurtarma/alert ayarları ve bağımsız yedek açık takip maddeleridir; ücret/hesap ayarları değiştirilmedi.
+
 ## Hero revizyonlarının Production yayını (2026-10-09)
 
 Kullanıcının açık Production deploy isteğiyle **e56ab2f71d5c03c8ae7fab79d0d16fe9ca26beea** kaynakları mevcut **esmatyfr/orbitartt** projesinde yeniden derlendi. **dpl_GQrPVUJ49G5AqDnv4sQu31k2jJA6**, target production, READY; [kaynak deployment](https://orbitartt-5i6b1nzhl-esmatyfr.vercel.app). Production derlemesi önce --skip-domain ile hazırlandı, yetkili CLI HTTP kontrolü ardından aynı derleme promote edildi. [orbitartt.com](https://orbitartt.com) yeni deployment'a çözülür; build süresi 1m 55s. Domain/DNS, koruma, env kapsamları ve main otomatik Git yayını politikası değiştirilmedi.
