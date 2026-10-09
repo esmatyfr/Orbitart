@@ -1,5 +1,18 @@
 # Orbiart Güvenlik ve Gizlilik Rehberi
 
+## Revizyon yayını denetimi (2026-10-09)
+
+Açık kullanıcı isteğiyle e56ab2f kaynakları mevcut Production projesinde yayınlandı. Ortam kapsamları, deployment koruması ve güvenlik başlıkları değiştirilmedi. Canlı HTTPS/CSP/rota/medya kontrolleri geçti; Gitleaks Git geçmişi, kaynak, son client çıktısı ve yeni build logunda sıfır bulgu verdi. Kanıtlar Git/upload dışındaki output/release-2026-10-09 içindedir.
+
+Güncel npm audit toplam **8 high**, runtime filtresi **3 high** (next, sharp, source-map-js) bildirir; önceki sıfır runtime kaydı tarihsel sonuçtur. Bağımlılık bakımı açıktır; bu görsel revizyon yayını sürüm yükseltmesi içermez. Etkin koşullar kaynak ve advisory ile değerlendirildi:
+
+- [Next.js Image Optimization SSRF](https://github.com/vercel/next.js/security/advisories/GHSA-cjq9-62q9-8jv4): remotePatterns gerektirir; bu projede tanımlı değildir.
+- [SSG/ISR cache poisoning](https://github.com/vercel/next.js/security/advisories/GHSA-4jqv-mc3x-m676): self-hosted Pages Router kapsamındadır; advisory Vercel'i etkilenmeyen olarak belirtir. Bu proje Vercel App Router kullanır. [Diğer cache poisoning](https://github.com/vercel/next.js/security/advisories/GHSA-mcj8-r9mp-w47p) kök catch-all gerektirir; projede yoktur. Draft Mode/use cache ve dinamik metadata resmi rotaları da kullanılmaz. Dev MCP bulgusu Production sunucusu değildir; yerel geliştirme için sürüm bakımı yine gereklidir.
+- [sharp/librsvg](https://github.com/lovell/sharp/security/advisories/GHSA-wq5f-xc86-pv6w) SVG decode koşuluyla ilgilidir. Sitede kullanıcı dosya yüklemesi/uzak görsel yok; SVG optimizasyonunu açan dangerouslyAllowSVG tanımlı değil, marka SVG doğrudan gösterilir. Bu koşul değerlendirmesi paketin yamalı olduğu anlamına gelmez.
+- [source-map-js](https://github.com/advisories/GHSA-68fv-2mgg-jv7q) güvenilmeyen indexed source-map işlenmesine ilişkindir; site ziyaretçiden source-map almaz. Build girdileri izlenen kaynak/kilit dosyasıdır. Beş geliştirme zinciri bulgusu da sürer.
+
+Next.js ≥16.3.8, sharp ≥0.35.5 ve source-map-js ≥1.2.2 adayları ayrı bakımda mevcut uyumluluk/testlerle değerlendirilmelidir. npm audit fix --force ile sürüm düşürme yapılmadı; sıfır açık veya mutlak etkilenmeme garantisi verilmez.
+
 ## Canlı yayın kabulü (2026-10-05)
 
 Kullanıcı “Canlıya al” ile Production ve domain taşımasını açıkça onayladı. **Faz 5 tamamlandı; https://orbitartt.com canlıdır.** `PRODUCTION_RELEASE_APPROVED=true` yalnız Production ortamında gizli olmayan Config olarak tanımlandı. Preview/Development kapsamına eklenmedi; kod kapısı ve main'in otomatik Git production kapatması korunur. Önceki tarihli “env boş/onay yok” kayıtları hazırlık anını anlatır. Bu sürüm onayı gelecek production yayınlarına sınırsız yetki vermez.

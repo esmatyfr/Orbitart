@@ -1,5 +1,11 @@
 # Orbitart Vercel yayın rehberi
 
+## Güncel revizyon yayını (2026-10-09)
+
+Kullanıcının açık isteğiyle main'deki **e56ab2f71d5c03c8ae7fab79d0d16fe9ca26beea** aynı **esmatyfr/orbitartt** projesine Production olarak yayınlandı. **dpl_GQrPVUJ49G5AqDnv4sQu31k2jJA6**, target production, READY; [kaynak deployment](https://orbitartt-5i6b1nzhl-esmatyfr.vercel.app), [canlı site](https://orbitartt.com). --prod --skip-domain ile gerçek Production rebuild yapıldı; yetkili HTTP kabulünden sonra aynı derleme promote edildi. Build 1m 55s. Canlı özel alan adı yeni deployment'a çözülür; altı rota/üç 404, robots/sitemap, 37 görsel, güvenlik başlıkları ve HTTPS/www 308 kontrolleri geçti. Telefon/tablet/masaüstü görsel kontrolü ve sınırları [progress.md](progress.md) içindedir.
+
+Domain/DNS ve env değiştirilmedi; main'in otomatik Git deployment'ı kapalı, codex/* Preview politikası korunur. Bu yayın onayı sonraki sürümlere sınırsız yetki vermez. Bir önceki Production **dpl_FofhwsryM7hHoxoUXCAjevvRh9t9** korunur; uygulama geri dönüşü gerektiğinde mevcut projede bu deployment yeniden promote edilebilir. Aşağıdaki 2026-10-05 kayıtları ilk domain geçişinin geçmişidir.
+
 ## Güncel canlı yayın (2026-10-05)
 
 Kullanıcı “Canlıya al” ile Production ve iki domainin taşınmasını onayladı; **Faz 5 kapandı**. Site [https://orbitartt.com](https://orbitartt.com) adresinde herkese açıktır. www → apex ve HTTP → HTTPS 308, path/query korunarak doğrulandı. Mevcut DNS iki domain için misconfigured=false olduğundan değiştirilmedi.
